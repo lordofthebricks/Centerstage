@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+
 public class hardware {
 
     public DcMotor frontL;
@@ -11,6 +13,8 @@ public class hardware {
     public DcMotor backL;
     public DcMotor backR;
     public Servo sling;
+
+    public WebcamName cam;
 
     public HardwareMap hwMap;
 
@@ -21,6 +25,7 @@ public class hardware {
         backL = hwMp.get(DcMotor.class, "BackLeft");
         backR = hwMp.get(DcMotor.class, "BackRight");
         sling = hwMp.get(Servo.class, "Sling");
+        cam = hwMp.get(WebcamName.class, "Webcam1");
 
     }
 

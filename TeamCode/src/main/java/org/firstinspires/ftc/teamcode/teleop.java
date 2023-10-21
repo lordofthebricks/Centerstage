@@ -21,10 +21,14 @@ public class teleop extends LinearOpMode {
             robot.backL.setPower(gamepad1.left_stick_y);
             robot.backR.setPower(gamepad1.right_stick_y);
 
+
+
             if (gamepad1.x){
-                robot.sling.setPosition(1);
+                //latch open
+                robot.sling.setPosition(0.5);
             } else if (gamepad1.y) {
-                robot.sling.setPosition(0);
+                //latch closed
+                robot.sling.setPosition(1);
             }
 
             while (gamepad1.right_stick_x == 1) {
@@ -42,6 +46,13 @@ public class teleop extends LinearOpMode {
                 robot.backL.setPower(-.6);
                 robot.backR.setPower(.6);
             }
+
+            //experimental autodrive
+
+
+
+
+
         }
 
 

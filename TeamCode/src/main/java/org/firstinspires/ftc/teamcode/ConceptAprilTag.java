@@ -27,11 +27,12 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.robotcontroller.external.samples;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
 import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.vision.VisionPortal;
@@ -74,6 +75,7 @@ public class ConceptAprilTag extends LinearOpMode {
      * The variable to store our instance of the AprilTag processor.
      */
     private AprilTagProcessor aprilTag;
+
 
     /**
      * The variable to store our instance of the vision portal.
@@ -137,6 +139,7 @@ public class ConceptAprilTag extends LinearOpMode {
             // to load a predefined calibration for your camera.
             //.setLensIntrinsics(578.272, 578.272, 402.145, 221.506)
             // ... these parameters are fx, fy, cx, cy.
+
             .build();
 
         // Adjust Image Decimation to trade-off detection-range for detection-rate.
