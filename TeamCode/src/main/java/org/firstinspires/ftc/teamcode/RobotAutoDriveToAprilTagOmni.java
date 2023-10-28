@@ -89,8 +89,7 @@ import java.util.concurrent.TimeUnit;
 
 @TeleOp(name="Omni Drive To AprilTag", group = "Concept")
 
-public class RobotAutoDriveToAprilTagOmni extends LinearOpMode
-{
+public class RobotAutoDriveToAprilTagOmni extends LinearOpMode {
 
     DoubleVision Vision = new DoubleVision();
     // Adjust these numbers to suit your robot
@@ -116,8 +115,7 @@ public class RobotAutoDriveToAprilTagOmni extends LinearOpMode
     private AprilTagDetection desiredTag = null;     // Used to hold the data for a detected AprilTag
 
     hardware robot = new hardware();
-    @Override public void runOpMode()
-    {
+    @Override public void runOpMode() {
         boolean targetFound     = false;    // Set to true when an AprilTag target is detected
         double  drive           = 0;        // Desired forward power/speed (-1 to +1)
         double  strafe          = 0;        // Desired strafe power/speed (-1 to +1)
@@ -151,14 +149,15 @@ public class RobotAutoDriveToAprilTagOmni extends LinearOpMode
         telemetry.update();
         waitForStart();
 
-        while (opModeIsActive())
-        {
+
+        while (opModeIsActive()) {
             targetFound = false;
             desiredTag  = null;
 
+
             // Step through the list of detected tags and look for a matching tag
             List<AprilTagDetection> currentDetections = aprilTag.getDetections();
-            for (AprilTagDetection detection : currentDetections) {
+            for (AprilTagDetection detection : currentDetections){
                 // Look to see if we have size info on this tag.
                 if (detection.metadata != null) {
                     //  Check to see if we want to track towards this tag.

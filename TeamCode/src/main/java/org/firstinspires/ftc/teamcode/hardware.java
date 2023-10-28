@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -25,7 +26,10 @@ public class hardware {
         backL = hwMp.get(DcMotor.class, "BackLeft");
         backR = hwMp.get(DcMotor.class, "BackRight");
         sling = hwMp.get(Servo.class, "Sling");
-        cam = hwMp.get(WebcamName.class, "Webcam1");
+//        cam = hwMp.get(WebcamName.class, "Webcam1");
+
+        frontR.setDirection(DcMotorSimple.Direction.REVERSE);
+        backR.setDirection(DcMotorSimple.Direction.REVERSE);
 
     }
 

@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+@TeleOp
 public class teleop extends LinearOpMode {
 
     @Override
@@ -35,16 +37,16 @@ public class teleop extends LinearOpMode {
 
                 robot.frontL.setPower(.6);
                 robot.frontR.setPower(-.6);
-                robot.backL.setPower(.6);
-                robot.backR.setPower(-.6);
+                robot.backL.setPower(-.6);
+                robot.backR.setPower(.6);
             }
             //This is the Strafe
 
             while (gamepad1.left_stick_x == -1) {
                 robot.frontL.setPower(-.6);
                 robot.frontR.setPower(.6);
-                robot.backL.setPower(-.6);
-                robot.backR.setPower(.6);
+                robot.backL.setPower(.6);
+                robot.backR.setPower(-.6);
             }
 
             //experimental autodrive
