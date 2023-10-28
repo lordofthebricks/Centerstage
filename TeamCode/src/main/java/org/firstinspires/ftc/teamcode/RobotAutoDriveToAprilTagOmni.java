@@ -33,6 +33,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
@@ -92,7 +93,8 @@ public class RobotAutoDriveToAprilTagOmni extends LinearOpMode
 {
 
     DoubleVision Vision = new DoubleVision();
-    // Adjust these numbers to suit your robot.
+    // Adjust these numbers to suit your robot
+
 
     final double DESIRED_DISTANCE = 12.0; //  this is how close the camera should get to the target (inches)
 
@@ -107,10 +109,13 @@ public class RobotAutoDriveToAprilTagOmni extends LinearOpMode
     final double MAX_AUTO_STRAFE= 0.5;   //  Clip the approach speed to this max value (adjust for your robot)
     final double MAX_AUTO_TURN  = 0.3;   //  Clip the turn speed to this max value (adjust for your robot)
     private static final int DESIRED_TAG_ID = -1;     // Choose the tag you want to approach or set to -1 for ANY tag.
-    private VisionPortal v;               // Used to manage the video source.
+
+
+    private VisionPortal visionPortal;               // Used to manage the video source.
     private AprilTagProcessor aprilTag;              // Used for managing the AprilTag detection process.
     private AprilTagDetection desiredTag = null;     // Used to hold the data for a detected AprilTag
 
+    hardware robot = new hardware();
     @Override public void runOpMode()
     {
         boolean targetFound     = false;    // Set to true when an AprilTag target is detected
@@ -118,24 +123,28 @@ public class RobotAutoDriveToAprilTagOmni extends LinearOpMode
         double  strafe          = 0;        // Desired strafe power/speed (-1 to +1)
         double  turn            = 0;        // Desired turning power/speed (-1 to +1)
 
-        // Initialize the Apriltag Detection process
-//        initAprilTag();
+//         Initialize the Apriltag Detection process
+        robot.init(hardwareMap);
 
-        // Initialize the hardware variables. Note that the strings used here as parameters
-        // to 'get' must match the names assigned during the robot configuration.
-        // step (using the FTC Robot Controller app on the phone).
 
-        // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
-        // When run, this OpMode should start both motors driving forward. So adjust these two lines based on your first test drive.
-        // Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
-//        leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
-//        leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
-//        rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
-//        rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
+        Vision.initDoubleVision(robot);
 
-//        if (USE_WEBCAM) {
-//            setManualExposure(6, 250);  // Use low exposure time to reduce motion blur
-//        }
+        initAprilTag();
+//         Initialize the hardware variables. Note that the strings used here as parameters
+//         to 'get' must match the names assigned during the robot configuration.
+//         step (using the FTC Robot Controller app on the phone).
+
+//         To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
+//         When run, this OpMode should start both motors driving forward. So adjust these two lines based on your first test drive.
+//         Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
+        robot.frontL.setDirection(DcMotor.Direction.REVERSE);
+        robot.backL.setDirection(DcMotor.Direction.REVERSE);
+        robot.frontR.setDirection(DcMotor.Direction.FORWARD);
+        robot.backR.setDirection(DcMotor.Direction.FORWARD);
+
+        if (Vision.getWebCamStatus()) {
+            setManualExposure(6, 250);  // Use low exposure time to reduce motion blur
+        }
         // Wait for driver to press start
         telemetry.addData("Camera preview on/off", "3 dots, Camera Stream");
         telemetry.addData(">", "Touch Play to start OpMode");
@@ -237,78 +246,74 @@ public class RobotAutoDriveToAprilTagOmni extends LinearOpMode
             rightBackPower /= max;
         }
 
-        // Send powers to the wheels.
-//        leftFrontDrive.setPower(leftFrontPower);
-//        rightFrontDrive.setPower(rightFrontPower);
-//        leftBackDrive.setPower(leftBackPower);
-//        rightBackDrive.setPower(rightBackPower);
-//    }
+         //Send powers to the wheels.
+        robot.frontL.setPower(leftFrontPower);
+        robot.backL.setPower(rightFrontPower);
+        robot.frontR.setPower(leftBackPower);
+        robot.backR.setPower(rightBackPower);
+    }
 
     /**
      * Initialize the AprilTag processor.
      */
-//    private void initAprilTag() {
-//        // Create the AprilTag processor by using a builder.
-//        aprilTag = new AprilTagProcessor.Builder().build();
-//
-//        // Adjust Image Decimation to trade-off detection-range for detection-rate.
-//        // eg: Some typical detection data using a Logitech C920 WebCam
-//        // Decimation = 1 ..  Detect 2" Tag from 10 feet away at 10 Frames per second
-//        // Decimation = 2 ..  Detect 2" Tag from 6  feet away at 22 Frames per second
-//        // Decimation = 3 ..  Detect 2" Tag from 4  feet away at 30 Frames Per Second
-//        // Decimation = 3 ..  Detect 5" Tag from 10 feet away at 30 Frames Per Second
-//        // Note: Decimation can be changed on-the-fly to adapt during a match.
-//        aprilTag.setDecimation(2);
-//
-//        // Create the vision portal by using a builder.
-//        if (USE_WEBCAM) {
-//            visionPortal = new VisionPortal.Builder()
-//                    .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
-//                    .addProcessor(aprilTag)
-//                    .build();
-//        } else {
-//            visionPortal = new VisionPortal.Builder()
-//                    .setCamera(BuiltinCameraDirection.BACK)
-//                    .addProcessor(aprilTag)
-//                    .build();
-//        }
-//    }
+    private void initAprilTag() {
+        // Create the AprilTag processor by using a builder.
+        aprilTag = Vision.getAprilTag();
+
+        // Adjust Image Decimation to trade-off detection-range for detection-rate.
+        // eg: Some typical detection data using a Logitech C920 WebCam
+        // Decimation = 1 ..  Detect 2" Tag from 10 feet away at 10 Frames per second
+        // Decimation = 2 ..  Detect 2" Tag from 6  feet away at 22 Frames per second
+        // Decimation = 3 ..  Detect 2" Tag from 4  feet away at 30 Frames Per Second
+        // Decimation = 3 ..  Detect 5" Tag from 10 feet away at 30 Frames Per Second
+        // Note: Decimation can be changed on-the-fly to adapt during a match.
+        aprilTag.setDecimation(2);
+
+       // Create the vision portal by using a builder.
+        if (Vision.getWebCamStatus()) {
+            visionPortal = Vision.getVisionPortal();
+        } else {
+            visionPortal = new VisionPortal.Builder()
+                    .setCamera(BuiltinCameraDirection.BACK)
+                    .addProcessor(aprilTag)
+                    .build();
+        }
+    }
 
     /*
      Manually set the camera gain and exposure.
      This can only be called AFTER calling initAprilTag(), and only works for Webcams;
     */
-//    private void    setManualExposure(int exposureMS, int gain) {
-        // Wait for the camera to be open, then use the controls
+    private void setManualExposure(int exposureMS, int gain) {
+        //Wait for the camera to be open, then use the controls
 
-//        if (visionPortal == null) {
-//            return;
-//        }
+        if (visionPortal == null) {
+            return;
+        }
 
-        // Make sure camera is streaming before we try to set the exposure controls
-//        if (visionPortal.getCameraState() != VisionPortal.CameraState.STREAMING) {
-//            telemetry.addData("Camera", "Waiting");
-//            telemetry.update();
-//            while (!isStopRequested() && (visionPortal.getCameraState() != VisionPortal.CameraState.STREAMING)) {
-//                sleep(20);
-//            }
-//            telemetry.addData("Camera", "Ready");
-//            telemetry.update();
-//        }
+//         Make sure camera is streaming before we try to set the exposure controls
+        if (visionPortal.getCameraState() != VisionPortal.CameraState.STREAMING) {
+            telemetry.addData("Camera", "Waiting");
+            telemetry.update();
+            while (!isStopRequested() && (visionPortal.getCameraState() != VisionPortal.CameraState.STREAMING)) {
+                sleep(20);
+            }
+            telemetry.addData("Camera", "Ready");
+            telemetry.update();
+        }
 
         // Set camera controls unless we are stopping.
-//        if (!isStopRequested())
-//        {
-//            ExposureControl exposureControl = visionPortal.getCameraControl(ExposureControl.class);
-//            if (exposureControl.getMode() != ExposureControl.Mode.Manual) {
-//                exposureControl.setMode(ExposureControl.Mode.Manual);
-//                sleep(50);
-//            }
-//            exposureControl.setExposure((long)exposureMS, TimeUnit.MILLISECONDS);
-//            sleep(20);
-//            GainControl gainControl = visionPortal.getCameraControl(GainControl.class);
-//            gainControl.setGain(gain);
-//            sleep(20);
-//        }
+        if (!isStopRequested()) {
+            ExposureControl exposureControl = visionPortal.getCameraControl(ExposureControl.class);
+            if (exposureControl.getMode() != ExposureControl.Mode.Manual) {
+                exposureControl.setMode(ExposureControl.Mode.Manual);
+                sleep(50);
+            }
+            exposureControl.setExposure((long)exposureMS, TimeUnit.MILLISECONDS);
+            sleep(20);
+            GainControl gainControl = visionPortal.getCameraControl(GainControl.class);
+            gainControl.setGain(gain);
+            sleep(20);
+        }
     }
 }

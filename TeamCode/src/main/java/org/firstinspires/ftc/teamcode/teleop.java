@@ -23,10 +23,10 @@ public class teleop extends LinearOpMode {
 
 
 
-            if (gamepad1.x){
+            if (gamepad1.right_bumper && gamepad1.x){
                 //latch open
                 robot.sling.setPosition(0.5);
-            } else if (gamepad1.y) {
+            } else if (gamepad1.left_bumper && gamepad1.x) {
                 //latch closed
                 robot.sling.setPosition(1);
             }

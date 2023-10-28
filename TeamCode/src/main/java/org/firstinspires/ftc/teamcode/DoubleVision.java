@@ -82,7 +82,7 @@ public class DoubleVision {
     /**
      * Initialize AprilTag and TFOD.
      */
-    public void initDoubleVision( hardware robot) {
+    public void initDoubleVision(hardware robot) {
         // -----------------------------------------------------------------------------------------
         // AprilTag Configuration
         // -----------------------------------------------------------------------------------------
@@ -161,5 +161,19 @@ public class DoubleVision {
 
         return location;
     }
+
+    public void switchProcessor(boolean apriltagIsActive){
+        if (apriltagIsActive){
+            visionPortal.setProcessorEnabled(tfod, false);
+            visionPortal.setProcessorEnabled(aprilTag,true);
+
+        }else{
+
+            visionPortal.setProcessorEnabled(aprilTag, false);
+            visionPortal.setProcessorEnabled(tfod,true);
+        }
+    }
+
+
 
 }   // end class
