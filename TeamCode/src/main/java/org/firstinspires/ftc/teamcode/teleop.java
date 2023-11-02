@@ -49,6 +49,18 @@ public class teleop extends LinearOpMode {
                 robot.backR.setPower(-.6);
             }
 
+
+            if (gamepad1.right_trigger == 1){
+                robot.rightGrip.setPosition(1);
+            }else {
+                robot.rightGrip.setPosition(0);
+            }
+
+            if (gamepad1.left_trigger == 1){
+                robot.leftGrip.setPosition(1);
+            }else {
+                robot.leftGrip.setPosition(0);
+            }
             //experimental autodrive
 
 
