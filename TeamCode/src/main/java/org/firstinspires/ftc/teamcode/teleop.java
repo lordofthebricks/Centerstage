@@ -10,7 +10,7 @@ public class teleop extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        hardware robot = new hardware();
+        hardware robot = new hardware(this);
         robot.init(hardwareMap);
 
         waitForStart();
