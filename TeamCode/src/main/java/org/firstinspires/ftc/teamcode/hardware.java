@@ -20,6 +20,9 @@ public class hardware {
     public Servo rightGrip;
     public DcMotorEx arm;
     public DcMotorEx slider;
+    public  Servo wrist;
+
+    //constants for we
     static final double     COUNTS_PER_MOTOR_REV    = 537.7;//356.3 ;    // eg: DC Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 4;     // For figuring circumference
@@ -56,6 +59,7 @@ public class hardware {
         rightGrip = hwMp.get(Servo.class, "RightGrip");
         arm = hwMp.get(DcMotorEx.class, "Arm");
         slider = hwMp.get(DcMotorEx.class, "Slider");
+        wrist = hwMp.get(Servo.class, "Wrist");
 
 
         frontR.setDirection(DcMotorSimple.Direction.REVERSE);
