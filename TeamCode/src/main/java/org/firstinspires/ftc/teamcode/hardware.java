@@ -38,7 +38,7 @@ public class hardware {
 
     static final int TILE = 24;
 
-
+    private int armCurrentDegree = 0;
 
     public hardware(LinearOpMode myopmode) {
         this.myopmode = myopmode;
@@ -67,12 +67,20 @@ public class hardware {
 
     }
 
-    public void encoderDrive ( double speed,
-                               double Left_Bottom_Inches,
-                               double Right_Bottom_Inches,
-                               double Right_Top_Inches,
-                               double Left_Top_Inches,
-                               double timeoutS){
+    public int getArmCurrentDegree() {
+        return armCurrentDegree;
+    }
+
+    public void setArmCurrentDegree(int armCurrentDegree) {
+        this.armCurrentDegree = armCurrentDegree;
+    }
+
+    public void encoderDrive (double speed,
+                              double Left_Bottom_Inches,
+                              double Right_Bottom_Inches,
+                              double Right_Top_Inches,
+                              double Left_Top_Inches,
+                              double timeoutS){
         int newLeftBottomTarget;
         int newRightBottomTarget;
         int newRightTopTarget;
@@ -142,13 +150,16 @@ public class hardware {
     public void armControl (double speed, double moveDegrees){
 
         int targetDegree = (int) (moveDegrees * ARM_COUNTS_PER_DEGREE);
-        if (myopmode.opModeIsActive() && moveDegrees <= 190){
+
+        setArmCurrentDegree( (int) (getArmCurrentDegree() + moveDegrees));
+
+        if (myopmode.opModeIsActive() && getArmCurrentDegree() <= 190){
+
             arm.setTargetPosition(targetDegree);
             arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             arm.setPower(Math.abs(speed));
-            while (arm.isBusy()){}
             arm.setPower(0);
-
+            arm.setTargetPosition(0);
         }
 
     }

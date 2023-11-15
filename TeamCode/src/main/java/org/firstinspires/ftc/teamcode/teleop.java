@@ -19,13 +19,13 @@ public class teleop extends LinearOpMode {
             //tank controls
             if (gamepad1.left_stick_y >= 0.2 && gamepad1.left_stick_y <= -0.2) {
 
-                robot.frontL.setPower(gamepad1.left_stick_y*0.7);
-                robot.backL.setPower(gamepad1.left_stick_y*0.7);
+                robot.frontL.setPower(-gamepad1.left_stick_y*0.7);
+                robot.backL.setPower(-gamepad1.left_stick_y*0.7);
             }
 
             if (gamepad1.right_stick_y >= 0.2 && gamepad1.right_stick_y <= -0.2) {
-                robot.frontR.setPower(gamepad1.right_stick_y*0.7);
-                robot.backR.setPower(gamepad1.right_stick_y*0.7);
+                robot.frontR.setPower(-gamepad1.right_stick_y*0.7);
+                robot.backR.setPower(-gamepad1.right_stick_y*0.7);
             }
 
 
@@ -37,7 +37,7 @@ public class teleop extends LinearOpMode {
                 robot.sling.setPosition(1);
             }
 
-            while (gamepad1.right_stick_x == 1) {
+            while (gamepad1.left_stick_x == -1) {
 
                 robot.frontL.setPower(.6);
                 robot.frontR.setPower(-.6);
@@ -46,7 +46,7 @@ public class teleop extends LinearOpMode {
             }
             //This is the Strafe
 
-            while (gamepad1.left_stick_x == -1) {
+            while (gamepad1.right_stick_x == 1) {
                 robot.frontL.setPower(-.6);
                 robot.frontR.setPower(.6);
                 robot.backL.setPower(.6);
@@ -76,16 +76,16 @@ public class teleop extends LinearOpMode {
             }
 
             //Arm control
-//            if (gamepad2.right_stick_y == 1) {
-//
-//                robot.arm.setPower(1.0);
-//                robot.arm.setTargetPosition();
-//            } else if (gamepad2.right_stick_y == -1) {
-//                robot.arm.setPower(-1.0);
-//            } else {
-//                robot.arm.setPower(0);
-//
-//            }
+            if (gamepad2.right_stick_y == 1) {
+
+                robot.arm.setPower(1.0);
+
+            } else if (gamepad2.right_stick_y == -1) {
+                robot.arm.setPower(-1.0);
+            } else {
+                robot.arm.setPower(0);
+
+            }
 
 
 
