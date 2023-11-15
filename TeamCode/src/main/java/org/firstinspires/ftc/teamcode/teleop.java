@@ -2,9 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-
-import org.firstinspires.ftc.robotcore.internal.camera.delegating.DelegatingCaptureSequence;
 
 @TeleOp
 public class teleop extends LinearOpMode {
@@ -20,11 +17,16 @@ public class teleop extends LinearOpMode {
         while(opModeIsActive()){
 
             //tank controls
-            robot.frontL.setPower(gamepad1.left_stick_y);
-            robot.frontR.setPower(gamepad1.right_stick_y);
-            robot.backL.setPower(gamepad1.left_stick_y);
-            robot.backR.setPower(gamepad1.right_stick_y);
+            if (gamepad1.left_stick_y >= 0.2 && gamepad1.left_stick_y <= -0.2) {
 
+                robot.frontL.setPower(gamepad1.left_stick_y*0.7);
+                robot.backL.setPower(gamepad1.left_stick_y*0.7);
+            }
+
+            if (gamepad1.right_stick_y >= 0.2 && gamepad1.right_stick_y <= -0.2) {
+                robot.frontR.setPower(gamepad1.right_stick_y*0.7);
+                robot.backR.setPower(gamepad1.right_stick_y*0.7);
+            }
 
 
             if (gamepad1.right_bumper && gamepad1.x){
@@ -51,7 +53,7 @@ public class teleop extends LinearOpMode {
                 robot.backR.setPower(-.6);
             }
 
-
+            //gripper controls
             if (gamepad2.right_trigger == 1){
                 robot.rightGrip.setPosition(1);
             }else {
@@ -64,27 +66,29 @@ public class teleop extends LinearOpMode {
                 robot.leftGrip.setPosition(0);
             }
 
+            //slider control
             if (gamepad2.left_stick_y == 1) {
-                robot.Slider.setPower(0.4);
-            }
-
-            if (gamepad2.left_stick_y == -1) {
-                robot.Slider.setPower(-0.4);
+                robot.slider.setPower(0.7);
+            } else if (gamepad2.left_stick_y == -1) {
+                robot.slider.setPower(-0.7);
             } else {
-            robot.Slider.setPower(0);
+            robot.slider.setPower(0);
             }
 
-            if (gamepad2.right_stick_y == 1) {
-                robot.arm.setPower(1.0);
-            }
+            //Arm control
+//            if (gamepad2.right_stick_y == 1) {
+//
+//                robot.arm.setPower(1.0);
+//                robot.arm.setTargetPosition();
+//            } else if (gamepad2.right_stick_y == -1) {
+//                robot.arm.setPower(-1.0);
+//            } else {
+//                robot.arm.setPower(0);
+//
+//            }
 
-            if (gamepad2.right_stick_y == -1) {
-                robot.arm.setPower(-1.0);
-            } else {
-                robot.arm.setPower(0);
-            }
 
 
-
+        }
     }
-}}
+}

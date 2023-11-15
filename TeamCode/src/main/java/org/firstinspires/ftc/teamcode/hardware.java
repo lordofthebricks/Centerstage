@@ -8,8 +8,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-
 public class hardware {
 
     private LinearOpMode myopmode;
@@ -20,8 +18,8 @@ public class hardware {
     public Servo sling;
     public Servo leftGrip;
     public Servo rightGrip;
-    public DcMotor arm;
-    public DcMotor Slider;
+    public DcMotorEx arm;
+    public DcMotorEx slider;
     static final double     COUNTS_PER_MOTOR_REV    = 537.7;//356.3 ;    // eg: DC Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 4;     // For figuring circumference
@@ -31,6 +29,15 @@ public class hardware {
 
     public HardwareMap hwMap;
     private ElapsedTime runtime;
+
+    static final double ARM_COUNTS_PER_MOTOR_REV = 1425.1;
+
+    static final double ARM_GEAR_REDUCTION = 0.5;
+
+    static final double ARM_COUNTS_PER_DEGREE = (ARM_COUNTS_PER_MOTOR_REV * ARM_GEAR_REDUCTION) / 360;
+
+    static final int TILE = 24;
+
 
 
     public hardware(LinearOpMode myopmode) {
@@ -47,12 +54,16 @@ public class hardware {
         sling = hwMp.get(Servo.class, "Sling");
         leftGrip = hwMp.get(Servo.class, "LeftGrip");
         rightGrip = hwMp.get(Servo.class, "RightGrip");
-        arm = hwMp.get(DcMotor.class, "Arm");
-        Slider = hwMp.get(DcMotor.class, "Slider");
+        arm = hwMp.get(DcMotorEx.class, "Arm");
+        slider = hwMp.get(DcMotorEx.class, "Slider");
 
 
         frontR.setDirection(DcMotorSimple.Direction.REVERSE);
         backR.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
 
     }
 
@@ -125,4 +136,18 @@ public class hardware {
         }
     }
 
+
+
+
+    public void armControl (double speed, double moveDegrees){
+
+        int targetDegree = (int) (moveDegrees * ARM_COUNTS_PER_DEGREE);
+        if (myopmode.opModeIsActive() && moveDegrees <= 190){
+            arm.setTargetPosition((int) moveDegrees);
+            arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            arm.setPower(Math.abs(speed));
+
+        }
+
+    }
 }

@@ -30,9 +30,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import   com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
@@ -148,11 +146,11 @@ public class Wheels extends LinearOpMode {
         }
 
         while (opModeIsActive() && (runtime.seconds() < 1.3)) {
-            robot.Slider.setPower(-SLIDER_SPEED);
+            robot.slider.setPower(-SLIDER_SPEED);
         }
 
         while (opModeIsActive() && (runtime.seconds() < 1.3)) {
-            robot.Slider.setPower(SLIDER_SPEED);
+            robot.slider.setPower(SLIDER_SPEED);
         }
 
         // Step 4:  Stop robot.frontR.setPower(0);
@@ -160,7 +158,7 @@ public class Wheels extends LinearOpMode {
         robot.backR.setPower(0);
         robot.backL.setPower(0);
         robot.arm.setPower(0);
-        robot.Slider.setPower(0);
+        robot.slider.setPower(0);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
