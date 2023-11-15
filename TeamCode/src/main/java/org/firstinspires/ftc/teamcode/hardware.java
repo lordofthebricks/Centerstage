@@ -20,12 +20,14 @@ public class hardware {
     public Servo sling;
     public Servo leftGrip;
     public Servo rightGrip;
+    public DcMotor arm;
+    public DcMotor Slider;
     static final double     COUNTS_PER_MOTOR_REV    = 537.7;//356.3 ;    // eg: DC Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 4;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI);
 
-    public WebcamName cam;
+    //public WebcamName cam;
 
     public HardwareMap hwMap;
     private ElapsedTime runtime;
@@ -38,13 +40,16 @@ public class hardware {
     public void init(HardwareMap hwMp){
 
         frontL = hwMp.get(DcMotorEx.class, "FrontLeft");
+
         frontR = hwMp.get(DcMotorEx.class, "FrontRight");
         backL = hwMp.get(DcMotorEx.class, "BackLeft");
         backR = hwMp.get(DcMotorEx.class, "BackRight");
         sling = hwMp.get(Servo.class, "Sling");
         leftGrip = hwMp.get(Servo.class, "LeftGrip");
         rightGrip = hwMp.get(Servo.class, "RightGrip");
-//        cam = hwMp.get(WebcamName.class, "Webcam1");
+        arm = hwMp.get(DcMotor.class, "Arm");
+        Slider = hwMp.get(DcMotor.class, "Slider");
+
 
         frontR.setDirection(DcMotorSimple.Direction.REVERSE);
         backR.setDirection(DcMotorSimple.Direction.REVERSE);

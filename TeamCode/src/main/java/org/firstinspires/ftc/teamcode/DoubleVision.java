@@ -101,18 +101,18 @@ public class DoubleVision {
         // Camera Configuration
         // -----------------------------------------------------------------------------------------
 
-        if (USE_WEBCAM) {
-            visionPortal = new VisionPortal.Builder()
-                .setCamera(robot.cam)
-                .addProcessors(tfod, aprilTag)
-                .build();
-        } else {
-            visionPortal = new VisionPortal.Builder()
-                .setCamera(BuiltinCameraDirection.BACK)
-                .addProcessors(tfod, aprilTag)
-                .build();
+      //  if (USE_WEBCAM) {
+      //      visionPortal = new VisionPortal.Builder()
+        //.setCamera(robot.cam)
+       //         .addProcessors(tfod, aprilTag)
+        //        .build();
+       // } else {
+       //     visionPortal = new VisionPortal.Builder()
+          //      .setCamera(BuiltinCameraDirection.BACK)
+         //       .addProcessors(tfod, aprilTag)
+        //        .build();
         }
-    }   // end initDoubleVision()
+   // }   // end initDoubleVision()
 
     /**
      * Add telemetry about AprilTag detections.

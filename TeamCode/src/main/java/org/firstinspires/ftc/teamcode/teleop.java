@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.internal.camera.delegating.DelegatingCaptureSequence;
+
 @TeleOp
 public class teleop extends LinearOpMode {
 
@@ -50,25 +52,39 @@ public class teleop extends LinearOpMode {
             }
 
 
-            if (gamepad1.right_trigger == 1){
+            if (gamepad2.right_trigger == 1){
                 robot.rightGrip.setPosition(1);
             }else {
                 robot.rightGrip.setPosition(0);
             }
 
-            if (gamepad1.left_trigger == 1){
+            if (gamepad2.left_trigger == 1){
                 robot.leftGrip.setPosition(1);
             }else {
                 robot.leftGrip.setPosition(0);
             }
-            //experimental autodrive
 
+            if (gamepad2.left_stick_y == 1) {
+                robot.Slider.setPower(0.4);
+            }
 
+            if (gamepad2.left_stick_y == -1) {
+                robot.Slider.setPower(-0.4);
+            } else {
+            robot.Slider.setPower(0);
+            }
 
+            if (gamepad2.right_stick_y == 1) {
+                robot.arm.setPower(1.0);
+            }
 
+            if (gamepad2.right_stick_y == -1) {
+                robot.arm.setPower(-1.0);
+            } else {
+                robot.arm.setPower(0);
+            }
 
-        }
 
 
     }
-}
+}}
