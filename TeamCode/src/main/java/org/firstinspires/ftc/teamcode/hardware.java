@@ -143,9 +143,11 @@ public class hardware {
 
         int targetDegree = (int) (moveDegrees * ARM_COUNTS_PER_DEGREE);
         if (myopmode.opModeIsActive() && moveDegrees <= 190){
-            arm.setTargetPosition((int) moveDegrees);
+            arm.setTargetPosition(targetDegree);
             arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             arm.setPower(Math.abs(speed));
+            while (arm.isBusy()){}
+            arm.setPower(0);
 
         }
 
