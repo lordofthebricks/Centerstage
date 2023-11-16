@@ -13,8 +13,9 @@ public class noahAutonomous3 extends LinearOpMode {
         robot.init(hardwareMap);
         waitForStart();
 
-        robot.encoderDrive(0.6, -hardware.TILE * 4, hardware.TILE * 4, -hardware.TILE * 4, hardware.TILE * 4, 3);
-
+        robot.encoderDrive(0.5,1,1,1,1,3);
+        robot.encoderDrive(0.6,-14.25,14.25,14.25,-14.25,3);
+        robot.encoderDrive(0.6,96,96,96,96,3);
 
     }
 }
