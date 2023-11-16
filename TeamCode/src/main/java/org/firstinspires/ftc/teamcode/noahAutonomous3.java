@@ -12,9 +12,12 @@ public class noahAutonomous3 extends LinearOpMode {
         hardware robot = new hardware(this);
         robot.init(hardwareMap);
         waitForStart();
-
-        robot.encoderDrive(0.6, -hardware.TILE * 4, hardware.TILE * 4, -hardware.TILE * 4, hardware.TILE * 4, 3);
-
+//Moves 1" off the wall
+        robot.encoderDrive(0.5,1,1,1,1,3);
+//Spins robot 90 degrees
+        robot.encoderDrive(0.6,-14.25,14.25,14.25,-14.25,3);
+//Noves the robot straight
+        robot.encoderDrive(0.6,96,96,96,96,3);
 
     }
 }

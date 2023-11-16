@@ -35,7 +35,7 @@ public class hardware {
     public WebcamName cam;
 
     public HardwareMap hwMap;
-    private ElapsedTime runtime;
+    private ElapsedTime runtime = new ElapsedTime();
 
     static final double ARM_COUNTS_PER_MOTOR_REV = 537.7;
 
@@ -71,7 +71,6 @@ public class hardware {
 
         arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
 
 
     }
@@ -127,6 +126,7 @@ public class hardware {
             while (myopmode.opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
                     (backL.isBusy() && backR.isBusy() && frontL.isBusy() && frontR.isBusy())) {
+
                 // Display it for the driver.
                 //telemetry.addData("Path1", "Running to %7d :%7d", newLeftBottomTarget, newRightBottomTarget, newLeftTopTarget, newRightTopTarget);
                 //telemetry.addData("Path2", "Running at %7d :%7d", robot.Left_Bottom.getCurrentPosition(), robot.Right_Bottom.getCurrentPosition());
@@ -168,7 +168,6 @@ public class hardware {
             arm.setPower(Math.abs(speed));
             while(arm.isBusy()){
                 myopmode.telemetry.addData("Arm Position: ", arm.getCurrentPosition());
-
                 myopmode.telemetry.update();
             }
             arm.setPower(0);
