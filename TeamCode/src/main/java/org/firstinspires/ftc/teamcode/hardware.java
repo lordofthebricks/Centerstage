@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import androidx.annotation.NonNull;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -7,6 +9,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 
 public class hardware {
 
@@ -20,7 +24,7 @@ public class hardware {
     public Servo rightGrip;
     public DcMotorEx arm;
     public DcMotorEx slider;
-    public  Servo wrist;
+    public Servo wrist;
 
     //constants for we
     static final double     COUNTS_PER_MOTOR_REV    = 537.7;//356.3 ;    // eg: DC Motor Encoder
@@ -28,7 +32,7 @@ public class hardware {
     static final double     WHEEL_DIAMETER_INCHES   = 4;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI);
 
-    //public WebcamName cam;
+    public WebcamName cam;
 
     public HardwareMap hwMap;
     private ElapsedTime runtime;
@@ -47,10 +51,9 @@ public class hardware {
         this.myopmode = myopmode;
     }
 
-    public void init(HardwareMap hwMp){
+    public void init(@NonNull HardwareMap hwMp){
 
         frontL = hwMp.get(DcMotorEx.class, "FrontLeft");
-
         frontR = hwMp.get(DcMotorEx.class, "FrontRight");
         backL = hwMp.get(DcMotorEx.class, "BackLeft");
         backR = hwMp.get(DcMotorEx.class, "BackRight");
@@ -60,6 +63,7 @@ public class hardware {
         arm = hwMp.get(DcMotorEx.class, "Arm");
         slider = hwMp.get(DcMotorEx.class, "Slider");
         wrist = hwMp.get(Servo.class, "Wrist");
+        cam = hwMp.get(WebcamName.class, "Webcam 1");
 
 
         frontR.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -153,17 +157,45 @@ public class hardware {
 
     public void armControl (double speed, double moveDegrees){
 
-        int targetDegree = (int) (moveDegrees * ARM_COUNTS_PER_DEGREE);
+        int targetDegree = (int) ((getArmCurrentDegree() + moveDegrees) * ARM_COUNTS_PER_DEGREE);
 
-        setArmCurrentDegree( (int) (getArmCurrentDegree() + moveDegrees));
 
-        if (myopmode.opModeIsActive() && getArmCurrentDegree() <= 190){
+
+        if (myopmode.opModeIsActive() && ((getArmCurrentDegree() + moveDegrees) <= 190 && (getArmCurrentDegree() + moveDegrees) >= 0)){
 
             arm.setTargetPosition(targetDegree);
             arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             arm.setPower(Math.abs(speed));
+            while(arm.isBusy()){
+                myopmode.telemetry.addData("Arm Position: ", arm.getCurrentPosition());
+                myopmode.telemetry.update();
+            }
             arm.setPower(0);
-            arm.setTargetPosition(0);
+            setArmCurrentDegree( (int) (getArmCurrentDegree() + moveDegrees));
+            arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+
+    }
+
+    public void setArmPosition (double speed, double degrees){
+
+        int targetDegree = (int) (degrees * ARM_COUNTS_PER_DEGREE);
+
+
+        myopmode.telemetry.addLine("Target Set");
+        myopmode.telemetry.update();
+        if (myopmode.opModeIsActive() && (degrees <= 190 && degrees>= 0)){
+
+            arm.setTargetPosition(targetDegree);
+            arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            arm.setPower(Math.abs(speed));
+            while(arm.isBusy()){
+                myopmode.telemetry.addData("Arm Position: ", arm.getCurrentPosition());
+                myopmode.telemetry.update();
+            }
+            arm.setPower(0);
+            setArmCurrentDegree( (int) (degrees));
+            arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
 
     }
