@@ -91,7 +91,7 @@ import java.util.concurrent.TimeUnit;
 
 public class RobotAutoDriveToAprilTagOmni extends LinearOpMode {
 
-    DoubleVision Vision = new DoubleVision();
+    DoubleVision Vision = new DoubleVision(this);
     // Adjust these numbers to suit your robot
 
 

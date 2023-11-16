@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.telephony.CellIdentity;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -94,7 +96,11 @@ public class teleop extends LinearOpMode {
                 robot.setArmPosition(0.9, 0);
             }
 
-
+            if(gamepad2.left_bumper){
+                robot.wrist.setPosition(0);
+            } else if (gamepad2.right_bumper) {
+                robot.wrist.setPosition(1);
+            }
 
 
         }
