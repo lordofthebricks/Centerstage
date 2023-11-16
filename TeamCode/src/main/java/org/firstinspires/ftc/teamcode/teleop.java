@@ -16,17 +16,16 @@ public class teleop extends LinearOpMode {
 
         while(opModeIsActive()){
 
+            //Gamepad 1
             //tank controls
-            if (gamepad1.left_stick_y >= 0.2 && gamepad1.left_stick_y <= -0.2) {
 
-                robot.frontL.setPower(-gamepad1.left_stick_y*0.7);
-                robot.backL.setPower(-gamepad1.left_stick_y*0.7);
-            }
+            robot.frontL.setPower(-gamepad1.left_stick_y*0.7);
+            robot.backL.setPower(-gamepad1.left_stick_y*0.7);
 
-            if (gamepad1.right_stick_y >= 0.2 && gamepad1.right_stick_y <= -0.2) {
-                robot.frontR.setPower(-gamepad1.right_stick_y*0.7);
-                robot.backR.setPower(-gamepad1.right_stick_y*0.7);
-            }
+
+            robot.frontR.setPower(-gamepad1.right_stick_y*0.7);
+            robot.backR.setPower(-gamepad1.right_stick_y*0.7);
+
 
 
             if (gamepad1.right_bumper && gamepad1.x){
@@ -53,6 +52,9 @@ public class teleop extends LinearOpMode {
                 robot.backR.setPower(-.6);
             }
 
+
+
+            //Gamepad2
             //gripper controls
             if (gamepad2.right_trigger == 1){
                 robot.rightGrip.setPosition(1);
@@ -76,16 +78,22 @@ public class teleop extends LinearOpMode {
             }
 
             //Arm control
-            if (gamepad2.right_stick_y == 1) {
+            if (gamepad2.x) {
 
-                robot.arm.setPower(1.0);
+                robot.setArmPosition(0.9, 180);
 
-            } else if (gamepad2.right_stick_y == -1) {
-                robot.arm.setPower(-1.0);
+            } else if (gamepad2.y) {
+
+//                robot.armControl(0.9, -180);
             } else {
                 robot.arm.setPower(0);
 
             }
+
+            if (gamepad2.a){
+                robot.setArmPosition(0.9, 0);
+            }
+
 
 
 
