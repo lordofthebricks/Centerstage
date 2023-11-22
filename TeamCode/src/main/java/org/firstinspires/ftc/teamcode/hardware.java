@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 public class hardware {
 
@@ -27,7 +28,7 @@ public class hardware {
     public Servo wrist;
 
     //constants for we
-    static final double     COUNTS_PER_MOTOR_REV    = 537.7;//356.3 ;    // eg: DC Motor Encoder
+    static final double     COUNTS_PER_MOTOR_REV    = 537.7;    // eg: DC Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 4;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI);
@@ -39,7 +40,7 @@ public class hardware {
 
     static final double ARM_COUNTS_PER_MOTOR_REV = 537.7;
 
-    static final double ARM_GEAR_REDUCTION = 0.5;
+    static final double ARM_GEAR_REDUCTION = 2;
 
     static final double ARM_COUNTS_PER_DEGREE = (ARM_COUNTS_PER_MOTOR_REV * ARM_GEAR_REDUCTION) / 360;
 
@@ -166,6 +167,7 @@ public class hardware {
             arm.setTargetPosition(targetDegree);
             arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             arm.setPower(Math.abs(speed));
+
             while(arm.isBusy()){
                 myopmode.telemetry.addData("Arm Position: ", arm.getCurrentPosition());
                 myopmode.telemetry.update();
@@ -188,7 +190,13 @@ public class hardware {
 
             arm.setTargetPosition(targetDegree);
             arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            arm.setPower(Math.abs(speed));
+            if (getArmCurrentDegree() < targetDegree){
+                arm.setVelocity(1500); // this is in motor ticks
+            } else if (getArmCurrentDegree() > targetDegree) {
+                arm.setVelocity(200);
+            }else {
+                return;
+            }
             while(arm.isBusy()){
                 myopmode.telemetry.addData("Arm Position: ", arm.getCurrentPosition());
                 myopmode.telemetry.update();
