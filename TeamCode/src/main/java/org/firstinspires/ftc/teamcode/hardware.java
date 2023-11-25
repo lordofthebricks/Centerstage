@@ -38,7 +38,7 @@ public class hardware {
     public HardwareMap hwMap;
     private ElapsedTime runtime = new ElapsedTime();
 
-    static final double ARM_COUNTS_PER_MOTOR_REV = 537.7;
+    static final double ARM_COUNTS_PER_MOTOR_REV = 1425.1;
 
     static final double ARM_GEAR_REDUCTION = 2;
 
@@ -179,7 +179,7 @@ public class hardware {
 
     }
 
-    public void setArmPosition (double speed, double degrees){
+    public void setArmPosition (double degrees){
 
         int targetDegree = (int) (degrees * ARM_COUNTS_PER_DEGREE);
 

@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.telephony.CellIdentity;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -12,7 +10,7 @@ public class teleop extends LinearOpMode {
 
 
     private AprilTagProcessor aprilTag;
-
+    double maxSpeed = 0.7;
 
 
     @Override
@@ -44,10 +42,61 @@ public class teleop extends LinearOpMode {
 
 
             //Dpad controls
-            if (aprilTag.getDetections() != null) {
+            if (aprilTag.getDetections() != null && aprilTag.getDetections().get(0).ftcPose.range < 20) {
+                maxSpeed = 0.4;
+            } else {
+                maxSpeed = 0.7;
+            }
 
+
+            while (gamepad1.dpad_up && gamepad1.dpad_left) {
+                robot.frontR.setPower(-.5);
+                robot.backL.setPower(-.5);
+            }
+
+            while (gamepad1.dpad_up && gamepad1.dpad_right) {
+                robot.backR.setPower(-.5);
+                robot.frontL.setPower(-.5);
+            }
+
+            while (gamepad1.dpad_down && gamepad1.dpad_left) {
+                robot.backR.setPower(.5);
+                robot.frontL.setPower(.5);
+            }
+
+            while (gamepad1.dpad_down && gamepad1.dpad_right) {
+                robot.frontR.setPower(.5);
+                robot.backL.setPower(.5);
+            }
+
+            while (gamepad1.dpad_up){
+                robot.frontR.setPower(maxSpeed);
+                robot.frontL.setPower(maxSpeed);
+                robot.backR.setPower(maxSpeed);
+                robot.backL.setPower(maxSpeed);
 
             }
+            while (gamepad1.dpad_left){
+                robot.frontR.setPower(maxSpeed);
+                robot.frontL.setPower(-maxSpeed);
+                robot.backR.setPower(-maxSpeed);
+                robot.backL.setPower(maxSpeed);
+
+            }
+            while (gamepad1.dpad_right){
+                robot.frontR.setPower(-maxSpeed);
+                robot.frontL.setPower(maxSpeed);
+                robot.backR.setPower(maxSpeed);
+                robot.backL.setPower(-maxSpeed);
+
+            }
+            while (gamepad1.dpad_down){
+                robot.frontR.setPower(-maxSpeed);
+                robot.frontL.setPower(-maxSpeed);
+                robot.backR.setPower(-maxSpeed);
+                robot.backL.setPower(-maxSpeed);
+            }
+
 
 
             if (gamepad1.right_bumper && gamepad1.x){
@@ -102,24 +151,22 @@ public class teleop extends LinearOpMode {
             //Arm control
             if (gamepad2.x) {
 
-                robot.setArmPosition(0.9, 170);
+                robot.setArmPosition(170);
 
             } else if (gamepad2.y) {
 
-                robot.setArmPosition(0.4, 0);
+                robot.setArmPosition(0);
 //                robot.armControl(0.9, -180);
             } else {
                 //robot.arm.setPower(0);
 
             }
 
-            if (gamepad2.a){
 
-            }
 
-            if(gamepad2.left_bumper){
+            if(gamepad2.a){
                 robot.wrist.setPosition(0.6);
-            } else if (gamepad2.right_bumper) {
+            } else if (gamepad2.b) {
                 robot.wrist.setPosition(0.4);
             }
 

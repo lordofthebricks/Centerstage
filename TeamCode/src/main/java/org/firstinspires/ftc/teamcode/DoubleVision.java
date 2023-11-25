@@ -39,6 +39,8 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.GainCon
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
+import org.firstinspires.ftc.vision.apriltag.AprilTagGameDatabase;
+import org.firstinspires.ftc.vision.apriltag.AprilTagLibrary;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
@@ -96,15 +98,17 @@ public class DoubleVision {
         // AprilTag Configuration
         // -----------------------------------------------------------------------------------------
 
-        aprilTag = new AprilTagProcessor.Builder()
+        aprilTag = new AprilTagProcessor.Builder().setTagLibrary(AprilTagGameDatabase.getCenterStageTagLibrary())
             .build();
 
+        aprilTag.setDecimation(2);
         // -----------------------------------------------------------------------------------------
         // TFOD Configuration
         // -----------------------------------------------------------------------------------------
 
         tfod = new TfodProcessor.Builder()
             .build();
+
 
         // -----------------------------------------------------------------------------------------
         // Camera Configuration
@@ -161,6 +165,8 @@ public class DoubleVision {
 
     public int tfodLocation(){
         Integer location = null;
+
+
 
         return location;
     }
