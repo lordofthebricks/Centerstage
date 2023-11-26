@@ -42,7 +42,7 @@ public class teleop extends LinearOpMode {
 
 
             //Dpad controls
-            if (aprilTag.getDetections() != null && aprilTag.getDetections().get(0).ftcPose.range < 20) {
+            if (!aprilTag.getDetections().isEmpty() && aprilTag.getDetections().get(0).ftcPose.range < 20) {
                 maxSpeed = 0.4;
             } else {
                 maxSpeed = 0.7;
