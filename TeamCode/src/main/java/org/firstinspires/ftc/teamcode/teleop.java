@@ -28,26 +28,28 @@ public class teleop extends LinearOpMode {
 
         waitForStart();
 
-        while(opModeIsActive()){
+        while(opModeIsActive()) {
 
             //Gamepad 1
             //tank controls
 
-            robot.frontL.setPower(-gamepad1.right_stick_y*0.7);
-            robot.backL.setPower(-gamepad1.right_stick_y*0.7);
+            robot.frontL.setPower(-gamepad1.right_stick_y * 0.7);
+            robot.backL.setPower(-gamepad1.right_stick_y * 0.7);
 
 
-            robot.frontR.setPower(-gamepad1.left_stick_y*0.7);
-            robot.backR.setPower(-gamepad1.left_stick_y*0.7);
+            robot.frontR.setPower(-gamepad1.left_stick_y * 0.7);
+            robot.backR.setPower(-gamepad1.left_stick_y * 0.7);
 
 
             //Dpad controls
-            if (!aprilTag.getDetections().isEmpty() && aprilTag.getDetections().get(0).ftcPose.range < 20) {
-                maxSpeed = 0.4;
-            } else {
-                maxSpeed = 0.7;
+            if (aprilTag.getDetections().isEmpty() == false) {
+                double range = aprilTag.getDetections().get(0).ftcPose.range;
+                if (range < 20){
+                    maxSpeed = 0.4;
+                } else {
+                    maxSpeed = 0.7;
+                }
             }
-
 
             while (gamepad1.dpad_up && gamepad1.dpad_left) {
                 robot.frontR.setPower(-.5);
