@@ -44,6 +44,8 @@ public class hardware {
 
     static final double ARM_COUNTS_PER_DEGREE = (ARM_COUNTS_PER_MOTOR_REV * ARM_GEAR_REDUCTION) / 360;
 
+    static final double TURN_INCHES = 21.810;
+
     static final int TILE = 24;
 
     private int armCurrentDegree = 0;
