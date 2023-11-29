@@ -15,7 +15,7 @@ public class Red2Movement extends LinearOpMode {
         waitForStart();
 
         robot.encoderDrive(0.5,1,1,1,1,3);
-        robot.encoderDrive(0.6,-14.25,14.25,14.25,-14.25,3);
+        robot.encoderDrive(0.6,-28.50,28.50,28.50,-28.50,3);
         robot.encoderDrive(0.6,48,48,48,48,3);
     }}
 
