@@ -4,8 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 @Autonomous
-
-public class Blue2Movement extends LinearOpMode {
+public class ArmMovementRed2 extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -14,7 +13,9 @@ public class Blue2Movement extends LinearOpMode {
         robot.init(hardwareMap);
         waitForStart();
 
-        robot.encoderDrive(0.5,2,2,2,2,3);
-        robot.encoderDrive(0.6,21.810,-21.810,-21.810,21.810,3);
-        robot.encoderDrive(0.6,48,48,48,48,3);
-}}
+        robot.setArmPosition(170);
+        robot.wrist.setPosition(0.7);
+        robot.leftGrip.setPosition(0.5);
+        robot.rightGrip.setPosition(0.5);
+    }
+}

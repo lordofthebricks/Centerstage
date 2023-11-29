@@ -14,10 +14,9 @@ public class Blue1Movement extends LinearOpMode {
         robot.init(hardwareMap);
         waitForStart();
 
-        robot.encoderDrive(0.5,1,1,1,1,3);
-        robot.encoderDrive(0.6,14.25,-14.25,-14.25,14.25,3);
+        robot.encoderDrive(0.5,2,2,2,2,3);
+        robot.encoderDrive(0.6,21.810,-21.810,-21.810,21.810,3);
         robot.encoderDrive(0.6,96,96,96,96,3);
-
     }
 }
 
