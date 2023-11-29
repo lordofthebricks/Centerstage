@@ -2,10 +2,10 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
 @Autonomous
 
-public class noahAutonomous4 extends LinearOpMode {
-
+public class Blue1Movement extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -15,9 +15,10 @@ public class noahAutonomous4 extends LinearOpMode {
         waitForStart();
 
         robot.encoderDrive(0.5,1,1,1,1,3);
-        robot.encoderDrive(0.6,-14.25,14.25,14.25,-14.25,3);
-        robot.encoderDrive(0.6,48,48,48,48,3);
-    }}
+        robot.encoderDrive(0.6,14.25,-14.25,-14.25,14.25,3);
+        robot.encoderDrive(0.6,96,96,96,96,3);
 
+    }
+}
 
 
