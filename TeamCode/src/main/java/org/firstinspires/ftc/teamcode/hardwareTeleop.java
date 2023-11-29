@@ -101,7 +101,7 @@ public class hardwareTeleop {
             if (getArmCurrentDegree() < targetDegree){
                 arm.setVelocity(1500); // this is in motor ticks
             } else if (getArmCurrentDegree() > targetDegree) {
-                arm.setVelocity(200);
+                arm.setVelocity(1000);
             }else {
                 return;
             }

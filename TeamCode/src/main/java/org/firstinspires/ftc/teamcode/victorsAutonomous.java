@@ -64,6 +64,7 @@ public class victorsAutonomous extends LinearOpMode {
         robot.encoderDrive(0.6,14.25,-14.25,-14.25,14.25,3);
         robot.encoderDrive(0.6,hardware.TILE,hardware.TILE,hardware.TILE,hardware.TILE,5);
 
+
         List<AprilTagDetection> currentDetections = aprilTag.getDetections();
         for (AprilTagDetection detection : currentDetections){
             // Look to see if we have size info on this tag.
