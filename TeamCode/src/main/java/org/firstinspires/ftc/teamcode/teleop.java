@@ -15,6 +15,8 @@ public class teleop extends OpMode {
     private AprilTagProcessor aprilTag;
     double maxSpeed = 0.7;
     private hardwareTeleop robot;
+    ArmControl armControl;
+    Thread armThread;
 
     @Override
     public void init() {
@@ -27,12 +29,12 @@ public class teleop extends OpMode {
 
         aprilTag.setDecimation(3);
 
-    }
-
-    @Override
-    public void start() {
+        armControl = new ArmControl(robot);
+        armThread = new Thread(armControl);
 
     }
+
+
 
     @Override
     public void loop() {
@@ -49,57 +51,57 @@ public class teleop extends OpMode {
 
 
         //Dpad controls
-        if (aprilTag.getDetections().isEmpty() == false) {
-            double range = aprilTag.getDetections().get(0).ftcPose.range;
-            if (range < 20) {
-                maxSpeed = 0.4;
-            } else {
-                maxSpeed = 0.7;
-            }
-        }
+//        if (aprilTag.getDetections().isEmpty() == false) {
+//            double range = aprilTag.getDetections().get(0).ftcPose.range;
+//            if (range < 20) {
+//                maxSpeed = 0.4;
+//            } else {
+//                maxSpeed = 0.7;
+//            }
+//        }
 
-        while (gamepad1.dpad_up && gamepad1.dpad_left) {
+        if (gamepad1.dpad_up && gamepad1.dpad_left) {
             robot.frontR.setPower(-.5);
             robot.backL.setPower(-.5);
         }
 
-        while (gamepad1.dpad_up && gamepad1.dpad_right) {
+        if (gamepad1.dpad_up && gamepad1.dpad_right) {
             robot.backR.setPower(-.5);
             robot.frontL.setPower(-.5);
         }
 
-        while (gamepad1.dpad_down && gamepad1.dpad_left) {
+        if (gamepad1.dpad_down && gamepad1.dpad_left) {
             robot.backR.setPower(.5);
             robot.frontL.setPower(.5);
         }
 
-        while (gamepad1.dpad_down && gamepad1.dpad_right) {
+        if (gamepad1.dpad_down && gamepad1.dpad_right) {
             robot.frontR.setPower(.5);
             robot.backL.setPower(.5);
         }
 
-        while (gamepad1.dpad_up) {
+        if (gamepad1.dpad_up) {
             robot.frontR.setPower(maxSpeed);
             robot.frontL.setPower(maxSpeed);
             robot.backR.setPower(maxSpeed);
             robot.backL.setPower(maxSpeed);
 
         }
-        while (gamepad1.dpad_left) {
+        if (gamepad1.dpad_left) {
             robot.frontR.setPower(maxSpeed);
             robot.frontL.setPower(-maxSpeed);
             robot.backR.setPower(-maxSpeed);
             robot.backL.setPower(maxSpeed);
 
         }
-        while (gamepad1.dpad_right) {
+        if (gamepad1.dpad_right) {
             robot.frontR.setPower(-maxSpeed);
             robot.frontL.setPower(maxSpeed);
             robot.backR.setPower(maxSpeed);
             robot.backL.setPower(-maxSpeed);
 
         }
-        while (gamepad1.dpad_down) {
+        if (gamepad1.dpad_down) {
             robot.frontR.setPower(-maxSpeed);
             robot.frontL.setPower(-maxSpeed);
             robot.backR.setPower(-maxSpeed);
@@ -110,12 +112,13 @@ public class teleop extends OpMode {
         if (gamepad1.right_bumper && gamepad1.x) {
             //latch open
             robot.sling.setPosition(0.5);
+
         } else if (gamepad1.left_bumper && gamepad1.x) {
             //latch closed
-            robot.sling.setPosition(1);
+            robot.sling.setPosition(0);
         }
 
-        while (gamepad1.left_stick_x == -1) {
+        if (gamepad1.left_stick_x == -1) {
 
             robot.frontL.setPower(.6);
             robot.frontR.setPower(-.6);
@@ -124,7 +127,7 @@ public class teleop extends OpMode {
         }
         //This is the Strafe
 
-        while (gamepad1.right_stick_x == 1) {
+        if (gamepad1.right_stick_x == 1) {
             robot.frontL.setPower(-.6);
             robot.frontR.setPower(.6);
             robot.backL.setPower(.6);
@@ -158,12 +161,8 @@ public class teleop extends OpMode {
         //Arm control
         if (gamepad2.x) {
 
-            robot.setArmPosition(170);
+            armThread.start();
 
-        } else if (gamepad2.y) {
-
-            robot.setArmPosition(0);
-//                robot.armControl(0.9, -180);
         }
 
         if (gamepad2.a) {
@@ -190,4 +189,6 @@ public class teleop extends OpMode {
                 .addProcessors(aprilTag)
                 .build();
     }
+
+
 }

@@ -110,7 +110,7 @@ public class hardwareTeleop {
                 myopmode.telemetry.update();
             }
             arm.setPower(0);
-            setArmCurrentDegree( (int) (degrees));
+            setArmCurrentDegree((int) (degrees));
             arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
 

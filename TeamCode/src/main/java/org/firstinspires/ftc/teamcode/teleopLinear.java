@@ -51,48 +51,48 @@ public class teleopLinear extends LinearOpMode {
                 }
             }
 
-            while (gamepad1.dpad_up && gamepad1.dpad_left) {
+            if (gamepad1.dpad_up && gamepad1.dpad_left) {
                 robot.frontR.setPower(-.5);
                 robot.backL.setPower(-.5);
             }
 
-            while (gamepad1.dpad_up && gamepad1.dpad_right) {
+            if (gamepad1.dpad_up && gamepad1.dpad_right) {
                 robot.backR.setPower(-.5);
                 robot.frontL.setPower(-.5);
             }
 
-            while (gamepad1.dpad_down && gamepad1.dpad_left) {
+            if (gamepad1.dpad_down && gamepad1.dpad_left) {
                 robot.backR.setPower(.5);
                 robot.frontL.setPower(.5);
             }
 
-            while (gamepad1.dpad_down && gamepad1.dpad_right) {
+            if (gamepad1.dpad_down && gamepad1.dpad_right) {
                 robot.frontR.setPower(.5);
                 robot.backL.setPower(.5);
             }
 
-            while (gamepad1.dpad_up){
+            if (gamepad1.dpad_up){
                 robot.frontR.setPower(maxSpeed);
                 robot.frontL.setPower(maxSpeed);
                 robot.backR.setPower(maxSpeed);
                 robot.backL.setPower(maxSpeed);
 
             }
-            while (gamepad1.dpad_left){
+            if (gamepad1.dpad_left){
                 robot.frontR.setPower(maxSpeed);
                 robot.frontL.setPower(-maxSpeed);
                 robot.backR.setPower(-maxSpeed);
                 robot.backL.setPower(maxSpeed);
 
             }
-            while (gamepad1.dpad_right){
+            if (gamepad1.dpad_right){
                 robot.frontR.setPower(-maxSpeed);
                 robot.frontL.setPower(maxSpeed);
                 robot.backR.setPower(maxSpeed);
                 robot.backL.setPower(-maxSpeed);
 
             }
-            while (gamepad1.dpad_down){
+            if (gamepad1.dpad_down){
                 robot.frontR.setPower(-maxSpeed);
                 robot.frontL.setPower(-maxSpeed);
                 robot.backR.setPower(-maxSpeed);
@@ -109,7 +109,7 @@ public class teleopLinear extends LinearOpMode {
                 robot.sling.setPosition(1);
             }
 
-            while (gamepad1.left_stick_x == -1) {
+            if (gamepad1.left_stick_x == -1) {
 
                 robot.frontL.setPower(.6);
                 robot.frontR.setPower(-.6);
@@ -118,7 +118,7 @@ public class teleopLinear extends LinearOpMode {
             }
             //This is the Strafe
 
-            while (gamepad1.right_stick_x == 1) {
+            if (gamepad1.right_stick_x == 1) {
                 robot.frontL.setPower(-.6);
                 robot.frontR.setPower(.6);
                 robot.backL.setPower(.6);
