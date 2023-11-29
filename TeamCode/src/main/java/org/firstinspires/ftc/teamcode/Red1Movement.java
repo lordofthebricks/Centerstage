@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 @Autonomous
-public class noahAutonomous3 extends LinearOpMode {
+public class Red1Movement extends LinearOpMode {
 
 
     @Override
@@ -16,7 +16,7 @@ public class noahAutonomous3 extends LinearOpMode {
         robot.encoderDrive(0.5,1,1,1,1,3);
 //Spins robot 90 degrees
         robot.encoderDrive(0.6,-14.25,14.25,14.25,-14.25,3);
-//Noves the robot straight
+//moves the robot straight
         robot.encoderDrive(0.6,96,96,96,96,3);
 
     }
