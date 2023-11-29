@@ -10,7 +10,7 @@ import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
 import java.util.List;
 
-@Autonomous(name = "First Detection Auto Test red")
+@Autonomous(name = "Detection Autonomous red")
 public class victorsAutonomous extends LinearOpMode {
 
     AprilTagProcessor aprilTag;
@@ -33,6 +33,7 @@ public class victorsAutonomous extends LinearOpMode {
 
         waitForStart();
 
+        robot.wrist.setPosition(0.43);
         //tensorFlow Detection returns 1, 2, or 3 depending on which third of the screen the team element is on
         switch (vision.tfodLocation()){
             case 1:
@@ -42,6 +43,8 @@ public class victorsAutonomous extends LinearOpMode {
                 robot.leftGrip.setPosition(0.5);
                 sleep(500);
                 robot.leftGrip.setPosition(1);
+                robot.setArmPosition(1);
+                robot.encoderDrive(0.6,-12,12,-12,12,4);
                 break;
             case 2:
                 desiredTagId = 5;
@@ -50,6 +53,8 @@ public class victorsAutonomous extends LinearOpMode {
                 robot.leftGrip.setPosition(0.5);
                 sleep(500);
                 robot.leftGrip.setPosition(1);
+                robot.setArmPosition(1);
+                robot.encoderDrive(0.6,-10,-10,-10,-10, 4);
                 break;
             case 3:
                 desiredTagId = 6;
@@ -58,11 +63,14 @@ public class victorsAutonomous extends LinearOpMode {
                 robot.leftGrip.setPosition(0.5);
                 sleep(500);
                 robot.leftGrip.setPosition(1);
+                robot.setArmPosition(1);
+                robot.encoderDrive(0.6,12,-12,12,-12,4);
                 break;
         }
-        robot.setArmPosition(1);
-        robot.encoderDrive(0.6,14.25,-14.25,-14.25,14.25,3);
+        robot.encoderDrive(0.6,2,2,2,2,2);
+        robot.encoderDrive(0.6,hardware.TURN_INCHES,-hardware.TURN_INCHES,hardware.TURN_INCHES,hardware.TURN_INCHES,3);
         robot.encoderDrive(0.6,hardware.TILE,hardware.TILE,hardware.TILE,hardware.TILE,5);
+        robot.setArmPosition(170);
 
 
         List<AprilTagDetection> currentDetections = aprilTag.getDetections();
@@ -88,10 +96,15 @@ public class victorsAutonomous extends LinearOpMode {
         moveAmount = Math.abs(desiredTag.ftcPose.x);
         if(desiredTag.ftcPose.x < 0 ){
 
-            robot.encoderDrive(0.5,moveAmount,-moveAmount,moveAmount,-moveAmount,3);
+            robot.encoderDrive(0.5,moveAmount,-moveAmount,moveAmount,-moveAmount,4);
         }else {
-            robot.encoderDrive(0.5,-moveAmount,moveAmount,-moveAmount,moveAmount,3);
+            robot.encoderDrive(0.5,-moveAmount,moveAmount,-moveAmount,moveAmount,4);
         }
+
+        double forwardMove = desiredTag.ftcPose.range - 12;
+
+        robot.encoderDrive(0.5,forwardMove,forwardMove,forwardMove,forwardMove,5);
+
 
 
 
