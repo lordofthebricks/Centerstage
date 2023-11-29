@@ -156,28 +156,28 @@ public class hardware {
 
 
 
-    public void armControl (double speed, double moveDegrees){
-
-        int targetDegree = (int) ((getArmCurrentDegree() + moveDegrees) * ARM_COUNTS_PER_DEGREE);
-
-
-
-        if (myopmode.opModeIsActive() && ((getArmCurrentDegree() + moveDegrees) <= 190 && (getArmCurrentDegree() + moveDegrees) >= 0)){
-
-            arm.setTargetPosition(targetDegree);
-            arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            arm.setPower(Math.abs(speed));
-
-            while(arm.isBusy()){
-                myopmode.telemetry.addData("Arm Position: ", arm.getCurrentPosition());
-                myopmode.telemetry.update();
-            }
-            arm.setPower(0);
-            setArmCurrentDegree( (int) (getArmCurrentDegree() + moveDegrees));
-            arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        }
-
-    }
+//    public void armControl (double speed, double moveDegrees){
+//
+//        int targetDegree = (int) ((getArmCurrentDegree() + moveDegrees) * ARM_COUNTS_PER_DEGREE);
+//
+//
+//
+//        if (myopmode.opModeIsActive() && ((getArmCurrentDegree() + moveDegrees) <= 190 && (getArmCurrentDegree() + moveDegrees) >= 0)){
+//
+//            arm.setTargetPosition(targetDegree);
+//            arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            arm.setPower(Math.abs(speed));
+//
+//            while(arm.isBusy()){
+//                myopmode.telemetry.addData("Arm Position: ", arm.getCurrentPosition());
+//                myopmode.telemetry.update();
+//            }
+//            arm.setPower(0);
+//            setArmCurrentDegree( (int) (getArmCurrentDegree() + moveDegrees));
+//            arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        }
+//
+//    }
 
     public void setArmPosition (double degrees){
 
