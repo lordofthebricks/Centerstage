@@ -13,7 +13,7 @@ public class Red1Movement extends LinearOpMode {
         robot.init(hardwareMap);
         waitForStart();
 //Moves 1" off the wall
-        robot.encoderDrive(0.5,6,6,6,6,3);
+        robot.encoderDrive(0.5,4,4,4,4,3);
 //Spins robot 90 degrees
         robot.encoderDrive(0.6,-19.4,19.4,19.4,-19.4,3);
 //moves the robot straight
