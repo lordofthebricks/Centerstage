@@ -11,10 +11,15 @@ public class ArmControl implements Runnable{
 
     @Override
     public void run() {
-        if (robot.getArmCurrentDegree() > 0){
-            robot.setArmPosition(0);
-        }else {
-            robot.setArmPosition(170);
+        try {
+            if (robot.getArmCurrentDegree() > 0){
+                robot.setArmPosition(0);
+            }else {
+                robot.setArmPosition(170);
+            }
+        } catch (Exception e){
+
         }
+
     }
 }

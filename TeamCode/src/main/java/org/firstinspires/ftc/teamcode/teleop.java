@@ -51,14 +51,23 @@ public class teleop extends OpMode {
 
 
         //Dpad controls
-//        if (aprilTag.getDetections().isEmpty() == false) {
-//            double range = aprilTag.getDetections().get(0).ftcPose.range;
-//            if (range < 20) {
-//                maxSpeed = 0.4;
-//            } else {
-//                maxSpeed = 0.7;
-//            }
-//        }
+        if (aprilTag.getDetections().isEmpty() == false) {
+            try {
+                double range = aprilTag.getDetections().get(0).ftcPose.range;
+                if (range < 20) {
+                    maxSpeed = 0.4;
+                } else {
+                    maxSpeed = 0.7;
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+
+                telemetry.addLine("An error detecting aprilTags has occured");
+
+
+            }
+
+
+        }
 
         if (gamepad1.dpad_up && gamepad1.dpad_left) {
             robot.frontR.setPower(-.5);
@@ -160,8 +169,12 @@ public class teleop extends OpMode {
 
         //Arm control
         if (gamepad2.x) {
+            try {
+                armThread.start();
+            } catch (Exception e) {
+                telemetry.addLine("An Error has occurred");
+            }
 
-            armThread.start();
 
         }
 

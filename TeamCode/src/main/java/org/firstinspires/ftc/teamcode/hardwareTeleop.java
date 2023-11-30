@@ -106,10 +106,14 @@ public class hardwareTeleop {
                 return;
             }
             while(arm.isBusy()){
-                myopmode.telemetry.addData("Arm Position: ", arm.getCurrentPosition());
+                myopmode.telemetry.addData("Arm Position: ", getArmCurrentDegree());
                 myopmode.telemetry.update();
             }
-            arm.setPower(0);
+            if (targetDegree < 100){
+                arm.setPower(0.5);
+            } else if (targetDegree > 100) {
+                arm.setPower(-0.5);
+            }
             setArmCurrentDegree((int) (degrees));
             arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
