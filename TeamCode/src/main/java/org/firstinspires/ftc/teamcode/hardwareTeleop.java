@@ -110,9 +110,9 @@ public class hardwareTeleop {
                 myopmode.telemetry.update();
             }
             if (targetDegree < 100){
-                arm.setPower(0.5);
+                arm.setPower(0.05);
             } else if (targetDegree > 100) {
-                arm.setPower(-0.5);
+                arm.setPower(-0.05);
             }
             setArmCurrentDegree((int) (degrees));
             arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
