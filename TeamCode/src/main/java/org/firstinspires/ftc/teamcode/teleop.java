@@ -32,6 +32,9 @@ public class teleop extends OpMode {
         armControl = new ArmControl(robot);
         armThread = new Thread(armControl);
 
+        telemetry.addLine("test");
+        telemetry.update();
+
     }
 
 
@@ -168,23 +171,32 @@ public class teleop extends OpMode {
         }
 
         //Arm control
-        if (gamepad2.x) {
-            try {
-                armThread.start();
-            } catch (Exception e) {
-                telemetry.addLine("An Error has occurred");
-            }
+        if (gamepad2.y) {
 
+            robot.setArmPosition(170);
+//            try {
+//                armThread.start();
+//            } catch (Exception e) {
+//                telemetry.addLine("An Error has occurred");
+//            }
+        }
 
+        if (gamepad2.x){
+            robot.setArmPosition(0);
         }
 
         if (gamepad2.a) {
+            if (robot.wrist.getPosition() < 0.57){
+                double newPos = robot.wrist.getPosition() + 0.05;
+                robot.wrist.setPosition(newPos);
+            }
 
-            robot.wrist.setPosition(0.57);
         } else if (gamepad2.b) {
 
-            robot.wrist.setPosition(0.4);
-
+            if (robot.wrist.getPosition() > 0.43){
+                double newPos = robot.wrist.getPosition() - 0.05;
+                robot.wrist.setPosition(newPos);
+            }
         }
 
     }
