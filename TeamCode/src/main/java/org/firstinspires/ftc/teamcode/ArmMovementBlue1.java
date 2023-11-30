@@ -14,7 +14,7 @@ public class ArmMovementBlue1 extends LinearOpMode {
         waitForStart();
 
         robot.encoderDrive(0.6,24,24,24,24,3);
-        robot.encoderDrive(0.6,28.50,-28.50,-28.50,28.50,3);
+        robot.encoderDrive(0.6,19.4,-19.4,-19.4,19.4,3);
         robot.encoderDrive(0.6,72,72,72,72,3);
         robot.setArmPosition(170);
         robot.arm.setPower(0.5);
