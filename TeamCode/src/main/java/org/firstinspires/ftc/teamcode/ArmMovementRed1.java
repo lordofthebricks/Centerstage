@@ -13,14 +13,16 @@ public class ArmMovementRed1 extends LinearOpMode {
         robot.init(hardwareMap);
         waitForStart();
 
-        robot.encoderDrive(0.6,24,24,24,24,3);
-        robot.encoderDrive(0.6,21.810,21.810,21.810,21.810,3);
-        robot.encoderDrive(0.6, 72,72,72,72,3);
+        robot.encoderDrive(0.6,26,26,26,26,3);
+        robot.encoderDrive(0.6,19.4,-19.4,-19.4,19.4,3);
+        robot.encoderDrive(0.6, -72,-72,-72,-72,3);
         robot.setArmPosition(170);
-        robot.wrist.setPosition(0.7);
+        robot.arm.setPower(0.5);
+        robot.wrist.setPosition(0.43);
         robot.leftGrip.setPosition(0.5);
         robot.rightGrip.setPosition(0.5);
-        robot.encoderDrive(0.6,-24,24,-24,24,3);
-        robot.encoderDrive(0.6,24,24,24,24,3);
+        robot.setArmPosition(0);
+        robot.encoderDrive(0.6,24,-24, 24,-24,3);
+        robot.encoderDrive(0.6,-24,-24,-24,-24,3);
     }
 }

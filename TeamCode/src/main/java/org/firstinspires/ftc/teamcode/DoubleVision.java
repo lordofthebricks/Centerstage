@@ -118,9 +118,6 @@ public class DoubleVision {
 
         tfod = new TfodProcessor.Builder()
                 .setModelAssetName(TFOD_MODEL_ASSET)
-
-
-
                 .setModelLabels(LABELS)
                 .build();
 
@@ -180,10 +177,28 @@ public class DoubleVision {
     }   // end method telemetryTfod()
 
     public int tfodLocation(){
-        Integer location = null;
+        Integer location = 0;
+        double x = 0;
+        double y = 0;
         switchProcessor(false);
 
+        List<Recognition> currentRecognitions = tfod.getRecognitions();
 
+        // Step through the list of recognitions and display info for each one.
+        for (Recognition recognition : currentRecognitions) {
+             x = (recognition.getLeft() + recognition.getRight()) / 2 ;
+             y = (recognition.getTop()  + recognition.getBottom()) / 2 ;
+
+
+        }   // end for() loop
+
+        if (x < 213.3){
+            location = 1;
+        } else if (x > 213.3 && x < 426.6) {
+            location = 2;
+        }else if (x > 426.6){
+            location = 3;
+        }
 
 
         return location;

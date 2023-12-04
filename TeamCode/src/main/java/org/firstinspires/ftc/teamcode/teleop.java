@@ -32,6 +32,9 @@ public class teleop extends OpMode {
         armControl = new ArmControl(robot);
         armThread = new Thread(armControl);
 
+        telemetry.addLine("test");
+        telemetry.update();
+
     }
 
 
@@ -51,14 +54,23 @@ public class teleop extends OpMode {
 
 
         //Dpad controls
-//        if (aprilTag.getDetections().isEmpty() == false) {
-//            double range = aprilTag.getDetections().get(0).ftcPose.range;
-//            if (range < 20) {
-//                maxSpeed = 0.4;
-//            } else {
-//                maxSpeed = 0.7;
-//            }
-//        }
+        if (aprilTag.getDetections().isEmpty() == false) {
+            try {
+                double range = aprilTag.getDetections().get(0).ftcPose.range;
+                if (range < 20) {
+                    maxSpeed = 0.4;
+                } else {
+                    maxSpeed = 0.7;
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+
+                telemetry.addLine("An error detecting aprilTags has occured");
+
+
+            }
+
+
+        }
 
         if (gamepad1.dpad_up && gamepad1.dpad_left) {
             robot.frontR.setPower(-.5);
@@ -159,19 +171,32 @@ public class teleop extends OpMode {
         }
 
         //Arm control
-        if (gamepad2.x) {
+        if (gamepad2.y) {
 
-            armThread.start();
+            robot.setArmPosition(170);
+//            try {
+//                armThread.start();
+//            } catch (Exception e) {
+//                telemetry.addLine("An Error has occurred");
+//            }
+        }
 
+        if (gamepad2.x){
+            robot.setArmPosition(0);
         }
 
         if (gamepad2.a) {
+            if (robot.wrist.getPosition() < 0.57){
+                double newPos = robot.wrist.getPosition() + 0.05;
+                robot.wrist.setPosition(newPos);
+            }
 
-            robot.wrist.setPosition(0.57);
         } else if (gamepad2.b) {
 
-            robot.wrist.setPosition(0.4);
-
+            if (robot.wrist.getPosition() > 0.43){
+                double newPos = robot.wrist.getPosition() - 0.05;
+                robot.wrist.setPosition(newPos);
+            }
         }
 
     }
