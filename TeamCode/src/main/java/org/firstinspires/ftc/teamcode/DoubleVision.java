@@ -185,7 +185,7 @@ public class DoubleVision {
     public int tfodLocation(){
         Integer location = 0;
         double x = 0;
-        double y = 0;
+
         switchProcessor(false);
 
         List<Recognition> currentRecognitions = tfod.getRecognitions();
@@ -193,16 +193,16 @@ public class DoubleVision {
         // Step through the list of recognitions and display info for each one.
         for (Recognition recognition : currentRecognitions) {
             x = (recognition.getLeft() + recognition.getRight()) / 2 ;
-            y = (recognition.getTop()  + recognition.getBottom()) / 2 ;
-
 
         }   // end for() loop
 
-        if (x < 213.3){
+        if (x > 213.3 && x < 426.6){
             location = 1;
-        } else if (x > 213.3 && x < 426.6) {
+        }else{
+
+
             location = 2;
-        }else if (x > 426.6){
+//        }else if (x > 426.6){
             location = 3;
         }
 
