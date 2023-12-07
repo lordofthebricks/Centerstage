@@ -33,6 +33,7 @@ public class teleop extends OpMode {
         armThread = new Thread(armControl);
 
         telemetry.addLine("test");
+        telemetry.addData("writs Pos:", robot.wrist.getPosition());
         telemetry.update();
 
     }
@@ -130,7 +131,7 @@ public class teleop extends OpMode {
             robot.sling.setPosition(0);
         }
 
-        if (gamepad1.left_stick_x == -1) {
+        if (gamepad1.right_stick_x == -1) {
 
             robot.frontL.setPower(.6);
             robot.frontR.setPower(-.6);
@@ -139,7 +140,7 @@ public class teleop extends OpMode {
         }
         //This is the Strafe
 
-        if (gamepad1.right_stick_x == 1) {
+        if (gamepad1.left_stick_x == 1) {
             robot.frontL.setPower(-.6);
             robot.frontR.setPower(.6);
             robot.backL.setPower(.6);
@@ -186,10 +187,8 @@ public class teleop extends OpMode {
         }
 
         if (gamepad2.a) {
-            if (robot.wrist.getPosition() < 0.56){
-                double newPos = robot.wrist.getPosition() + 0.05;
-                robot.wrist.setPosition(newPos);
-            }
+
+                robot.wrist.setPosition(0.55);
 
         } else if (gamepad2.b) {
 
