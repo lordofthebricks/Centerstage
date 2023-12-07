@@ -58,11 +58,14 @@ public class DoubleVision {
 
     // TFOD_MODEL_ASSET points to a model file stored in the project Asset location,
     // this is only used for Android Studio when using models in Assets.
-    private static final String TFOD_MODEL_ASSET = "MyModelStoredAsAsset.tflite";
+    private static final String TFOD_MODEL_ASSET = "TeamElements.tflite";
     // TFOD_MODEL_FILE points to a model file stored onboard the Robot Controller's storage,
     // this is used when uploading models directly to the RC using the model upload interface.
 
     // Define the labels recognized in the model for TFOD (must be in training order!)
+    public static final String[] PIXLABEL = {
+            "Pixel",
+    };
     private static final String[] LABELS = {
             "Pixel",
     };
@@ -83,6 +86,7 @@ public class DoubleVision {
      */
     private TfodProcessor tfod;
 
+    public TfodProcessor pixtfod;
     /**
      * The variable to store our instance of the vision portal.
      */
@@ -121,7 +125,9 @@ public class DoubleVision {
                 .setModelLabels(LABELS)
                 .build();
 
-
+        pixtfod = new TfodProcessor.Builder()
+                .setModelLabels(DoubleVision.PIXLABEL)
+                .build();
 
         // -----------------------------------------------------------------------------------------
         // Camera Configuration
@@ -186,8 +192,39 @@ public class DoubleVision {
 
         // Step through the list of recognitions and display info for each one.
         for (Recognition recognition : currentRecognitions) {
-             x = (recognition.getLeft() + recognition.getRight()) / 2 ;
-             y = (recognition.getTop()  + recognition.getBottom()) / 2 ;
+            x = (recognition.getLeft() + recognition.getRight()) / 2 ;
+            y = (recognition.getTop()  + recognition.getBottom()) / 2 ;
+
+
+        }   // end for() loop
+
+        if (x < 213.3){
+            location = 1;
+        } else if (x > 213.3 && x < 426.6) {
+            location = 2;
+        }else if (x > 426.6){
+            location = 3;
+        }
+
+
+        return location;
+    }
+    public int pixtfodLocation(){
+
+        visionPortal.setProcessorEnabled(aprilTag,false);
+        visionPortal.setProcessorEnabled(tfod, false);
+        visionPortal.setProcessorEnabled(pixtfod, true);
+        Integer location = 0;
+        double x = 0;
+        double y = 0;
+        switchProcessor(false);
+
+        List<Recognition> currentRecognitions = tfod.getRecognitions();
+
+        // Step through the list of recognitions and display info for each one.
+        for (Recognition recognition : currentRecognitions) {
+            x = (recognition.getLeft() + recognition.getRight()) / 2 ;
+            y = (recognition.getTop()  + recognition.getBottom()) / 2 ;
 
 
         }   // end for() loop

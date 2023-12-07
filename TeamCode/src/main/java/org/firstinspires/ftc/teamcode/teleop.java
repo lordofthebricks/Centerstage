@@ -186,7 +186,7 @@ public class teleop extends OpMode {
         }
 
         if (gamepad2.a) {
-            if (robot.wrist.getPosition() < 0.57){
+            if (robot.wrist.getPosition() < 0.56){
                 double newPos = robot.wrist.getPosition() + 0.05;
                 robot.wrist.setPosition(newPos);
             }
