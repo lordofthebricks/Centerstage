@@ -104,6 +104,8 @@ public class DoubleVision {
         return USE_WEBCAM;
     }
 
+    hardware robot;
+
     /**
      * Initialize AprilTag and TFOD.
      */
@@ -111,6 +113,7 @@ public class DoubleVision {
         // -----------------------------------------------------------------------------------------
         // AprilTag Configuration
         // -----------------------------------------------------------------------------------------
+        this.robot = robot;
 
         aprilTag = new AprilTagProcessor.Builder().setTagLibrary(AprilTagGameDatabase.getCenterStageTagLibrary())
             .build();
@@ -198,12 +201,22 @@ public class DoubleVision {
 
         if (x > 213.3 && x < 426.6){
             location = 1;
-        }else{
+        }else {
 
+            robot.encoderDrive(0.7,-12,12,-12,12,2);
 
-            location = 2;
-//        }else if (x > 426.6){
-            location = 3;
+            for (Recognition recognition : currentRecognitions) {
+                x = (recognition.getLeft() + recognition.getRight()) / 2 ;
+
+            }
+
+            if (x > 0 ) {
+                location = 2;
+
+            } else{
+
+                location = 3;
+            }
         }
 
 
