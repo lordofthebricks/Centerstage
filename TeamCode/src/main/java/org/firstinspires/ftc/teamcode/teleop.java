@@ -15,7 +15,11 @@ public class teleop extends OpMode {
     private AprilTagProcessor aprilTag;
     double maxSpeed = 0.7;
 
-    double adjSpeed = 0.2;
+    double frontSpeed = 0.5;
+
+    double backSpeed = 0.6;
+
+    double adjSpeed = 0.4;
     private hardwareTeleop robot;
     ArmControl armControl;
     Thread armThread;
@@ -65,7 +69,7 @@ public class teleop extends OpMode {
                 } else {
                     maxSpeed = 0.7;
                 }
-            } catch (ArrayIndexOutOfBoundsException e) {
+            } catch (NullPointerException e) {
 
                 telemetry.addLine("An error detecting aprilTags has occured");
 
@@ -118,32 +122,32 @@ public class teleop extends OpMode {
 
         if (gamepad1.right_stick_x == 1) {
 
-            robot.frontL.setPower(.6);
-            robot.frontR.setPower(-.6);
-            robot.backL.setPower(-.6);
-            robot.backR.setPower(.6);
+            robot.frontL.setPower(frontSpeed);
+            robot.frontR.setPower(-frontSpeed);
+            robot.backL.setPower(-backSpeed);
+            robot.backR.setPower(backSpeed);
         }
         //This is the Strafe
 
         if (gamepad1.left_stick_x == -1) {
-            robot.frontL.setPower(-.6);
-            robot.frontR.setPower(.6);
-            robot.backL.setPower(.6);
-            robot.backR.setPower(-.6);
+            robot.frontL.setPower(-frontSpeed);
+            robot.frontR.setPower(frontSpeed);
+            robot.backL.setPower(backSpeed);
+            robot.backR.setPower(-backSpeed);
         }
 
         if (gamepad1.right_trigger == 1){
-            robot.frontL.setPower(adjSpeed);
-            robot.frontR.setPower(-adjSpeed);
-            robot.backL.setPower(adjSpeed);
-            robot.backR.setPower(-adjSpeed);
-        }
-
-        if (gamepad1.left_trigger == 1){
             robot.frontL.setPower(-adjSpeed);
             robot.frontR.setPower(adjSpeed);
             robot.backL.setPower(-adjSpeed);
             robot.backR.setPower(adjSpeed);
+        }
+
+        if (gamepad1.left_trigger == 1){
+            robot.frontL.setPower(adjSpeed);
+            robot.frontR.setPower(-adjSpeed);
+            robot.backL.setPower(adjSpeed);
+            robot.backR.setPower(-adjSpeed);
         }
 
 
@@ -160,17 +164,17 @@ public class teleop extends OpMode {
 
         }
         if (gamepad2.dpad_left) {
-            robot.frontR.setPower(adjSpeed);
-            robot.frontL.setPower(-adjSpeed);
-            robot.backR.setPower(-adjSpeed);
-            robot.backL.setPower(adjSpeed);
+            robot.frontR.setPower(frontSpeed);
+            robot.frontL.setPower(-frontSpeed);
+            robot.backR.setPower(-backSpeed);
+            robot.backL.setPower(backSpeed);
 
         }
         if (gamepad2.dpad_right) {
-            robot.frontR.setPower(-adjSpeed);
-            robot.frontL.setPower(adjSpeed);
-            robot.backR.setPower(adjSpeed);
-            robot.backL.setPower(-adjSpeed);
+            robot.frontR.setPower(-frontSpeed);
+            robot.frontL.setPower(frontSpeed);
+            robot.backR.setPower(backSpeed);
+            robot.backL.setPower(-backSpeed);
 
         }
         if (gamepad2.dpad_down) {
