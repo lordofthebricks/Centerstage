@@ -170,23 +170,26 @@ public class teleop extends OpMode {
             robot.slider.setPower(0);
         }
 
-        //Arm control
-        if (gamepad2.y) {
+       // Arm control;
+        if (gamepad2.y == true) {
+           // robot.setArmPosition(170);
+            robot.arm.setPower(0.3);
 
-            robot.setArmPosition(170);
 //            try {
 //                armThread.start();
 //            } catch (Exception e) {
 //                telemetry.addLine("An Error has occurred");
 //            }
+
         }
 
-        if (gamepad2.x){
-            robot.setArmPosition(0);
+        if (gamepad2.x == true){
+           // robot.setArmPosition(0);
+            robot.arm.setPower(-0.3);
         }
 
         if (gamepad2.a) {
-            if (robot.wrist.getPosition() < 0.57){
+            if (robot.wrist.getPosition() < 0.60 ){
                 double newPos = robot.wrist.getPosition() + 0.05;
                 robot.wrist.setPosition(newPos);
             }

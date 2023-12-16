@@ -117,7 +117,7 @@ public class DoubleVision {
         // -----------------------------------------------------------------------------------------
 
         tfod = new TfodProcessor.Builder()
-                .setModelAssetName(TFOD_MODEL_ASSET)
+//                .setModelAssetName(TFOD_MODEL_ASSET)
                 .setModelLabels(LABELS)
                 .build();
 
