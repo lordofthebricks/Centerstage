@@ -15,8 +15,6 @@ public class ArmControl implements Runnable{
                 robot.setArmPosition(0);
             }else {
                 robot.setArmPosition(170);
-
-
             }
     }
 }

@@ -14,6 +14,12 @@ public class teleop extends OpMode {
 
     private AprilTagProcessor aprilTag;
     double maxSpeed = 0.7;
+
+    double frontSpeed = 0.5;
+
+    double backSpeed = 0.6;
+
+    double adjSpeed = 0.4;
     private hardwareTeleop robot;
     ArmControl armControl;
     Thread armThread;
@@ -33,6 +39,7 @@ public class teleop extends OpMode {
         armThread = new Thread(armControl);
 
         telemetry.addLine("test");
+        telemetry.addData("writs Pos:", robot.wrist.getPosition());
         telemetry.update();
 
     }
@@ -62,7 +69,7 @@ public class teleop extends OpMode {
                 } else {
                     maxSpeed = 0.7;
                 }
-            } catch (ArrayIndexOutOfBoundsException e) {
+            } catch (NullPointerException e) {
 
                 telemetry.addLine("An error detecting aprilTags has occured");
 
@@ -72,25 +79,7 @@ public class teleop extends OpMode {
 
         }
 
-        if (gamepad1.dpad_up && gamepad1.dpad_left) {
-            robot.frontR.setPower(-.5);
-            robot.backL.setPower(-.5);
-        }
 
-        if (gamepad1.dpad_up && gamepad1.dpad_right) {
-            robot.backR.setPower(-.5);
-            robot.frontL.setPower(-.5);
-        }
-
-        if (gamepad1.dpad_down && gamepad1.dpad_left) {
-            robot.backR.setPower(.5);
-            robot.frontL.setPower(.5);
-        }
-
-        if (gamepad1.dpad_down && gamepad1.dpad_right) {
-            robot.frontR.setPower(.5);
-            robot.backL.setPower(.5);
-        }
 
         if (gamepad1.dpad_up) {
             robot.frontR.setPower(maxSpeed);
@@ -121,33 +110,79 @@ public class teleop extends OpMode {
         }
 
 
+
         if (gamepad1.right_bumper && gamepad1.x) {
             //latch open
-            robot.sling.setPosition(0.5);
+            robot.sling.setPosition(0.7);
 
         } else if (gamepad1.left_bumper && gamepad1.x) {
             //latch closed
             robot.sling.setPosition(0);
         }
 
-        if (gamepad1.left_stick_x == -1) {
+        if (gamepad1.right_stick_x == 1) {
 
-            robot.frontL.setPower(.6);
-            robot.frontR.setPower(-.6);
-            robot.backL.setPower(-.6);
-            robot.backR.setPower(.6);
+            robot.frontL.setPower(frontSpeed);
+            robot.frontR.setPower(-frontSpeed);
+            robot.backL.setPower(-backSpeed);
+            robot.backR.setPower(backSpeed);
         }
         //This is the Strafe
 
-        if (gamepad1.right_stick_x == 1) {
-            robot.frontL.setPower(-.6);
-            robot.frontR.setPower(.6);
-            robot.backL.setPower(.6);
-            robot.backR.setPower(-.6);
+        if (gamepad1.left_stick_x == -1) {
+            robot.frontL.setPower(-frontSpeed);
+            robot.frontR.setPower(frontSpeed);
+            robot.backL.setPower(backSpeed);
+            robot.backR.setPower(-backSpeed);
+        }
+
+        if (gamepad1.right_trigger == 1){
+            robot.frontL.setPower(-adjSpeed);
+            robot.frontR.setPower(adjSpeed);
+            robot.backL.setPower(-adjSpeed);
+            robot.backR.setPower(adjSpeed);
+        }
+
+        if (gamepad1.left_trigger == 1){
+            robot.frontL.setPower(adjSpeed);
+            robot.frontR.setPower(-adjSpeed);
+            robot.backL.setPower(adjSpeed);
+            robot.backR.setPower(-adjSpeed);
         }
 
 
         //Gamepad2
+
+
+
+        //gampad2 controls
+        if (gamepad2.dpad_up) {
+            robot.frontR.setPower(adjSpeed);
+            robot.frontL.setPower(adjSpeed);
+            robot.backR.setPower(adjSpeed);
+            robot.backL.setPower(adjSpeed);
+
+        }
+        if (gamepad2.dpad_left) {
+            robot.frontR.setPower(frontSpeed);
+            robot.frontL.setPower(-frontSpeed);
+            robot.backR.setPower(-backSpeed);
+            robot.backL.setPower(backSpeed);
+
+        }
+        if (gamepad2.dpad_right) {
+            robot.frontR.setPower(-frontSpeed);
+            robot.frontL.setPower(frontSpeed);
+            robot.backR.setPower(backSpeed);
+            robot.backL.setPower(-backSpeed);
+
+        }
+        if (gamepad2.dpad_down) {
+            robot.frontR.setPower(-adjSpeed);
+            robot.frontL.setPower(-adjSpeed);
+            robot.backR.setPower(-adjSpeed);
+            robot.backL.setPower(-adjSpeed);
+        }
         //gripper controls
         if (gamepad2.right_trigger == 1) {
             robot.rightGrip.setPosition(0.5);
@@ -170,36 +205,30 @@ public class teleop extends OpMode {
             robot.slider.setPower(0);
         }
 
-       // Arm control;
-        if (gamepad2.y == true) {
-           // robot.setArmPosition(170);
-            robot.arm.setPower(0.3);
+        //Arm control
+        if (gamepad2.y) {
 
+            robot.setArmPosition(170);
 //            try {
 //                armThread.start();
 //            } catch (Exception e) {
 //                telemetry.addLine("An Error has occurred");
 //            }
-
         }
 
-        if (gamepad2.x == true){
-           // robot.setArmPosition(0);
-            robot.arm.setPower(-0.3);
+        if (gamepad2.x){
+            robot.setArmPosition(0);
         }
 
         if (gamepad2.a) {
-            if (robot.wrist.getPosition() < 0.60 ){
-                double newPos = robot.wrist.getPosition() + 0.05;
-                robot.wrist.setPosition(newPos);
-            }
+
+                robot.wrist.setPosition(0.55);
 
         } else if (gamepad2.b) {
 
-            if (robot.wrist.getPosition() > 0.43){
-                double newPos = robot.wrist.getPosition() - 0.05;
-                robot.wrist.setPosition(newPos);
-            }
+            robot.wrist.setPosition(0.44);
+
+
         }
 
     }
