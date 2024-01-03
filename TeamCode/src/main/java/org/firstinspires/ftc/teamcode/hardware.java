@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -26,6 +27,8 @@ public class hardware {
     public DcMotorEx arm;
     public DcMotorEx slider;
     public Servo wrist;
+    public CRServo tape;
+    public DcMotorEx hang;
 
     //constants for we
     static final double     COUNTS_PER_MOTOR_REV    = 537.7;    // eg: DC Motor Encoder
@@ -67,6 +70,8 @@ public class hardware {
         slider = hwMp.get(DcMotorEx.class, "Slider");
         wrist = hwMp.get(Servo.class, "Wrist");
         cam = hwMp.get(WebcamName.class, "Webcam 1");
+        hang = hwMp.get(DcMotorEx.class,  "Hang");
+        tape = hwMp.get(CRServo.class,"Tape");
 
 
         frontR.setDirection(DcMotorSimple.Direction.REVERSE);

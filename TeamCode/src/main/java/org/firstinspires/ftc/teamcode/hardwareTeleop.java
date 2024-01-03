@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -26,6 +27,8 @@ public class hardwareTeleop {
     public DcMotorEx arm;
     public DcMotorEx slider;
     public Servo wrist;
+    public CRServo tape;
+    public DcMotorEx hang;
 
 
 
@@ -69,6 +72,8 @@ public class hardwareTeleop {
         slider = hwMp.get(DcMotorEx.class, "Slider");
         wrist = hwMp.get(Servo.class, "Wrist");
         cam = hwMp.get(WebcamName.class, "Webcam 1");
+        hang = hwMp.get(DcMotorEx.class,  "Hang");
+        tape = hwMp.get(CRServo.class,"Tape");
 
 
         frontR.setDirection(DcMotorSimple.Direction.REVERSE);

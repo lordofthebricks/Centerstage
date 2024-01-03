@@ -80,7 +80,6 @@ public class teleop extends OpMode {
         }
 
 
-
         if (gamepad1.dpad_up) {
             robot.frontR.setPower(maxSpeed);
             robot.frontL.setPower(maxSpeed);
@@ -110,12 +109,11 @@ public class teleop extends OpMode {
         }
 
 
-
-        if (gamepad1.right_bumper && gamepad1.x) {
+        if (gamepad1.right_bumper) {
             //latch open
-            robot.sling.setPosition(0.7);
+            robot.sling.setPosition(0.9);
 
-        } else if (gamepad1.left_bumper && gamepad1.x) {
+        } else if (gamepad1.left_bumper) {
             //latch closed
             robot.sling.setPosition(0);
         }
@@ -136,14 +134,14 @@ public class teleop extends OpMode {
             robot.backR.setPower(-backSpeed);
         }
 
-        if (gamepad1.right_trigger == 1){
+        if (gamepad1.right_trigger == 1) {
             robot.frontL.setPower(-adjSpeed);
             robot.frontR.setPower(adjSpeed);
             robot.backL.setPower(-adjSpeed);
             robot.backR.setPower(adjSpeed);
         }
 
-        if (gamepad1.left_trigger == 1){
+        if (gamepad1.left_trigger == 1) {
             robot.frontL.setPower(adjSpeed);
             robot.frontR.setPower(-adjSpeed);
             robot.backL.setPower(adjSpeed);
@@ -152,7 +150,6 @@ public class teleop extends OpMode {
 
 
         //Gamepad2
-
 
 
         //gampad2 controls
@@ -216,13 +213,13 @@ public class teleop extends OpMode {
 //            }
         }
 
-        if (gamepad2.x){
+        if (gamepad2.x) {
             robot.setArmPosition(0);
         }
 
         if (gamepad2.a) {
 
-                robot.wrist.setPosition(0.55);
+            robot.wrist.setPosition(0.55);
 
         } else if (gamepad2.b) {
 
@@ -231,6 +228,22 @@ public class teleop extends OpMode {
 
         }
 
+        if (gamepad2.right_stick_button) {
+
+            robot.hang.setPower(45);
+            robot.tape.setPower(45);
+        } else {
+            robot.hang.setPower(0);
+            robot.tape.setPower(0);
+        }
+
+        if (gamepad2.left_stick_button) {
+            robot.hang.setPower(-45);
+            robot.tape.setPower(-45);
+        } else {
+            robot.hang.setPower(0);
+            robot.tape.setPower(0);
+        }
     }
 
     @Override
