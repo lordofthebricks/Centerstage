@@ -27,7 +27,7 @@ public class hardwareTeleop {
     public DcMotorEx arm;
     public DcMotorEx slider;
     public Servo wrist;
-    public CRServo tape;
+    public DcMotorEx tape;
     public DcMotorEx hang;
 
 
@@ -73,14 +73,16 @@ public class hardwareTeleop {
         wrist = hwMp.get(Servo.class, "Wrist");
         cam = hwMp.get(WebcamName.class, "Webcam 1");
         hang = hwMp.get(DcMotorEx.class,  "Hang");
-        tape = hwMp.get(CRServo.class,"Tape");
+        tape = hwMp.get(DcMotorEx.class,"Tape");
 
-
+        hang.setDirection(DcMotorSimple.Direction.REVERSE);
         frontR.setDirection(DcMotorSimple.Direction.REVERSE);
         backR.setDirection(DcMotorSimple.Direction.REVERSE);
 
         arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+
 
 
     }
