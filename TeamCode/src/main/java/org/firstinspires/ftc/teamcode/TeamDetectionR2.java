@@ -35,7 +35,7 @@ public class TeamDetectionR2 extends LinearOpMode {
 
         robot.wrist.setPosition(0.43);
         //tensorFlow Detection returns 1, 2, or 3 depending on which third of the screen the team element is on
-        switch (vision.tfodLocation()){
+        switch (vision.tfodLocation(2)){
             case 1:
                 desiredTagId = 4;
                 robot.encoderDrive(0.6,12,-12,12,-12,4);
