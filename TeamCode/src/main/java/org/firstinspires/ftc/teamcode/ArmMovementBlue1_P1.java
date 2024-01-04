@@ -38,7 +38,7 @@ public class ArmMovementBlue1_P1 extends LinearOpMode {
         robot.encoderDrive(0.6, -19.4, 19.4, 19.4, -19.4, 3);
         robot.encoderDrive(0.6, -88, -88, -88, -88, 3);
 
-        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
+       List<AprilTagDetection> currentDetections = aprilTag.getDetections();
         for (AprilTagDetection detection : currentDetections) {
             // Look to see if we have size info on this tag.
             if (detection.metadata != null) {
@@ -48,7 +48,7 @@ public class ArmMovementBlue1_P1 extends LinearOpMode {
                     // Yes, we want to use this tag.
                     targetFound = true;
                     desiredTag = detection;
-                    break;  // don't look any further.
+                    break;  // don't  look any further.
                 } else {
                     // This tag is in the library, but we do not want to track it right now.
                     telemetry.addData("Skipping", "Tag ID %d is not desired", detection.id);
@@ -69,8 +69,8 @@ public class ArmMovementBlue1_P1 extends LinearOpMode {
         robot.setArmPosition(170);
         robot.arm.setPower(0.5);
         robot.wrist.setPosition(0.43);
-        robot.leftGrip.setPosition(0.5);
-        robot.rightGrip.setPosition(0.5);
+        robot.leftGrip.setPower(0.5);
+        robot.rightGrip.setPower(0.5);
         robot.setArmPosition(0);
         robot.encoderDrive(0.6, -24, 24, -24, 24, 3);
         robot.encoderDrive(0.6, -24, -24, -24, -24, 3);
