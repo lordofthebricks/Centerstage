@@ -227,23 +227,34 @@ public class teleop extends OpMode {
 
 
         }
+        //Hanging and Tape control
 
+        if (gamepad2.right_bumper) {
+
+            robot.tape.setPower(.3);
+        }
+        else if (gamepad2.left_bumper) {
+            robot.tape.setPower(-.3);
+        }
+        else {
+            robot.hang.setPower(0);
+            robot.tape.setPower(0);
+        }
+        //Hang controls
         if (gamepad2.right_stick_button) {
 
-            robot.hang.setPower(45);
-            robot.tape.setPower(45);
-        } else {
+            robot.hang.setPower(1);
+        }
+        else if (gamepad2.left_stick_button){
+
+            robot.hang.setPower(-1);
+            robot.setArmPosition(30);
+            robot.wrist.setPosition(.43);
+        }
+        else {
             robot.hang.setPower(0);
-            robot.tape.setPower(0);
         }
 
-        if (gamepad2.left_stick_button) {
-            robot.hang.setPower(-45);
-            robot.tape.setPower(-45);
-        } else {
-            robot.hang.setPower(0);
-            robot.tape.setPower(0);
-        }
     }
 
     @Override
