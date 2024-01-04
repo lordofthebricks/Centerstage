@@ -206,7 +206,7 @@ public class DoubleVision {
             }   // end for() loop
         }
         //check to see if recognition is in front of the robot
-        if (x > 213.3 && x < 426.6){
+        if (x > 100 && x < 500){
             location = 1;
         }else {
 

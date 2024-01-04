@@ -75,6 +75,7 @@ public class hardwareTeleop {
         hang = hwMp.get(DcMotorEx.class,  "Hang");
         tape = hwMp.get(DcMotorEx.class,"Tape");
 
+
         hang.setDirection(DcMotorSimple.Direction.REVERSE);
         frontR.setDirection(DcMotorSimple.Direction.REVERSE);
         backR.setDirection(DcMotorSimple.Direction.REVERSE);
