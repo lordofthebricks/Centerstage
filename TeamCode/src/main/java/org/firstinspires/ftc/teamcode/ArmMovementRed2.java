@@ -19,8 +19,8 @@ public class ArmMovementRed2 extends LinearOpMode {
         robot.setArmPosition(170);
         robot.arm.setPower(-0.5);
         robot.wrist.setPosition(0.43);
-        robot.leftGrip.setPosition(0.5);
-        robot.rightGrip.setPosition(0.5);
+        robot.leftGrip.setPower(0.5);
+        robot.rightGrip.setPower(0.5);
         robot.setArmPosition(0);
         robot.encoderDrive(0.6,24,-24,24,-24,3);
         robot.encoderDrive(0.6,-24,-24,-24,-24,3);

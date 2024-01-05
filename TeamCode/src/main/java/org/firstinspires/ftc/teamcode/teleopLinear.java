@@ -130,15 +130,15 @@ public class teleopLinear extends LinearOpMode {
             //Gamepad2
             //gripper controls
             if (gamepad2.right_trigger == 1){
-                robot.rightGrip.setPosition(0.5);
+                robot.rightGrip.setPower(0.5);
             }else {
-                robot.rightGrip.setPosition(0);
+                robot.rightGrip.setPower(0);
             }
 
             if (gamepad2.left_trigger == 1){
-                robot.leftGrip.setPosition(0.5);
+                robot.leftGrip.setPower(0.5);
             }else {
-                robot.leftGrip.setPosition(1);
+                robot.leftGrip.setPower(1);
             }
 
             //slider control
