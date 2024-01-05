@@ -183,22 +183,54 @@ public class teleop extends OpMode {
             robot.backR.setPower(-adjSpeed);
             robot.backL.setPower(-adjSpeed);
         }
-        //gripper controls
-        if (gamepad2.right_trigger == 1) {
-            robot.rightGrip.setPosition(0.5);
-        } else {
-            robot.rightGrip.setPosition(0);
+
+
+        //Tape Controls
+        if (gamepad2.right_bumper == true) {
+            robot.tape.setPower(.3);
+        }
+        else if (gamepad2.left_bumper == true) {
+            robot.tape.setPower(-.3);
+        }
+        else {
+            robot.tape.setPower(0);
         }
 
+
+        //Hang Controls
+        if (gamepad2.right_stick_button == true) {
+            robot.hang.setPower(1);
+        }
+        else if (gamepad2.left_stick_button == true) {
+            robot.hang.setPower(-1);
+            robot.tape.setPower(-.3);
+            robot.setArmPosition(45);
+            robot.wrist.setPosition(0.55);
+        }
+        else {
+            robot.hang.setPower(0);
+            robot.tape.setPower(0);
+        }
+
+
+        //gripper controls
+        //Controls are backwards; so it has been changed (which will be confusing) - Coach Shari
         if (gamepad2.left_trigger == 1) {
-            robot.leftGrip.setPosition(0.5);
+            robot.rightGrip.setPower(0.5);
         } else {
-            robot.leftGrip.setPosition(1);
+            robot.rightGrip.setPower(0);
+        }
+
+        if (gamepad2.right_trigger == 1) {
+            robot.leftGrip.setPower(0.5);
+        } else {
+            robot.leftGrip.setPower(-0.5);
         }
 
         //slider control
         if (gamepad2.left_stick_y == 1) {
             robot.slider.setPower(0.7);
+
         } else if (gamepad2.left_stick_y == -1) {
             robot.slider.setPower(-0.7);
         } else {
