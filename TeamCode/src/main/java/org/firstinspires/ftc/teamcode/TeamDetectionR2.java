@@ -28,6 +28,7 @@ public class TeamDetectionR2 extends LinearOpMode {
 
         aprilTag = vision.getAprilTag();
 
+        int location = 0;
         int desiredTagId = 0;
         double moveAmount = 0;
 
@@ -36,26 +37,33 @@ public class TeamDetectionR2 extends LinearOpMode {
         robot.wrist.setPosition(0.43);
         //tensorFlow Detection returns 1, 2, or 3 depending on which third of the screen the team element is on
         // the pos value that tfodLocation takes indicates which direction for the robot to strafe to check for team element, 1 to strafe left, 2 to strafe right
-        switch (vision.tfodLocation(2)){
+        location = vision.tfodLocation(2);
+
+        robot.encoderDrive(0.8, 4,4,4,4, 1);
+        robot.encoderDrive(0.6, 38.8, -38.8, -38.8, 38.8, 3);
+
+
+        double firstApproachDistance = 20;
+        switch (location){
             case 1:
                 desiredTagId = 4;
-                robot.encoderDrive(0.6, 24, 24, 24, 24, 3);
-                robot.encoderDrive(0.6, -19.4, 19.4, 19.4, -19.4, 3);
+                robot.encoderDrive(0.6, firstApproachDistance, firstApproachDistance, firstApproachDistance, firstApproachDistance, 3);
+                robot.encoderDrive(0.6, 19.4, -19.4, -19.4, 19.4, 3);
                 //the next three lines tell the robot to open the claw and then turn 180 degrees
-                robot.leftGrip.setPosition(0.5);
+                robot.leftGrip.setPower(-0.5);
                 robot.encoderDrive(0.6, 38.8, -38.8, -38.8, 38.8, 3);
                 break;
             case 2:
                 desiredTagId = 5;
-                robot.encoderDrive(0.6, 24, 24, 24, 24, 3);
-                robot.leftGrip.setPosition(0.5);
+                robot.encoderDrive(0.6, firstApproachDistance, firstApproachDistance, firstApproachDistance, firstApproachDistance, 3);
+                robot.leftGrip.setPower(-0.5);
                 robot.encoderDrive(0.6, 19.4, -19.4, -19.4, 19.4, 3);
                 break;
             case 3:
                 desiredTagId = 6;
-                robot.encoderDrive(0.6, 24, 24, 24, 24, 3);
+                robot.encoderDrive(0.6, firstApproachDistance, firstApproachDistance, firstApproachDistance, firstApproachDistance, 3);
                 robot.encoderDrive(0.6, 19.4, -19.4, -19.4, 19.4, 3);
-                robot.leftGrip.setPosition(0.5);
+                robot.leftGrip.setPower(-0.5);
                 break;
         }
         robot.encoderDriveDistance(0.8,15,5);

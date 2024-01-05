@@ -73,8 +73,8 @@ public class hardware {
         slider = hwMp.get(DcMotorEx.class, "Slider");
         wrist = hwMp.get(Servo.class, "Wrist");
         cam = hwMp.get(WebcamName.class, "Webcam 1");
-        hang = hwMp.get(DcMotorEx.class,  "Hang");
-        tape = hwMp.get(CRServo.class,"Tape");
+//        hang = hwMp.get(DcMotorEx.class,  "Hang");
+//        tape = hwMp.get(CRServo.class,"Tape");
         distance = hwMp.get(DistanceSensor.class, "Distance");
 
 

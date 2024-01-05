@@ -192,7 +192,7 @@ public class DoubleVision {
         //make sure that only tensorflow is enabled
         visionPortal.setProcessorEnabled(aprilTag,false);
         visionPortal.setProcessorEnabled(tfod, true);
-        visionPortal.setProcessorEnabled(pixtfod, false);
+//        visionPortal.setProcessorEnabled(pixtfod, false);
 
         //get a list of recognitions from tensor flow
         List<Recognition> currentRecognitions = tfod.getRecognitions();
