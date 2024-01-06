@@ -43,7 +43,7 @@ public class TeamDetectionR2 extends LinearOpMode {
 //        robot.encoderDrive(0.6, 38.8, -38.8, -38.8, 38.8, 3);
 
 
-        double firstApproachDistance = 24;
+        double firstApproachDistance = -24;
         switch (location){
             case 1:
                 desiredTagId = 4;
@@ -55,9 +55,17 @@ public class TeamDetectionR2 extends LinearOpMode {
                 break;
             case 2:
                 desiredTagId = 5;
-                robot.encoderDrive(0.6, firstApproachDistance, firstApproachDistance, firstApproachDistance, firstApproachDistance, 3);
-                robot.leftGrip.setPower(-0.5);
-                robot.encoderDrive(0.6, -19.4, 19.4, 19.4, -19.4, 3);
+                robot.encoderDrive(0.6, firstApproachDistance+8, firstApproachDistance+8, firstApproachDistance+8, firstApproachDistance+8, 3);
+                robot.encoderDrive(0.6, 38.8, -38.8, -38.8, 38.8, 3);
+                robot.wrist.setPosition(0.55);
+
+                //supposed to be leftGrip, changed because we only have rightGrip on robot
+                robot.rightGrip.setPower(-0.5);
+                sleep(1000);
+                robot.rightGrip.setPower(0);
+                robot.wrist.setPosition(0.44);
+                //rotate 90 degrees
+                robot.encoderDrive(0.6, 19.4, -19.4, -19.4, 19.4, 3);
                 break;
             case 3:
                 desiredTagId = 6;
@@ -66,45 +74,48 @@ public class TeamDetectionR2 extends LinearOpMode {
                 robot.leftGrip.setPower(-0.5);
                 break;
         }
-        robot.encoderDriveDistance(0.8,15,5);
+        //robot.encoderDriveDistance(0.8,15,5);
 
 
-        vision.switchProcessor(true);
-        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
-
-        if (!currentDetections.isEmpty()) {
-
-
-            for (AprilTagDetection detection : currentDetections) {
-                // Look to see if we have size info on this tag.
-                if (detection.metadata != null) {
-                    //  Check to see if we want to track towards this tag.
-
-                    if ((desiredTagId < 0) || (detection.id == desiredTagId)) {
-                        // Yes, we want to use this tag.
-                        targetFound = true;
-                        desiredTag = detection;
-                        break;  // don't look any further.
-                    } else {
-                        // This tag is in the library, but we do not want to track it right now.
-                        telemetry.addData("Skipping", "Tag ID %d is not desired", detection.id);
-                    }
-                } else {
-                    // This tag is NOT in the library, so we don't have enough information to track to it.
-                    telemetry.addData("Unknown", "Tag ID %d is not in TagLibrary", detection.id);
-                }
-            }
-
-            moveAmount = Math.abs(desiredTag.ftcPose.x);
-            if(desiredTag.ftcPose.x < 0 ){
-
-                robot.encoderDrive(0.5,moveAmount,-moveAmount,moveAmount,-moveAmount,4);
-            }else {
-                robot.encoderDrive(0.5,-moveAmount,moveAmount,-moveAmount,moveAmount,4);
-            }
-            robot.encoderDriveDistance(0.8,11,5);
-
-        }
+//        vision.switchProcessor(true);
+//        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
+//
+//        if (!currentDetections.isEmpty()) {
+//
+//
+//            for (AprilTagDetection detection : currentDetections) {
+//                // Look to see if we have size info on this tag.
+//                if (detection.metadata != null) {
+//                    //  Check to see if we want to track towards this tag.
+//
+//                    if ((desiredTagId < 0) || (detection.id == desiredTagId)) {
+//                        // Yes, we want to use this tag.
+//                        targetFound = true;
+//                        desiredTag = detection;
+//                        break;  // don't look any further.
+//                    } else {
+//                        // This tag is in the library, but we do not want to track it right now.
+//                        telemetry.addData("Skipping", "Tag ID %d is not desired", detection.id);
+//                    }
+//                } else {
+//                    // This tag is NOT in the library, so we don't have enough information to track to it.
+//                    telemetry.addData("Unknown", "Tag ID %d is not in TagLibrary", detection.id);
+//                }
+//            }
+//
+//            moveAmount = Math.abs(desiredTag.ftcPose.x);
+//            if(desiredTag.ftcPose.x < 0 ){
+//
+//                robot.encoderDrive(0.5,moveAmount,-moveAmount,moveAmount,-moveAmount,4);
+//            }else {
+//                robot.encoderDrive(0.5,-moveAmount,moveAmount,-moveAmount,moveAmount,4);
+//            }
+//            robot.encoderDriveDistance(0.8,11,5);
+//
+//            robot.setArmPosition(170);
+//
+//
+//        }
 
 
 
