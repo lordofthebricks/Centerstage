@@ -173,6 +173,7 @@ public class hardware {
         int newRightTopTarget;
         int newLeftTopTarget;
 
+        inchesDistance = -inchesDistance;
         double targetInches = distance.getDistance(DistanceUnit.INCH) - inchesDistance;
         // Ensure that the opmode is still active
         if (myopmode.opModeIsActive()) {

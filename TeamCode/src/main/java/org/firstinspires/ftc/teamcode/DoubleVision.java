@@ -196,7 +196,8 @@ public class DoubleVision {
 
         //get a list of recognitions from tensor flow
         List<Recognition> currentRecognitions = tfod.getRecognitions();
-
+        myOpMode.telemetry.addLine("Beginning tensorflow scan");
+        myOpMode.telemetry.update();
         if (currentRecognitions != null) {
             // Step through the list of recognitions and x location for each one.
             for (Recognition recognition : currentRecognitions) {
@@ -207,26 +208,33 @@ public class DoubleVision {
         }
         //check to see if recognition is in front of the robot
         if (x > 100 && x < 500){
-            location = 1;
+            location = 2;
+
         }else {
 
             //move robot to scan other location
             if (pos == 2) {
-                robot.encoderDrive(0.7, -12, 12, -12, 12, 2);
+                robot.encoderDrive(0.7, 12, -12, 12, -12, 2);
+                if (tfod.getRecognitions() != null) {
+                    location = 3;
+                } else {
+                    location = 1;
+                }
             }else {
-                robot.encoderDrive(0.7,12,-12,12,-12,1);
+                robot.encoderDrive(0.7,-12,12,-12,12,1);
+                if (tfod.getRecognitions() != null) {
+                    location = 1;
+                } else {
+                    location = 3;
+                }
             }
 
-            if (tfod.getRecognitions() != null) {
-                location = 2;
-            } else {
-                location = 3;
-            }
+
             //move robot back to starting pos
             if (pos == 2) {
-                robot.encoderDrive(0.7,12,-12,12,-12,1);
+                robot.encoderDrive(0.7,-12,12,-12,12,1);
             }else {
-                robot.encoderDrive(0.7, -12, 12, -12, 12, 2);
+                robot.encoderDrive(0.7, 12, -12, 12, -12, 2);
             }
 
         }

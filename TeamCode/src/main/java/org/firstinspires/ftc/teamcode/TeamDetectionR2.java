@@ -39,16 +39,16 @@ public class TeamDetectionR2 extends LinearOpMode {
         // the pos value that tfodLocation takes indicates which direction for the robot to strafe to check for team element, 1 to strafe left, 2 to strafe right
         location = vision.tfodLocation(2);
 
-        robot.encoderDrive(0.8, 4,4,4,4, 1);
-        robot.encoderDrive(0.6, 38.8, -38.8, -38.8, 38.8, 3);
+//        robot.encoderDrive(0.8, 4,4,4,4, 1);
+//        robot.encoderDrive(0.6, 38.8, -38.8, -38.8, 38.8, 3);
 
 
-        double firstApproachDistance = 20;
+        double firstApproachDistance = 24;
         switch (location){
             case 1:
                 desiredTagId = 4;
                 robot.encoderDrive(0.6, firstApproachDistance, firstApproachDistance, firstApproachDistance, firstApproachDistance, 3);
-                robot.encoderDrive(0.6, 19.4, -19.4, -19.4, 19.4, 3);
+                robot.encoderDrive(0.6, -19.4, 19.4, 19.4, -19.4, 3);
                 //the next three lines tell the robot to open the claw and then turn 180 degrees
                 robot.leftGrip.setPower(-0.5);
                 robot.encoderDrive(0.6, 38.8, -38.8, -38.8, 38.8, 3);
@@ -57,7 +57,7 @@ public class TeamDetectionR2 extends LinearOpMode {
                 desiredTagId = 5;
                 robot.encoderDrive(0.6, firstApproachDistance, firstApproachDistance, firstApproachDistance, firstApproachDistance, 3);
                 robot.leftGrip.setPower(-0.5);
-                robot.encoderDrive(0.6, 19.4, -19.4, -19.4, 19.4, 3);
+                robot.encoderDrive(0.6, -19.4, 19.4, 19.4, -19.4, 3);
                 break;
             case 3:
                 desiredTagId = 6;
@@ -68,9 +68,11 @@ public class TeamDetectionR2 extends LinearOpMode {
         }
         robot.encoderDriveDistance(0.8,15,5);
 
+
+        vision.switchProcessor(true);
         List<AprilTagDetection> currentDetections = aprilTag.getDetections();
 
-        if (currentDetections != null) {
+        if (!currentDetections.isEmpty()) {
 
 
             for (AprilTagDetection detection : currentDetections) {
