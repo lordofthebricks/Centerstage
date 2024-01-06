@@ -185,10 +185,10 @@ public class teleop extends OpMode {
 
         //Tape Controls
         if (gamepad1.right_bumper == true) {
-            robot.tape.setPower(0.3);
+            robot.tape.setPower(0.5);
         }
         else if (gamepad1.left_bumper == true) {
-            robot.tape.setPower(-0.3);
+            robot.tape.setPower(-0.5);
         }
         else {
             robot.tape.setPower(0);
@@ -259,7 +259,7 @@ public class teleop extends OpMode {
 
         } else if (gamepad2.b) {
 
-            robot.wrist.setPosition(0.44);
+            robot.wrist.setPosition(0.34);
 
 
         }
