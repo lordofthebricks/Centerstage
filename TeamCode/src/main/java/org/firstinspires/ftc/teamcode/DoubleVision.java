@@ -193,8 +193,14 @@ public class DoubleVision {
         visionPortal.setProcessorEnabled(aprilTag,false);
         visionPortal.setProcessorEnabled(tfod, true);
 //        visionPortal.setProcessorEnabled(pixtfod, false);
-
+        robot.encoderDrive(0.5,-1, -1, -1 , -1 , 1);
+        robot.encoderDrive(0.5, 1, 1, 1, 1, 2);
         //get a list of recognitions from tensor flow
+        try {
+            sleep(500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         List<Recognition> currentRecognitions = tfod.getRecognitions();
         myOpMode.telemetry.addLine("Beginning tensorflow scan");
         myOpMode.telemetry.update();
@@ -229,13 +235,19 @@ public class DoubleVision {
                 }
             }
 
+            try {
+                sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
 
             //move robot back to starting pos
-            if (pos == 2) {
-                robot.encoderDrive(0.7,-12,12,-12,12,1);
-            }else {
-                robot.encoderDrive(0.7, 12, -12, 12, -12, 2);
-            }
+//            if (pos == 2) {
+//                robot.encoderDrive(0.7,-12,12,-12,12,1);
+//            }else {
+//                robot.encoderDrive(0.7, 12, -12, 12, -12, 2);
+//            }
 
         }
 

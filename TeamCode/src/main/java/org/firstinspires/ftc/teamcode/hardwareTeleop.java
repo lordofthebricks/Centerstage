@@ -83,6 +83,7 @@ public class hardwareTeleop {
         arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
+        rightGrip.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
 
