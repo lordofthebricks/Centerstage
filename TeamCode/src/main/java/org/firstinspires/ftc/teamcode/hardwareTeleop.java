@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -21,11 +22,13 @@ public class hardwareTeleop {
     public DcMotorEx backL;
     public DcMotorEx backR;
     public Servo sling;
-    public Servo leftGrip;
-    public Servo rightGrip;
+    public CRServo leftGrip;
+    public CRServo rightGrip;
     public DcMotorEx arm;
     public DcMotorEx slider;
     public Servo wrist;
+    public DcMotorEx tape;
+    public DcMotorEx hang;
 
 
 
@@ -63,19 +66,25 @@ public class hardwareTeleop {
         backL = hwMp.get(DcMotorEx.class, "BackLeft");
         backR = hwMp.get(DcMotorEx.class, "BackRight");
         sling = hwMp.get(Servo.class, "Sling");
-        leftGrip = hwMp.get(Servo.class, "LeftGrip");
-        rightGrip = hwMp.get(Servo.class, "RightGrip");
+        leftGrip = hwMp.get(CRServo.class, "LeftGrip");
+        rightGrip = hwMp.get(CRServo.class, "RightGrip");
         arm = hwMp.get(DcMotorEx.class, "Arm");
         slider = hwMp.get(DcMotorEx.class, "Slider");
         wrist = hwMp.get(Servo.class, "Wrist");
         cam = hwMp.get(WebcamName.class, "Webcam 1");
+        hang = hwMp.get(DcMotorEx.class,  "Hang");
+        tape = hwMp.get(DcMotorEx.class,"Tape");
 
 
+        hang.setDirection(DcMotorSimple.Direction.REVERSE);
         frontR.setDirection(DcMotorSimple.Direction.REVERSE);
         backR.setDirection(DcMotorSimple.Direction.REVERSE);
 
         arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        rightGrip.setDirection(DcMotorSimple.Direction.REVERSE);
+
 
 
     }

@@ -185,38 +185,70 @@ public class DoubleVision {
 
     }   // end method telemetryTfod()
 
-    public int tfodLocation(){
+    public int tfodLocation(int pos){
         Integer location = 0;
         double x = 0;
 
-        switchProcessor(false);
-
+        //make sure that only tensorflow is enabled
+        visionPortal.setProcessorEnabled(aprilTag,false);
+        visionPortal.setProcessorEnabled(tfod, true);
+//        visionPortal.setProcessorEnabled(pixtfod, false);
+        robot.encoderDrive(0.5,-1, -1, -1 , -1 , 1);
+        robot.encoderDrive(0.5, 1, 1, 1, 1, 2);
+        //get a list of recognitions from tensor flow
+        try {
+            sleep(500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         List<Recognition> currentRecognitions = tfod.getRecognitions();
+        myOpMode.telemetry.addLine("Beginning tensorflow scan");
+        myOpMode.telemetry.update();
+        if (currentRecognitions != null) {
+            // Step through the list of recognitions and x location for each one.
+            for (Recognition recognition : currentRecognitions) {
+                x = (recognition.getLeft() + recognition.getRight()) / 2;
 
-        // Step through the list of recognitions and display info for each one.
-        for (Recognition recognition : currentRecognitions) {
-            x = (recognition.getLeft() + recognition.getRight()) / 2 ;
 
-        }   // end for() loop
+            }   // end for() loop
+        }
+        //check to see if recognition is in front of the robot
+        if (x > 100 && x < 500){
+            location = 2;
 
-        if (x > 213.3 && x < 426.6){
-            location = 1;
         }else {
 
-            robot.encoderDrive(0.7,-12,12,-12,12,2);
-
-            for (Recognition recognition : currentRecognitions) {
-                x = (recognition.getLeft() + recognition.getRight()) / 2 ;
-
+            //move robot to scan other location
+            if (pos == 2) {
+                robot.encoderDrive(0.7, 12, -12, 12, -12, 2);
+                if (tfod.getRecognitions() != null) {
+                    location = 3;
+                } else {
+                    location = 1;
+                }
+            }else {
+                robot.encoderDrive(0.7,-12,12,-12,12,1);
+                if (tfod.getRecognitions() != null) {
+                    location = 1;
+                } else {
+                    location = 3;
+                }
             }
 
-            if (x > 0 ) {
-                location = 2;
-
-            } else{
-
-                location = 3;
+            try {
+                sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
+
+
+            //move robot back to starting pos
+//            if (pos == 2) {
+//                robot.encoderDrive(0.7,-12,12,-12,12,1);
+//            }else {
+//                robot.encoderDrive(0.7, 12, -12, 12, -12, 2);
+//            }
+
         }
 
 
@@ -230,7 +262,7 @@ public class DoubleVision {
         Integer location = 0;
         double x = 0;
         double y = 0;
-        switchProcessor(false);
+
 
         List<Recognition> currentRecognitions = tfod.getRecognitions();
 

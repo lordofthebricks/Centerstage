@@ -15,13 +15,13 @@ public class ArmMovementRed2_p3 extends LinearOpMode {
 //the first four lines move the robot 24 inches forward, then the robot moves to the right, open the left grip, and then move 37 inches forward
         robot.encoderDrive(0.6, 24, 24, 24, 24, 3);
         robot.encoderDrive(0.6, 19.4, -19.4, -19.4, 19.4, 3);
-        robot.leftGrip.setPosition(0.5);
+        robot.leftGrip.setPower(0.5);
         robot.encoderDrive(0.6, 37, 37, 37, 37, 3);
         //the next five lines set the arm to the fullest position, do the wrist, open the right grip, and then put the arm back to the original position
         robot.setArmPosition(170);
         robot.arm.setPower(0.5);
         robot.wrist.setPosition(0.43);
-        robot.rightGrip.setPosition(0.5);
+        robot.rightGrip.setPower(0.5);
         robot.setArmPosition(0);
         //the last lines strafe left and then reverse 24 inches
         robot.encoderDrive(0.6, 24, -24, 24, -24, 3);

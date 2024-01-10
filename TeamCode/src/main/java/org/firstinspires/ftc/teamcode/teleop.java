@@ -80,7 +80,6 @@ public class teleop extends OpMode {
         }
 
 
-
         if (gamepad1.dpad_up) {
             robot.frontR.setPower(maxSpeed);
             robot.frontL.setPower(maxSpeed);
@@ -111,11 +110,11 @@ public class teleop extends OpMode {
 
 
 
-        if (gamepad1.right_bumper && gamepad1.x) {
+        if (gamepad1.x) {
             //latch open
             robot.sling.setPosition(0.7);
 
-        } else if (gamepad1.left_bumper && gamepad1.x) {
+        } else if (gamepad1.b) {
             //latch closed
             robot.sling.setPosition(0);
         }
@@ -154,46 +153,80 @@ public class teleop extends OpMode {
         //Gamepad2
 
 
-
         //gampad2 controls
-        if (gamepad2.dpad_up) {
-            robot.frontR.setPower(adjSpeed);
-            robot.frontL.setPower(adjSpeed);
-            robot.backR.setPower(adjSpeed);
-            robot.backL.setPower(adjSpeed);
+//        if (gamepad2.dpad_up) {
+//            robot.frontR.setPower(adjSpeed);
+//            robot.frontL.setPower(adjSpeed);
+//            robot.backR.setPower(adjSpeed);
+//            robot.backL.setPower(adjSpeed);
+//
+//        }
+//        if (gamepad2.dpad_left) {
+//            robot.frontR.setPower(frontSpeed);
+//            robot.frontL.setPower(-frontSpeed);
+//            robot.backR.setPower(-backSpeed);
+//            robot.backL.setPower(backSpeed);
+//
+//        }
+//        if (gamepad2.dpad_right) {
+//            robot.frontR.setPower(-frontSpeed);
+//            robot.frontL.setPower(frontSpeed);
+//            robot.backR.setPower(backSpeed);
+//            robot.backL.setPower(-backSpeed);
+//
+//        }
+//        if (gamepad2.dpad_down) {
+//            robot.frontR.setPower(-adjSpeed);
+//            robot.frontL.setPower(-adjSpeed);
+//            robot.backR.setPower(-adjSpeed);
+//            robot.backL.setPower(-adjSpeed);
+//        }
 
-        }
-        if (gamepad2.dpad_left) {
-            robot.frontR.setPower(frontSpeed);
-            robot.frontL.setPower(-frontSpeed);
-            robot.backR.setPower(-backSpeed);
-            robot.backL.setPower(backSpeed);
 
+        //Tape Controls
+        if (gamepad1.right_bumper == true) {
+            robot.tape.setPower(0.5);
         }
-        if (gamepad2.dpad_right) {
-            robot.frontR.setPower(-frontSpeed);
-            robot.frontL.setPower(frontSpeed);
-            robot.backR.setPower(backSpeed);
-            robot.backL.setPower(-backSpeed);
+        else if (gamepad1.left_bumper == true) {
+            robot.tape.setPower(-0.5);
+        }
+        else {
+            robot.tape.setPower(0);
+        }
 
+
+        //Hang Controls
+        if (gamepad1.right_stick_button == true) {
+            robot.hang.setPower(1);
         }
-        if (gamepad2.dpad_down) {
-            robot.frontR.setPower(-adjSpeed);
-            robot.frontL.setPower(-adjSpeed);
-            robot.backR.setPower(-adjSpeed);
-            robot.backL.setPower(-adjSpeed);
+        else if (gamepad1.left_stick_button == true) {
+            robot.hang.setPower(-1);
+            robot.tape.setPower(-.3);
+            robot.setArmPosition(45);
+            robot.wrist.setPosition(0.55);
         }
+        else {
+            robot.hang.setPower(0);
+            robot.tape.setPower(0);
+        }
+
+
         //gripper controls
-        if (gamepad2.right_trigger == 1) {
-            robot.rightGrip.setPosition(0.5);
+        //Controls are backwards; so it has been changed (which will be confusing) - Coach Shari
+        if (gamepad2.left_trigger == 1) {
+            robot.rightGrip.setPower(1);
+        } else if (gamepad2.left_bumper){
+            robot.rightGrip.setPower(-1);
         } else {
-            robot.rightGrip.setPosition(0);
+            robot.rightGrip.setPower(0);
         }
 
-        if (gamepad2.left_trigger == 1) {
-            robot.leftGrip.setPosition(0.5);
+        if (gamepad2.right_trigger == 1) {
+            robot.leftGrip.setPower(1);
+        } else if (gamepad2.right_bumper){
+            robot.leftGrip.setPower(-1);
         } else {
-            robot.leftGrip.setPosition(1);
+           robot.leftGrip.setPower(0);
         }
 
         //slider control
@@ -226,7 +259,7 @@ public class teleop extends OpMode {
 
         } else if (gamepad2.b) {
 
-            robot.wrist.setPosition(0.44);
+            robot.wrist.setPosition(0.42);
 
 
         }

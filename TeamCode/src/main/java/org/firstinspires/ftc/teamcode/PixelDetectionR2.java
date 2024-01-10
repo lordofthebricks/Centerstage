@@ -41,9 +41,9 @@ public class PixelDetectionR2 extends LinearOpMode {
                 desiredTagId = 4;
                 robot.encoderDrive(0.6,12,-12,12,-12,4);
                 robot.setArmPosition(180);
-                robot.leftGrip.setPosition(0.5);
+                robot.leftGrip.setPower(0.5);
                 sleep(500);
-                robot.leftGrip.setPosition(1);
+                robot.leftGrip.setPower(1);
                 robot.setArmPosition(1);
                 robot.encoderDrive(0.6,-12,12,-12,12,4);
                 break;
@@ -51,9 +51,9 @@ public class PixelDetectionR2 extends LinearOpMode {
                 desiredTagId = 5;
                 robot.encoderDrive(0.6,10,10,10,10,4);
                 robot.setArmPosition(180);
-                robot.leftGrip.setPosition(0.5);
+                robot.leftGrip.setPower(0.5);
                 sleep(500);
-                robot.leftGrip.setPosition(1);
+                robot.leftGrip.setPower(1);
                 robot.setArmPosition(1);
                 robot.encoderDrive(0.6,-10,-10,-10,-10, 4);
                 break;
@@ -61,9 +61,9 @@ public class PixelDetectionR2 extends LinearOpMode {
                 desiredTagId = 6;
                 robot.encoderDrive(0.6,-12,12,-12,12,4);
                 robot.setArmPosition(180);
-                robot.leftGrip.setPosition(0.5);
+                robot.leftGrip.setPower(0.5);
                 sleep(500);
-                robot.leftGrip.setPosition(1);
+                robot.leftGrip.setPower(1);
                 robot.setArmPosition(1);
                 robot.encoderDrive(0.6,12,-12,12,-12,4);
                 break;

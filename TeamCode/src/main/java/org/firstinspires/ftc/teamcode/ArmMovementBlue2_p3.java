@@ -15,11 +15,11 @@ public class ArmMovementBlue2_p3 extends LinearOpMode {
 
         robot.encoderDrive(0.6, 24, 24, 24, 24, 3);
         robot.encoderDrive(0.6, -19.4, 19.4, 19.4, -19.4, 3);
-        robot.leftGrip.setPosition(0.5);
+        robot.leftGrip.setPower(0.5);
         robot.encoderDrive(0.6, 37, 37, 37, 37, 3);
         robot.setArmPosition(170);
         robot.wrist.setPosition(0.7);
-        robot.rightGrip.setPosition(0.5);
+        robot.rightGrip.setPower(0.5);
         robot.encoderDrive(0.6, 24, -24, 24, -24, 3);
         robot.encoderDrive(0.6, 24, 24, 24, 24, 3);
     }
