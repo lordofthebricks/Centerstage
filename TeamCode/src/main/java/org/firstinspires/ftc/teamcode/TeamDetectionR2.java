@@ -95,18 +95,20 @@ public class TeamDetectionR2 extends LinearOpMode {
         actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
         telemetry.addData("Distance to board", actualDistance);
         telemetry.update();
+// commented out distance sensor code as distance sensor added encoder driv eas temp fix
 
-        while (actualDistance > desiredDistance){
-
-            boardApproachMovement = actualDistance - desiredDistance;
-
-            boardApproachMovement = -boardApproachMovement;
-
-            robot.encoderDrive(0.7, boardApproachMovement, boardApproachMovement, boardApproachMovement, boardApproachMovement, 4);
-
-            actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
-        }
-        desiredDistance = 5.8;
+//        while (actualDistance > desiredDistance){
+//
+//            boardApproachMovement = actualDistance - desiredDistance;
+//
+//            boardApproachMovement = -boardApproachMovement;
+//
+//            robot.encoderDrive(0.7, boardApproachMovement, boardApproachMovement, boardApproachMovement, boardApproachMovement, 4);
+//
+//            actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
+//        }
+//        desiredDistance = 5.8;
+        robot.encoderDrive(0.7,-30, -30, -30, -30, 4);
 
         vision.switchProcessor(true);
         List<AprilTagDetection> currentDetections = aprilTag.getDetections();
@@ -143,21 +145,22 @@ public class TeamDetectionR2 extends LinearOpMode {
 
         }
 
-
-        actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
-
-        while (actualDistance > desiredDistance){
-
-            boardApproachMovement = actualDistance - desiredDistance;
-
-            boardApproachMovement = -boardApproachMovement;
-
-            robot.encoderDrive(0.7, boardApproachMovement, boardApproachMovement, boardApproachMovement, boardApproachMovement, 4);
-
-            actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
-        }
-
+// more distance sensor code that doesn't work atm
+//        actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
+//
+//        while (actualDistance > desiredDistance){
+//
+//            boardApproachMovement = actualDistance - desiredDistance;
+//
+//            boardApproachMovement = -boardApproachMovement;
+//
+//            robot.encoderDrive(0.7, boardApproachMovement, boardApproachMovement, boardApproachMovement, boardApproachMovement, 4);
+//
+//            actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
+//        }
         robot.setArmPosition(170);
+        robot.encoderDrive(0.8,-7,-7,-7,-7,3);
+
         robot.rightGrip.setPower(0.5);
         sleep(1000);
         robot.rightGrip.setPower(-0.5);
