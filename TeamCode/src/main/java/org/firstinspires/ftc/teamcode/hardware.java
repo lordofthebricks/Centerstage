@@ -88,7 +88,7 @@ public class hardware {
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         distance2M = (Rev2mDistanceSensor) distance;
-
+        rightGrip.setDirection(DcMotorSimple.Direction.REVERSE);
 
     }
 
