@@ -67,7 +67,8 @@ public class DoubleVision {
             "Pixel",
     };
     private static final String[] LABELS = {
-            "Pixel",
+            "RedEl",
+            "BlueEl"
     };
     LinearOpMode myOpMode;
     public DoubleVision(LinearOpMode myOpMode) {
@@ -124,7 +125,7 @@ public class DoubleVision {
         // -----------------------------------------------------------------------------------------
 
         tfod = new TfodProcessor.Builder()
-//                .setModelAssetName(TFOD_MODEL_ASSET)
+                .setModelAssetName(TFOD_MODEL_ASSET)
                 .setModelLabels(LABELS)
                 .build();
 
