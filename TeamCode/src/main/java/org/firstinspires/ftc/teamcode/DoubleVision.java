@@ -71,6 +71,8 @@ public class DoubleVision {
             "BlueEl"
     };
     LinearOpMode myOpMode;
+    private Recognition recognition1;
+
     public DoubleVision(LinearOpMode myOpMode) {
         this.myOpMode = myOpMode;
     }
@@ -195,7 +197,6 @@ public class DoubleVision {
         visionPortal.setProcessorEnabled(tfod, true);
 //        visionPortal.setProcessorEnabled(pixtfod, false);
         robot.encoderDrive(0.5,-1, -1, -1 , -1 , 1);
-        robot.encoderDrive(0.5, 1, 1, 1, 1, 2);
         //get a list of recognitions from tensor flow
         try {
             sleep(500);
@@ -210,11 +211,11 @@ public class DoubleVision {
             for (Recognition recognition : currentRecognitions) {
                 x = (recognition.getLeft() + recognition.getRight()) / 2;
 
-
+                recognition1 = recognition;
             }   // end for() loop
         }
         //check to see if recognition is in front of the robot
-        if (x > 100 && x < 500){
+        if (recognition1 != null){
             location = 2;
 
         }else {

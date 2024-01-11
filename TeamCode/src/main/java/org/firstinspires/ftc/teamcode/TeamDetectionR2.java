@@ -95,7 +95,7 @@ public class TeamDetectionR2 extends LinearOpMode {
         actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
         telemetry.addData("Distance to board", actualDistance);
         telemetry.update();
-// commented out distance sensor code as distance sensor added encoder driv eas temp fix
+// commented out distance sensor code as distance sensor added encoder drive as temp fix
 
 //        while (actualDistance > desiredDistance){
 //
@@ -108,42 +108,76 @@ public class TeamDetectionR2 extends LinearOpMode {
 //            actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
 //        }
 //        desiredDistance = 5.8;
-        robot.encoderDrive(0.7,-30, -30, -30, -30, 4);
 
-        vision.switchProcessor(true);
-        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
+        switch (location){
+            case 3:
+                vision.switchProcessor(true);
+                List<AprilTagDetection> currentDetections = aprilTag.getDetections();
+                if (!currentDetections.isEmpty()) {
+                    for (AprilTagDetection detection : currentDetections) {
+                        // Look to see if we have size info on this tag.
+                        if (detection.metadata != null) {
+                            //  Check to see if we want to track towards this tag.
 
-        if (!currentDetections.isEmpty()) {
-
-
-            for (AprilTagDetection detection : currentDetections) {
-                // Look to see if we have size info on this tag.
-                if (detection.metadata != null) {
-                    //  Check to see if we want to track towards this tag.
-
-                    if ((desiredTagId < 0) || (detection.id == desiredTagId)) {
-                        // Yes, we want to use this tag.
-                        targetFound = true;
-                        desiredTag = detection;
-                        break;  // don't look any further.
-                    } else {
-                        // This tag is in the library, but we do not want to track it right now.
-                        telemetry.addData("Skipping", "Tag ID %d is not desired", detection.id);
+                            if ((desiredTagId < 0) || (detection.id == desiredTagId)) {
+                                // Yes, we want to use this tag.
+                                targetFound = true;
+                                desiredTag = detection;
+                                break;  // don't look any further.
+                            } else {
+                                // This tag is in the library, but we do not want to track it right now.
+                                telemetry.addData("Skipping", "Tag ID %d is not desired", detection.id);
+                            }
+                        } else {
+                            // This tag is NOT in the library, so we don't have enough information to track to it.
+                            telemetry.addData("Unknown", "Tag ID %d is not in TagLibrary", detection.id);
+                        }
                     }
-                } else {
-                    // This tag is NOT in the library, so we don't have enough information to track to it.
-                    telemetry.addData("Unknown", "Tag ID %d is not in TagLibrary", detection.id);
+                    moveAmount = Math.abs(desiredTag.ftcPose.x);
+                    if(desiredTag.ftcPose.x < 0 ){
+                        robot.encoderDrive(0.5,moveAmount,-moveAmount,moveAmount,-moveAmount,4);
+                    }else {
+                        robot.encoderDrive(0.5,-moveAmount,moveAmount,-moveAmount,moveAmount,4);
+                    }
                 }
-            }
-
-            moveAmount = Math.abs(desiredTag.ftcPose.x);
-            if(desiredTag.ftcPose.x < 0 ){
-                robot.encoderDrive(0.5,moveAmount,-moveAmount,moveAmount,-moveAmount,4);
-            }else {
-                robot.encoderDrive(0.5,-moveAmount,moveAmount,-moveAmount,moveAmount,4);
-            }
-
+                break;
         }
+//        robot.encoderDrive(0.7,-30, -30, -30, -30, 4);
+
+//        vision.switchProcessor(true);
+//        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
+//
+//        if (!currentDetections.isEmpty()) {
+//
+//
+//            for (AprilTagDetection detection : currentDetections) {
+//                // Look to see if we have size info on this tag.
+//                if (detection.metadata != null) {
+//                    //  Check to see if we want to track towards this tag.
+//
+//                    if ((desiredTagId < 0) || (detection.id == desiredTagId)) {
+//                        // Yes, we want to use this tag.
+//                        targetFound = true;
+//                        desiredTag = detection;
+//                        break;  // don't look any further.
+//                    } else {
+//                        // This tag is in the library, but we do not want to track it right now.
+//                        telemetry.addData("Skipping", "Tag ID %d is not desired", detection.id);
+//                    }
+//                } else {
+//                    // This tag is NOT in the library, so we don't have enough information to track to it.
+//                    telemetry.addData("Unknown", "Tag ID %d is not in TagLibrary", detection.id);
+//                }
+//            }
+//
+//            moveAmount = Math.abs(desiredTag.ftcPose.x);
+//            if(desiredTag.ftcPose.x < 0 ){
+//                robot.encoderDrive(0.5,moveAmount,-moveAmount,moveAmount,-moveAmount,4);
+//            }else {
+//                robot.encoderDrive(0.5,-moveAmount,moveAmount,-moveAmount,moveAmount,4);
+//            }
+//
+//        }
 
 // more distance sensor code that doesn't work atm
 //        actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
@@ -159,10 +193,10 @@ public class TeamDetectionR2 extends LinearOpMode {
 //            actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
 //        }
         robot.setArmPosition(170);
-        robot.encoderDrive(0.8,-7,-7,-7,-7,3);
+        robot.encoderDrive(0.8,-12,-12,-12,-12,3);
 
         robot.rightGrip.setPower(0.5);
-        sleep(1000);
+        sleep(2000);
         robot.rightGrip.setPower(-0.5);
 
         robot.setArmPosition(0);
