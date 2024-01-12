@@ -26,7 +26,7 @@ public class ArmMovementBlue2 extends LinearOpMode{
         robot.wrist.setPosition(0.43);
         sleep(1000);
         robot.encoderDrive(0.6,6,6,6,6,3);
-        robot.encoderDrive(0.6,-19.4,19.4,19.4,-19.4,3);
+        robot.encoderDrive(0.6,-20.5,20.5,20.5,-20.5,3);
 //        robot.encoderDrive(0.6,-30,-30,-30,-30,3);
         actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
         while (actualDistance > desiredDistance){
@@ -35,7 +35,7 @@ public class ArmMovementBlue2 extends LinearOpMode{
 
             boardApproachMovement = -boardApproachMovement;
 
-            robot.encoderDrive(0.7, boardApproachMovement, boardApproachMovement, boardApproachMovement, boardApproachMovement, 4);
+            robot.encoderDrive(0.7, boardApproachMovement, boardApproachMovement, boardApproachMovement, boardApproachMovement, 10);
 
             actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
         }
@@ -59,7 +59,7 @@ public class ArmMovementBlue2 extends LinearOpMode{
         sleep(2000);
         robot.rightGrip.setPower(0);
         robot.setArmPosition(0);
-        robot.encoderDrive(0.6,-23,23,-23,23,3);
+        robot.encoderDrive(0.6,-24,24,-24,24,3);
         robot.encoderDrive(0.6,-10,-10,-10,-10,3);
     }
 }
