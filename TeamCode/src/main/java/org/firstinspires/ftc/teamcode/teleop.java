@@ -110,11 +110,11 @@ public class teleop extends OpMode {
 
 
 
-        if (gamepad1.x) {
+        if (gamepad2.dpad_left) {
             //latch open
             robot.sling.setPosition(0.7);
 
-        } else if (gamepad1.b) {
+        } else if (gamepad2.dpad_right) {
             //latch closed
             robot.sling.setPosition(0);
         }
@@ -203,7 +203,7 @@ public class teleop extends OpMode {
             robot.hang.setPower(-1);
             robot.tape.setPower(-.3);
             robot.setArmPosition(45);
-            robot.wrist.setPosition(0.55);
+            robot.wrist.setPosition(0.43);
         }
         else {
             robot.hang.setPower(0);
