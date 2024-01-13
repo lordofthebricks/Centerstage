@@ -72,7 +72,7 @@ public class ServoTest extends LinearOpMode {
 
         while(opModeIsActive()){
          robot.sling.setPosition(0.5);
-         sleep(500);
+         sleep(1000);
          robot.sling.setPosition(0);
 
         }
