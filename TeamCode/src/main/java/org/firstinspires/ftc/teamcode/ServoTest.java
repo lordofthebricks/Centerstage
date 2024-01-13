@@ -29,6 +29,7 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -48,72 +49,34 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
-@TeleOp(name = "Servo Test", group = "Concept")
+@Autonomous(name = "Servo Test", group = "Concept")
 public class ServoTest extends LinearOpMode {
 
-    static final double INCREMENT   = 0.1;     // amount to slew servo each CYCLE_MS cycle
-    static final int    CYCLE_MS    =   1000;     // period of each cycle
-    static final double MAX_POS     =  1;     // Maximum rotational position
-    static final double MIN_POS     =  0.0;     // Minimum rotational position
+
 
     // Define class members
-    
-    double  position = 0; // Start at halfway position
-    boolean rampUp = true;
+
 
 
     @Override
     public void runOpMode() {
 
-        // Connect to servo (Assume Robot Left Hand)
-        // Change the text in quotes to match any servo name on your robot.
         hardwareTeleop robot = new hardwareTeleop(this);
 
         // Wait for the start button
-        telemetry.addData(">", "Press Start to scan Servo." );
-        telemetry.update();
+
         robot.init(hardwareMap);
 
         waitForStart();
 
 
-        // Scan servo till stop pressed.
         while(opModeIsActive()){
-            if (position < 1){
-                    for (double i = 0; i == 1; i += 0.1){
-                        position = i;
-
-                        telemetry.addData("Servo Position", "%5.2f", position);
-                        telemetry.addData(">", "Press Stop to end test." );
-                        telemetry.update();
-
-                        // Set the servo to the new position and pause;
-                        robot.sling.setPosition(position);
-                        sleep(CYCLE_MS);
-
-
-                    }
-            } else {
-                for (double i = position; i == 0; i -= 0.1){
-                    position = i;
-
-                    telemetry.addData("Servo Position", "%5.2f", position);
-                    telemetry.addData(">", "Press Stop to end test." );
-                    telemetry.update();
-
-                    // Set the servo to the new position and pause;
-                    robot.sling.setPosition(position);
-                    sleep(CYCLE_MS);
-
-
-                }
-
-            }
+         robot.sling.setPosition(0.5);
+         sleep(500);
+         robot.sling.setPosition(0);
 
         }
 
-        // Signal done;
-        telemetry.addData(">", "Done");
-        telemetry.update();
+
     }
 }
