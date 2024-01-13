@@ -67,16 +67,16 @@ public class TeamDetectionR2 extends LinearOpMode {
                 break;
             case 2:
                 desiredTagId = 5;
-                robot.encoderDrive(0.6, firstApproachDistance+8, firstApproachDistance+8, firstApproachDistance+8, firstApproachDistance+8, 3);
-                robot.encoderDrive(0.6, 38.8, -38.8, -38.8, 38.8, 3);
+                robot.encoderDrive(0.6,14.7,14.7,14.7,14.7,3);
                 robot.wrist.setPosition(0.55);
-                //supposed to be leftGrip, changed because we only have rightGrip on robot
-                robot.leftGrip.setPower(-0.5);
-                sleep(1000);
+                robot.leftGrip.setPower(-1);
+                sleep(4000);
                 robot.leftGrip.setPower(0);
-                robot.wrist.setPosition(0.44);
-                //rotate 90 degrees
-                robot.encoderDrive(0.6, 19.4, -19.4, -19.4, 19.4, 3);
+                sleep(1000);
+                robot.wrist.setPosition(0.43);
+                sleep(1000);
+                robot.encoderDrive(0.6,6,6,6,6,3);
+                robot.encoderDrive(0.6,-20.5,20.5,20.5,-20.5,3);
                 break;
             case 3:
                 desiredTagId = 6;
