@@ -112,7 +112,7 @@ public class teleop extends OpMode {
 
         if (gamepad2.dpad_left) {
             //latch open
-            robot.sling.setPosition(0.7);
+            robot.sling.setPosition(0.5);
 
         } else if (gamepad2.dpad_right) {
             //latch closed
