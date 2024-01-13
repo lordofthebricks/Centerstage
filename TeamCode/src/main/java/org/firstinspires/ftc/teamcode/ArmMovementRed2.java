@@ -17,7 +17,7 @@ public class ArmMovementRed2 extends LinearOpMode {
         double desiredDistance = 10;
         waitForStart();
 
-        robot.encoderDrive(0.6,14.7,14.7,14.7,14.7,3);
+        robot.encoderDrive(0.6,15,15,15,15,3);
         robot.wrist.setPosition(0.55);
         robot.leftGrip.setPower(-1);
         sleep(4000);
@@ -26,7 +26,7 @@ public class ArmMovementRed2 extends LinearOpMode {
         robot.wrist.setPosition(0.43);
         sleep(1000);
         robot.encoderDrive(0.6,6,6,6,6,3);
-        robot.encoderDrive(0.6,20.5,-20.5,-20.5,20.5,3);
+        robot.encoderDrive(0.6,21,-21,-21,21,3);
 //        robot.encoderDrive(0.6,-30,-30,-30,-30,3);
         actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
         while (actualDistance > desiredDistance){
