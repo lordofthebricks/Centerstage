@@ -26,7 +26,7 @@ public class ArmMovementRed1 extends LinearOpMode {
         robot.wrist.setPosition(0.43);
         sleep(1000);
         robot.encoderDrive(0.6,6,6,6,6,3);
-        robot.encoderDrive(0.6,21,-21,-21,21,3);
+        robot.encoderDrive(0.6,21.5,-21.5,-21.5,21.5,3);
 //        robot.encoderDrive(0.6,-30,-30,-30,-30,3);
         actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
         while (actualDistance > desiredDistance){
