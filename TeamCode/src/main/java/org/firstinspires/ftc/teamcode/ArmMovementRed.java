@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-@Autonomous
-public class ArmMovementBlue1 extends LinearOpMode {
+@Autonomous(name="ArmMovementRed")
+public class ArmMovementRed extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -14,10 +14,10 @@ public class ArmMovementBlue1 extends LinearOpMode {
         hardware robot = new hardware(this);
         robot.init(hardwareMap);
         double actualDistance = 0;
-        double desiredDistance = 10;
+        double desiredDistance = 9.7;
         waitForStart();
 
-        robot.encoderDrive(0.6,15,15,15,15,3);
+        robot.encoderDrive(0.6,14.5,14.5,14.5,14.5,3);
         robot.wrist.setPosition(0.55);
         robot.leftGrip.setPower(-1);
         sleep(4000);
@@ -26,8 +26,11 @@ public class ArmMovementBlue1 extends LinearOpMode {
         robot.wrist.setPosition(0.43);
         sleep(1000);
         robot.encoderDrive(0.6,6,6,6,6,3);
-        robot.encoderDrive(0.6,-21.5,21.5,21.5,-21.5,3);
+        robot.encoderDrive(0.6,19.4,-19.4,-19.4,19.4,3);
 //        robot.encoderDrive(0.6,-30,-30,-30,-30,3);
+        //robot.encoderDrive(0.6,-72,-72,-72,-72,3); //Aidan 1/13/24
+        robot.encoderDrive(0.6,-24,-24,-24,-24,3); //Aidan 1/13/24
+
         actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
         while (actualDistance > desiredDistance){
 
@@ -39,11 +42,11 @@ public class ArmMovementBlue1 extends LinearOpMode {
 
             actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
         }
-        desiredDistance = 8;
+        //    desiredDistance = 6;
 
         robot.setArmPosition(170);
         robot.wrist.setPosition(0.43);
-        while (actualDistance > desiredDistance){
+     /*   while (actualDistance > desiredDistance){
 
             double boardApproachMovement = actualDistance - desiredDistance;
 
@@ -51,16 +54,18 @@ public class ArmMovementBlue1 extends LinearOpMode {
 
             robot.encoderDrive(0.7, boardApproachMovement, boardApproachMovement, boardApproachMovement, boardApproachMovement, 4);
 
-            actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
-        }
+            actualDistance = robot.distance2M.getDistance(DistanceUnit.INCH);
+        }*/
 
 
         robot.rightGrip.setPower(-1);
         sleep(2000);
         robot.rightGrip.setPower(0);
+        // robot.encoderDrive(0.6,24,-24,24,-24,3); //straffe
+        robot.encoderDrive(0.6,2,2,2,2,3);
         robot.setArmPosition(0);
-        robot.encoderDrive(0.6,-24,24,-24,24,3);
+        robot.encoderDrive(0.6,30.5,-30.5,30.5,-30.5,3); //straffe
         robot.encoderDrive(0.6,-10,-10,-10,-10,3);
-    }
 
+    }
 }

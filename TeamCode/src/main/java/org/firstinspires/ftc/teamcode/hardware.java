@@ -32,7 +32,7 @@ public class hardware {
     public Servo wrist;
     public CRServo tape;
     public DcMotorEx hang;
-    public DistanceSensor distance;
+   // public DistanceSensor distance;
 
     //constants for we
     static final double     COUNTS_PER_MOTOR_REV    = 537.7;    // eg: DC Motor Encoder
@@ -42,7 +42,7 @@ public class hardware {
 
     public WebcamName cam;
 
-    public Rev2mDistanceSensor distance2M;
+    public Rev2mDistanceSensor distance;
 
     public HardwareMap hwMap;
     private ElapsedTime runtime = new ElapsedTime();
@@ -78,8 +78,9 @@ public class hardware {
         cam = hwMp.get(WebcamName.class, "Webcam 1");
 //        hang = hwMp.get(DcMotorEx.class,  "Hang");
 //        tape = hwMp.get(CRServo.class,"Tape");
-        distance = hwMp.get(DistanceSensor.class, "Distance");
+        //distance = hwMp.get(DistanceSensor.class, "Distance");
 
+        distance = hwMp.get(Rev2mDistanceSensor.class, "Distance"); //Coach added for test
 
         frontR.setDirection(DcMotorSimple.Direction.REVERSE);
         backR.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -87,7 +88,7 @@ public class hardware {
         arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        distance2M = (Rev2mDistanceSensor) distance;
+       // distance2M = (Rev2mDistanceSensor) distance;  //COACH commented out for test
         rightGrip.setDirection(DcMotorSimple.Direction.REVERSE);
 
     }
