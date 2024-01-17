@@ -213,17 +213,17 @@ public class teleop extends OpMode {
 
         //gripper controls
         //Controls are backwards; so it has been changed (which will be confusing) - Coach Shari
-        if (gamepad2.left_trigger == 1) {
+        if (gamepad2.right_trigger == 1) {
             robot.rightGrip.setPower(1);
-        } else if (gamepad2.left_bumper){
+        } else if (gamepad2.right_bumper){
             robot.rightGrip.setPower(-1);
         } else {
             robot.rightGrip.setPower(0);
         }
 
-        if (gamepad2.right_trigger == 1) {
+        if (gamepad2.left_trigger == 1) {
             robot.leftGrip.setPower(1);
-        } else if (gamepad2.right_bumper){
+        } else if (gamepad2.left_bumper){
             robot.leftGrip.setPower(-1);
         } else {
            robot.leftGrip.setPower(0);
