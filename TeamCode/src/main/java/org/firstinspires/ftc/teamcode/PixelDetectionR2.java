@@ -36,38 +36,38 @@ public class PixelDetectionR2 extends LinearOpMode {
 
         robot.wrist.setPosition(0.43);
         //tensorFlow Detection returns 1, 2, or 3 depending on which third of the screen the team element is on
-        switch (vision.pixtfodLocation()){
-            case 1:
-                desiredTagId = 4;
-                robot.encoderDrive(0.6,12,-12,12,-12,4);
-                robot.setArmPosition(180);
-                robot.leftGrip.setPower(0.5);
-                sleep(500);
-                robot.leftGrip.setPower(1);
-                robot.setArmPosition(1);
-                robot.encoderDrive(0.6,-12,12,-12,12,4);
-                break;
-            case 2:
-                desiredTagId = 5;
-                robot.encoderDrive(0.6,10,10,10,10,4);
-                robot.setArmPosition(180);
-                robot.leftGrip.setPower(0.5);
-                sleep(500);
-                robot.leftGrip.setPower(1);
-                robot.setArmPosition(1);
-                robot.encoderDrive(0.6,-10,-10,-10,-10, 4);
-                break;
-            case 3:
-                desiredTagId = 6;
-                robot.encoderDrive(0.6,-12,12,-12,12,4);
-                robot.setArmPosition(180);
-                robot.leftGrip.setPower(0.5);
-                sleep(500);
-                robot.leftGrip.setPower(1);
-                robot.setArmPosition(1);
-                robot.encoderDrive(0.6,12,-12,12,-12,4);
-                break;
-        }
+//        switch (vision.pixtfodLocation()){
+//            case 1:
+//                desiredTagId = 4;
+//                robot.encoderDrive(0.6,12,-12,12,-12,4);
+//                robot.setArmPosition(180);
+//                robot.leftGrip.setPower(0.5);
+//                sleep(500);
+//                robot.leftGrip.setPower(1);
+//                robot.setArmPosition(1);
+//                robot.encoderDrive(0.6,-12,12,-12,12,4);
+//                break;
+//            case 2:
+//                desiredTagId = 5;
+//                robot.encoderDrive(0.6,10,10,10,10,4);
+//                robot.setArmPosition(180);
+//                robot.leftGrip.setPower(0.5);
+//                sleep(500);
+//                robot.leftGrip.setPower(1);
+//                robot.setArmPosition(1);
+//                robot.encoderDrive(0.6,-10,-10,-10,-10, 4);
+//                break;
+//            case 3:
+//                desiredTagId = 6;
+//                robot.encoderDrive(0.6,-12,12,-12,12,4);
+//                robot.setArmPosition(180);
+//                robot.leftGrip.setPower(0.5);
+//                sleep(500);
+//                robot.leftGrip.setPower(1);
+//                robot.setArmPosition(1);
+//                robot.encoderDrive(0.6,12,-12,12,-12,4);
+//                break;
+//        }
         robot.encoderDrive(0.6,2,2,2,2,2);
         robot.encoderDrive(0.6,hardware.TURN_INCHES,-hardware.TURN_INCHES,hardware.TURN_INCHES,hardware.TURN_INCHES,3);
         robot.encoderDrive(0.6,hardware.TILE,hardware.TILE,hardware.TILE,hardware.TILE,5);

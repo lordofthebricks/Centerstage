@@ -89,7 +89,7 @@ public class DoubleVision {
      */
     private TfodProcessor tfod;
 
-    public TfodProcessor pixtfod;
+    public teamObjectDetection tod;
     /**
      * The variable to store our instance of the vision portal.
      */
@@ -131,19 +131,17 @@ public class DoubleVision {
                 .setModelLabels(LABELS)
                 .build();
 
-        pixtfod = new TfodProcessor.Builder()
-                .setModelLabels(DoubleVision.PIXLABEL)
-                .build();
+        tod = new teamObjectDetection();
 
         // -----------------------------------------------------------------------------------------
         // Camera Configuration
         // -----------------------------------------------------------------------------------------
 
             visionPortal = new VisionPortal.Builder()
-        .setCamera(robot.cam)
-                .addProcessors(tfod, aprilTag)
-                .build();
-
+                    .setCamera(robot.cam)
+                    .addProcessors(tfod, aprilTag, tod)
+                    .build();
+            visionPortal.setProcessorEnabled(tod, true);
     }   // end initDoubleVision()
 
     /**
@@ -256,32 +254,51 @@ public class DoubleVision {
 
         return location;
     }
-    public int pixtfodLocation(){
 
-        visionPortal.setProcessorEnabled(aprilTag,false);
-        visionPortal.setProcessorEnabled(tfod, false);
-        visionPortal.setProcessorEnabled(pixtfod, true);
+
+    public int todLocation(int pos){
         Integer location = 0;
         double x = 0;
-        double y = 0;
 
+        //make sure that only tensorflow is enabled
+        visionPortal.setProcessorEnabled(aprilTag,false);
+        visionPortal.setProcessorEnabled(tfod, false);
+        visionPortal.setProcessorEnabled(tod, true);
+        try {
+            sleep(500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
-        List<Recognition> currentRecognitions = tfod.getRecognitions();
-
-        // Step through the list of recognitions and display info for each one.
-        for (Recognition recognition : currentRecognitions) {
-            x = (recognition.getLeft() + recognition.getRight()) / 2 ;
-            y = (recognition.getTop()  + recognition.getBottom()) / 2 ;
-
-
-        }   // end for() loop
-
-        if (x < 213.3){
-            location = 1;
-        } else if (x > 213.3 && x < 426.6) {
+        //check to see if recognition is in front of the robot
+        if (tod.isDetected()){
             location = 2;
-        }else if (x > 426.6){
-            location = 3;
+
+        }else {
+
+            //move robot to scan other location
+            if (pos == 2) {
+                robot.encoderDrive(0.7, 12, -12, 12, -12, 2);
+                if (tod.isDetected()) {
+                    location = 3;
+                } else {
+                    location = 1;
+                }
+            }else {
+                robot.encoderDrive(0.7,-12,12,-12,12,1);
+                if (tod.isDetected()) {
+                    location = 1;
+                } else {
+                    location = 3;
+                }
+            }
+
+            try {
+                sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
         }
 
 
