@@ -13,11 +13,11 @@ public class teleop extends OpMode {
 
 
     private AprilTagProcessor aprilTag;
-    double maxSpeed = 0.7;
+    double maxSpeed = 1;
 
-    double frontSpeed = 0.5;
+    double frontSpeed = 0.8;
 
-    double backSpeed = 0.6;
+    double backSpeed = 1;
 
     double adjSpeed = 0.4;
     private hardwareTeleop robot;
@@ -88,17 +88,17 @@ public class teleop extends OpMode {
 
         }
         if (gamepad1.dpad_left) {
-            robot.frontR.setPower(maxSpeed);
-            robot.frontL.setPower(-maxSpeed);
-            robot.backR.setPower(-maxSpeed);
-            robot.backL.setPower(maxSpeed);
+            robot.frontR.setPower(frontSpeed);
+            robot.frontL.setPower(-frontSpeed);
+            robot.backR.setPower(-backSpeed);
+            robot.backL.setPower(backSpeed);
 
         }
         if (gamepad1.dpad_right) {
-            robot.frontR.setPower(-maxSpeed);
-            robot.frontL.setPower(maxSpeed);
-            robot.backR.setPower(maxSpeed);
-            robot.backL.setPower(-maxSpeed);
+            robot.frontR.setPower(-frontSpeed);
+            robot.frontL.setPower(frontSpeed);
+            robot.backR.setPower(backSpeed);
+            robot.backL.setPower(-backSpeed);
 
         }
         if (gamepad1.dpad_down) {
@@ -201,7 +201,7 @@ public class teleop extends OpMode {
         }
         else if (gamepad1.left_stick_button == true) {
             robot.hang.setPower(-1);
-            robot.tape.setPower(-.3);
+         //   robot.tape.setPower(-.3);
             robot.setArmPosition(45);
             robot.wrist.setPosition(0.43);
         }
