@@ -201,7 +201,7 @@ public class teleop extends OpMode {
         }
         else if (gamepad1.left_stick_button == true) {
             robot.hang.setPower(-1);
-         //   robot.tape.setPower(-.3);
+            robot.tape.setPower(-.3);
             robot.setArmPosition(45);
             robot.wrist.setPosition(0.43);
         }
