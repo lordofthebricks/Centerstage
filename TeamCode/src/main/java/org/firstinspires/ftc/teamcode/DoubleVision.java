@@ -33,14 +33,12 @@ import static java.lang.Thread.sleep;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.ExposureControl;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.GainControl;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagGameDatabase;
-import org.firstinspires.ftc.vision.apriltag.AprilTagLibrary;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
@@ -89,7 +87,7 @@ public class DoubleVision {
      */
     private TfodProcessor tfod;
 
-    public teamObjectDetection tod;
+    public RedAndBlueElements rabe;
     /**
      * The variable to store our instance of the vision portal.
      */
@@ -131,7 +129,7 @@ public class DoubleVision {
                 .setModelLabels(LABELS)
                 .build();
 
-        tod = new teamObjectDetection();
+        rabe = new RedAndBlueElements();
 
         // -----------------------------------------------------------------------------------------
         // Camera Configuration
@@ -139,9 +137,9 @@ public class DoubleVision {
 
             visionPortal = new VisionPortal.Builder()
                     .setCamera(robot.cam)
-                    .addProcessors(tfod, aprilTag, tod)
+                    .addProcessors(tfod, aprilTag, rabe)
                     .build();
-            visionPortal.setProcessorEnabled(tod, true);
+            visionPortal.setProcessorEnabled(rabe, true);
     }   // end initDoubleVision()
 
     /**
@@ -256,14 +254,14 @@ public class DoubleVision {
     }
 
 
-    public int todLocation(int pos){
+    public int rabeLocation(int pos){
         Integer location = 0;
         double x = 0;
 
         //make sure that only tensorflow is enabled
         visionPortal.setProcessorEnabled(aprilTag,false);
         visionPortal.setProcessorEnabled(tfod, false);
-        visionPortal.setProcessorEnabled(tod, true);
+        visionPortal.setProcessorEnabled(rabe, true);
         try {
             sleep(500);
         } catch (InterruptedException e) {
@@ -271,7 +269,7 @@ public class DoubleVision {
         }
 
         //check to see if recognition is in front of the robot
-        if (tod.isDetected()){
+        if (rabe.isDetected()){
             location = 2;
 
         }else {
@@ -279,14 +277,14 @@ public class DoubleVision {
             //move robot to scan other location
             if (pos == 2) {
                 robot.encoderDrive(0.7, 12, -12, 12, -12, 2);
-                if (tod.isDetected()) {
+                if (rabe.isDetected()) {
                     location = 3;
                 } else {
                     location = 1;
                 }
             }else {
                 robot.encoderDrive(0.7,-12,12,-12,12,1);
-                if (tod.isDetected()) {
+                if (rabe.isDetected()) {
                     location = 1;
                 } else {
                     location = 3;

@@ -45,11 +45,7 @@ public class TeamDetectionR2 extends LinearOpMode {
 
         // the pos value that tfodLocation takes indicates which direction for the robot to strafe to check for team element, 1 to strafe left, 2 to strafe right
         vision.switchProcessor(false);
-        location = vision.tfodLocation(2);
-
-//        robot.encoderDrive(0.8, 4,4,4,4, 1);
-//        robot.encoderDrive(0.6, 38.8, -38.8, -38.8, 38.8, 3);
-
+        location = vision.rabeLocation(2);
 
         double firstApproachDistance = -24;
         switch (location){
@@ -67,7 +63,7 @@ public class TeamDetectionR2 extends LinearOpMode {
                 break;
             case 2:
                 desiredTagId = 5;
-                robot.encoderDrive(0.6,14.7,14.7,14.7,14.7,3);
+                robot.encoderDrive(0.6,15.5,15.5,15.5,15.5,3);
                 robot.wrist.setPosition(0.55);
                 robot.leftGrip.setPower(-1);
                 sleep(4000);
@@ -75,8 +71,10 @@ public class TeamDetectionR2 extends LinearOpMode {
                 sleep(1000);
                 robot.wrist.setPosition(0.43);
                 sleep(1000);
-                robot.encoderDrive(0.6,6,6,6,6,3);
-                robot.encoderDrive(0.6,-20.5,20.5,20.5,-20.5,3);
+                robot.encoderDrive(0.6,-14,-14,-14,-14,3);
+                robot.encoderDrive(0.6,19.4,-19.4,-19.4,19.4,3);
+                robot.encoderDrive(0.6,-72,-72,-72,-72,3);
+                robot.encoderDrive(0.6,-30,30,-30,30,3);
                 break;
             case 3:
                 desiredTagId = 6;
@@ -105,44 +103,11 @@ public class TeamDetectionR2 extends LinearOpMode {
 
             robot.encoderDrive(0.7, boardApproachMovement, boardApproachMovement, boardApproachMovement, boardApproachMovement, 8);
 
-            actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
+//            actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
         }
-        desiredDistance = 8;
+        desiredDistance = 9.7;
 
-//        switch (location){
-//            case 3:
-//                vision.switchProcessor(true);
-//                List<AprilTagDetection> currentDetections = aprilTag.getDetections();
-//                if (!currentDetections.isEmpty()) {
-//                    for (AprilTagDetection detection : currentDetections) {
-//                        // Look to see if we have size info on this tag.
-//                        if (detection.metadata != null) {
-//                            //  Check to see if we want to track towards this tag.
-//
-//                            if ((desiredTagId < 0) || (detection.id == desiredTagId)) {
-//                                // Yes, we want to use this tag.
-//                                targetFound = true;
-//                                desiredTag = detection;
-//                                break;  // don't look any further.
-//                            } else {
-//                                // This tag is in the library, but we do not want to track it right now.
-//                                telemetry.addData("Skipping", "Tag ID %d is not desired", detection.id);
-//                            }
-//                        } else {
-//                            // This tag is NOT in the library, so we don't have enough information to track to it.
-//                            telemetry.addData("Unknown", "Tag ID %d is not in TagLibrary", detection.id);
-//                        }
-//                    }
-//                    moveAmount = Math.abs(desiredTag.ftcPose.x);
-//                    if(desiredTag.ftcPose.x < 0 ){
-//                        robot.encoderDrive(0.5,moveAmount,-moveAmount,moveAmount,-moveAmount,4);
-//                    }else {
-//                        robot.encoderDrive(0.5,-moveAmount,moveAmount,-moveAmount,moveAmount,4);
-//                    }
-//                }
-//                break;
-//        }
-//        robot.encoderDrive(0.7,-30, -30, -30, -30, 4);
+
 
         vision.switchProcessor(true);
         List<AprilTagDetection> currentDetections = aprilTag.getDetections();
@@ -180,7 +145,6 @@ public class TeamDetectionR2 extends LinearOpMode {
         }
 
         robot.setArmPosition(170);
-// more distance sensor code that doesn't work atm
         actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
 
         while (actualDistance > desiredDistance){
@@ -194,11 +158,14 @@ public class TeamDetectionR2 extends LinearOpMode {
             actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
         }
 
-        robot.rightGrip.setPower(0.5);
+        robot.rightGrip.setPower(-1);
         sleep(2000);
-        robot.rightGrip.setPower(-0.5);
-
+        robot.rightGrip.setPower(0);
+        // robot.encoderDrive(0.6,24,-24,24,-24,3); //straffe
+        robot.encoderDrive(0.6,2.5,2.5,2.5,2.5,3);
         robot.setArmPosition(0);
+        robot.encoderDrive(0.6,30.5,-30.5,30.5,-30.5,3); //straffe
+        robot.encoderDrive(0.6,-10,-10,-10,-10,3);
 
 
 
