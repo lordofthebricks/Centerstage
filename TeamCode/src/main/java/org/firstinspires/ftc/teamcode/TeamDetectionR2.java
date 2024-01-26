@@ -11,7 +11,7 @@ import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
 import java.util.List;
 
-@Autonomous(name = "Detection Autonomous red")
+@Autonomous(name = "Team Element Detection Red")
 public class TeamDetectionR2 extends LinearOpMode {
 
     AprilTagProcessor aprilTag;
@@ -41,11 +41,14 @@ public class TeamDetectionR2 extends LinearOpMode {
         waitForStart();
 
         robot.wrist.setPosition(0.43);
-        //tensorFlow Detection returns 1, 2, or 3 depending on which third of the screen the team element is on
 
-        // the pos value that tfodLocation takes indicates which direction for the robot to strafe to check for team element, 1 to strafe left, 2 to strafe right
+        // the pos value that rabeLocation takes indicates which direction for the robot to strafe to check for team element, 1 to strafe left, 2 to strafe right
         vision.switchProcessor(false);
         location = vision.rabeLocation(2);
+        //spin robot around for the code
+        robot.encoderDrive(0.6, -3,-3,-3,-3,2);
+        robot.encoderDrive(0.4, 40,-40,-40, 40, 4);
+        robot.encoderDrive(0.6, -3, -3, -3, -3, 3);
 
         double firstApproachDistance = -24;
         switch (location){
@@ -63,18 +66,18 @@ public class TeamDetectionR2 extends LinearOpMode {
                 break;
             case 2:
                 desiredTagId = 5;
-                robot.encoderDrive(0.6,15.5,15.5,15.5,15.5,3);
+                robot.encoderDrive(0.6,13.5,13.5,13.5,13.5,3);
                 robot.wrist.setPosition(0.55);
                 robot.leftGrip.setPower(-1);
-                sleep(4000);
+                sleep(1500);
                 robot.leftGrip.setPower(0);
-                sleep(1000);
+                sleep(500);
                 robot.wrist.setPosition(0.43);
-                sleep(1000);
+                sleep(500);
                 robot.encoderDrive(0.6,-14,-14,-14,-14,3);
                 robot.encoderDrive(0.6,19.4,-19.4,-19.4,19.4,3);
-                robot.encoderDrive(0.6,-72,-72,-72,-72,3);
-                robot.encoderDrive(0.6,-30,30,-30,30,3);
+                robot.encoderDrive(0.6,-35,-35,-35,-35,3);
+
                 break;
             case 3:
                 desiredTagId = 6;
@@ -90,21 +93,20 @@ public class TeamDetectionR2 extends LinearOpMode {
                 break;
         }
 
-        actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
         telemetry.addData("Distance to board", actualDistance);
         telemetry.update();
 // commented out distance sensor code as distance sensor added encoder drive as temp fix
 
-        while (actualDistance > desiredDistance){
-
-            boardApproachMovement = actualDistance - desiredDistance;
-
-            boardApproachMovement = -boardApproachMovement;
-
-            robot.encoderDrive(0.7, boardApproachMovement, boardApproachMovement, boardApproachMovement, boardApproachMovement, 8);
-
-//            actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
-        }
+//        while (actualDistance > desiredDistance){
+//
+//            boardApproachMovement = actualDistance - desiredDistance;
+//
+//            boardApproachMovement = -boardApproachMovement;
+//
+//            robot.encoderDrive(0.7, boardApproachMovement, boardApproachMovement, boardApproachMovement, boardApproachMovement, 8);
+//
+////            actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
+//        }
         desiredDistance = 9.7;
 
 
@@ -155,7 +157,7 @@ public class TeamDetectionR2 extends LinearOpMode {
 
             robot.encoderDrive(0.7, boardApproachMovement, boardApproachMovement, boardApproachMovement, boardApproachMovement, 8);
 
-            actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
+//            actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
         }
 
         robot.rightGrip.setPower(-1);
