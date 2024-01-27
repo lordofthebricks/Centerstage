@@ -17,7 +17,8 @@ public class ArmMovementRed2 extends LinearOpMode {
         double desiredDistance = 10;
         waitForStart();
 
-        robot.encoderDrive(0.6,15.5,15.5,15.5,15.5,3);
+        //moves to middle spike mark and places pixel on the spike mark
+        robot.encoderDrive(0.6,15,15,15,15,3);
         robot.wrist.setPosition(0.55);
         robot.leftGrip.setPower(-1);
         sleep(4000);
@@ -25,11 +26,13 @@ public class ArmMovementRed2 extends LinearOpMode {
         sleep(1000);
         robot.wrist.setPosition(0.43);
         sleep(1000);
+        //moves back to starting position, turns, and moves down to the board and then strafes in front of the board
         robot.encoderDrive(0.6,-14,-14,-14,-14,3);
         robot.encoderDrive(0.6,19.4,-19.4,-19.4,19.4,3);
         robot.encoderDrive(0.6,-72,-72,-72,-72,3);
         robot.encoderDrive(0.6,-30,30,-30,30,3);
 //        robot.encoderDrive(0.6,-30,-30,-30,-30,3);
+        //Distance sensor stuff to move the correct distance in front of the board
         actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
         while (actualDistance > desiredDistance){
 
@@ -56,7 +59,7 @@ public class ArmMovementRed2 extends LinearOpMode {
             actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
         }
 
-
+        //the robot drops the pixel onto the backboard, moves to the left and then parks in the backstage
         robot.rightGrip.setPower(-1);
         sleep(2000);
         robot.rightGrip.setPower(0);
