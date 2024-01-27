@@ -138,6 +138,8 @@ public class DoubleVision {
                     .addProcessors(tfod, aprilTag, rabe)
                     .build();
             visionPortal.setProcessorEnabled(rabe, true);
+            visionPortal.setProcessorEnabled(tfod, false);
+            visionPortal.setProcessorEnabled(aprilTag, false);
     }   // end initDoubleVision()
 
     /**
@@ -301,13 +303,13 @@ public class DoubleVision {
 
     public void switchProcessor(boolean apriltagIsActive){
         if (apriltagIsActive){
-            visionPortal.setProcessorEnabled(tfod, false);
+            visionPortal.setProcessorEnabled(rabe, false);
             visionPortal.setProcessorEnabled(aprilTag,true);
 
         }else{
 
             visionPortal.setProcessorEnabled(aprilTag, false);
-            visionPortal.setProcessorEnabled(tfod,true);
+            visionPortal.setProcessorEnabled(rabe,true);
         }
     }
 

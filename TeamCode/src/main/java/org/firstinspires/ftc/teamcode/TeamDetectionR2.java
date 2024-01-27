@@ -49,7 +49,7 @@ public class TeamDetectionR2 extends LinearOpMode {
         location = vision.rabeLocation(2);
         //spin robot around for the placing
         robot.encoderDrive(0.6, -3,-3,-3,-3,2);
-        robot.encoderDrive(0.4, 40,-40,-40, 40, 4);
+        robot.encoderDrive(0.4, 38.8,-38.8,-38.8, 38.8, 4);
         robot.encoderDrive(0.6, -3, -3, -3, -3, 3);
 
         double firstApproachDistance = -24;
@@ -61,7 +61,7 @@ public class TeamDetectionR2 extends LinearOpMode {
                 //the next three lines tell the robot to open the claw and then turn 180 degrees
                 robot.wrist.setPosition(0.55);
                 robot.leftGrip.setPower(-0.5);
-                sleep(1000);
+                sleep(4000);
                 robot.leftGrip.setPower(0);
                 robot.wrist.setPosition(0.44);
                 robot.encoderDrive(0.6, 38.8, -38.8, -38.8, 38.8, 3);
@@ -69,17 +69,17 @@ public class TeamDetectionR2 extends LinearOpMode {
             case 2:
                 desiredTagId = 5;
                 //go forward to place on center line
-                robot.encoderDrive(0.6,13.5,13.5,13.5,13.5,3);
+                robot.encoderDrive(0.6,11,11,11,11,3);
                 //place the pixel
                 robot.wrist.setPosition(0.55);
                 robot.leftGrip.setPower(-1);
-                sleep(1500);
+                sleep(4000);
                 robot.leftGrip.setPower(0);
                 sleep(500);
                 robot.wrist.setPosition(0.43);
                 sleep(500);
                 //turn the robot and drive forward a tile
-                robot.encoderDrive(0.6,19.4,-19.4,-19.4,19.4,3);
+                robot.encoderDrive(0.6,19.2,-19.2,-19.2,19.2,3);
                 robot.encoderDrive(0.6,-24,-24,-24,-24,3);
 
                 break;
@@ -110,11 +110,12 @@ public class TeamDetectionR2 extends LinearOpMode {
 //
 ////            actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
 //        }
-        desiredDistance = 9.7;
+        desiredDistance = 8.7;
 
 
 
         vision.switchProcessor(true);
+        sleep(2000);
         List<AprilTagDetection> currentDetections = aprilTag.getDetections();
 
         if (!currentDetections.isEmpty()) {
@@ -139,36 +140,35 @@ public class TeamDetectionR2 extends LinearOpMode {
                     telemetry.addData("Unknown", "Tag ID %d is not in TagLibrary", detection.id);
                 }
             }
-
-            moveAmount = Math.abs(desiredTag.ftcPose.x);
-            if(desiredTag.ftcPose.x < 0 ){
-                robot.encoderDrive(0.5,moveAmount,-moveAmount,moveAmount,-moveAmount,4);
-            }else {
-                robot.encoderDrive(0.5,-moveAmount,moveAmount,-moveAmount,moveAmount,4);
+            if (desiredTag != null) {
+                moveAmount = Math.abs(desiredTag.ftcPose.x);
+                if (desiredTag.ftcPose.x < 0) {
+                    robot.encoderDrive(0.5, moveAmount, -moveAmount, moveAmount, -moveAmount, 4);
+                } else {
+                    robot.encoderDrive(0.5, -moveAmount, moveAmount, -moveAmount, moveAmount, 4);
+                }
             }
-
         }
 
-        robot.setArmPosition(170,4);
+        robot.setArmPosition(170);
         actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
 
-        while (actualDistance > desiredDistance){
 
-            boardApproachMovement = actualDistance - desiredDistance;
+        boardApproachMovement = actualDistance - desiredDistance;
 
-            boardApproachMovement = -boardApproachMovement;
+        boardApproachMovement = -boardApproachMovement;
 
-            robot.encoderDrive(0.7, boardApproachMovement, boardApproachMovement, boardApproachMovement, boardApproachMovement, 8);
+        robot.encoderDrive(0.7, boardApproachMovement, boardApproachMovement, boardApproachMovement, boardApproachMovement, 8);
 
 //            actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
-        }
+
 
         robot.rightGrip.setPower(-1);
-        sleep(2000);
+        sleep(3000);
         robot.rightGrip.setPower(0);
         // robot.encoderDrive(0.6,24,-24,24,-24,3); //straffe
         robot.encoderDrive(0.6,2.5,2.5,2.5,2.5,3);
-        robot.setArmPosition(0,3);
+        robot.setArmPosition(0);
         robot.encoderDrive(0.6,30.5,-30.5,30.5,-30.5,3); //straffe
         robot.encoderDrive(0.6,-10,-10,-10,-10,3);
 

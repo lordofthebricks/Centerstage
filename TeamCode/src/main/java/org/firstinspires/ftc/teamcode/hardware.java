@@ -91,6 +91,10 @@ public class hardware {
        // distance2M = (Rev2mDistanceSensor) distance;  //COACH commented out for test
         rightGrip.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        backR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public int getArmCurrentDegree() {
