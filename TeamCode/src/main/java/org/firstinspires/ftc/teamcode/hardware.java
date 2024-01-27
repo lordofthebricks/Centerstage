@@ -292,4 +292,33 @@ public class hardware {
         }
 
     }
+    public void setArmPosition (double degrees){
+
+        int targetDegree = (int) (degrees * ARM_COUNTS_PER_DEGREE);
+
+
+        myopmode.telemetry.addLine("Target Set");
+        myopmode.telemetry.update();
+        if (myopmode.opModeIsActive() && (degrees <= 190 && degrees>= 0)){
+
+            arm.setTargetPosition(targetDegree);
+            arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            if (getArmCurrentDegree() < targetDegree){
+                arm.setVelocity(1500); // this is in motor ticks
+            } else if (getArmCurrentDegree() > targetDegree) {
+                arm.setVelocity(1000);
+            }else {
+                return;
+            }
+            runtime.reset();
+            while(arm.isBusy()){
+                myopmode.telemetry.addData("Arm Position: ", arm.getCurrentPosition());
+                myopmode.telemetry.update();
+            }
+            arm.setPower(0);
+            setArmCurrentDegree( (int) (degrees));
+            arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+
+    }
 }
