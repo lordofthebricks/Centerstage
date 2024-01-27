@@ -201,7 +201,7 @@ public class Teleop extends OpMode {
         else if (gamepad1.left_stick_button == true) {
             robot.hang.setPower(-1);
             robot.tape.setPower(-.3);
-            robot.setArmPosition(45);
+            robot.setArmPosition(45 , 3);
             robot.wrist.setPosition(0.43);
         }
         else {
@@ -240,7 +240,7 @@ public class Teleop extends OpMode {
         //Arm control
         if (gamepad2.y) {
 
-            robot.setArmPosition(170);
+            robot.setArmPosition(170, 4);
 //            try {
 //                armThread.start();
 //            } catch (Exception e) {
@@ -249,7 +249,7 @@ public class Teleop extends OpMode {
         }
 
         if (gamepad2.x){
-            robot.setArmPosition(10);
+            robot.setArmPosition(10,4);
         }
 
         if (gamepad2.a) {

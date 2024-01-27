@@ -268,7 +268,8 @@ public class DoubleVision {
             location = 2;
 
         }else {
-
+            //come off the wall to scan
+            robot.encoderDrive(0.6,-4,-4,-4,-4,2);
             //move robot to scan other location
             if (pos == 2) {
                 robot.encoderDrive(0.7, 12, -12, 12, -12, 2);

@@ -263,7 +263,7 @@ public class hardware {
 //
 //    }
 
-    public void setArmPosition (double degrees){
+    public void setArmPosition (double degrees, int timeout){
 
         int targetDegree = (int) (degrees * ARM_COUNTS_PER_DEGREE);
 
@@ -281,7 +281,8 @@ public class hardware {
             }else {
                 return;
             }
-            while(arm.isBusy()){
+            runtime.reset();
+            while(arm.isBusy() && timeout < runtime.seconds()){
                 myopmode.telemetry.addData("Arm Position: ", arm.getCurrentPosition());
                 myopmode.telemetry.update();
             }

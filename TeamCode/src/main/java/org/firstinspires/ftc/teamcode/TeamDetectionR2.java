@@ -43,9 +43,11 @@ public class TeamDetectionR2 extends LinearOpMode {
         robot.wrist.setPosition(0.43);
 
         // the pos value that rabeLocation takes indicates which direction for the robot to strafe to check for team element, 1 to strafe left, 2 to strafe right
+        //IMPORTANT: This will move the robot forward a few inches when the element is not in center
+
         vision.switchProcessor(false);
         location = vision.rabeLocation(2);
-        //spin robot around for the code
+        //spin robot around for the placing
         robot.encoderDrive(0.6, -3,-3,-3,-3,2);
         robot.encoderDrive(0.4, 40,-40,-40, 40, 4);
         robot.encoderDrive(0.6, -3, -3, -3, -3, 3);
@@ -66,7 +68,9 @@ public class TeamDetectionR2 extends LinearOpMode {
                 break;
             case 2:
                 desiredTagId = 5;
+                //go forward to place on center line
                 robot.encoderDrive(0.6,13.5,13.5,13.5,13.5,3);
+                //place the pixel
                 robot.wrist.setPosition(0.55);
                 robot.leftGrip.setPower(-1);
                 sleep(1500);
@@ -74,14 +78,13 @@ public class TeamDetectionR2 extends LinearOpMode {
                 sleep(500);
                 robot.wrist.setPosition(0.43);
                 sleep(500);
-                robot.encoderDrive(0.6,-14,-14,-14,-14,3);
+                //turn the robot and drive forward a tile
                 robot.encoderDrive(0.6,19.4,-19.4,-19.4,19.4,3);
-                robot.encoderDrive(0.6,-35,-35,-35,-35,3);
+                robot.encoderDrive(0.6,-24,-24,-24,-24,3);
 
                 break;
             case 3:
                 desiredTagId = 6;
-                robot.encoderDrive(0.7, -4, -4, -4, -4, 3);
                 robot.encoderDrive(0.7, 24, -24, 24, -24, 3);
                 robot.encoderDrive(0.6, firstApproachDistance, firstApproachDistance, firstApproachDistance, firstApproachDistance, 3);
                 robot.encoderDrive(0.6, -19.4, 19.4, 19.4, -19.4, 3);
@@ -146,7 +149,7 @@ public class TeamDetectionR2 extends LinearOpMode {
 
         }
 
-        robot.setArmPosition(170);
+        robot.setArmPosition(170,4);
         actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
 
         while (actualDistance > desiredDistance){
@@ -165,7 +168,7 @@ public class TeamDetectionR2 extends LinearOpMode {
         robot.rightGrip.setPower(0);
         // robot.encoderDrive(0.6,24,-24,24,-24,3); //straffe
         robot.encoderDrive(0.6,2.5,2.5,2.5,2.5,3);
-        robot.setArmPosition(0);
+        robot.setArmPosition(0,3);
         robot.encoderDrive(0.6,30.5,-30.5,30.5,-30.5,3); //straffe
         robot.encoderDrive(0.6,-10,-10,-10,-10,3);
 
