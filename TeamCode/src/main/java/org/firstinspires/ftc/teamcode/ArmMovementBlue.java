@@ -14,10 +14,10 @@ public class ArmMovementBlue extends LinearOpMode {
         hardware robot = new hardware(this);
         robot.init(hardwareMap);
         double actualDistance = 0;
-        double desiredDistance = 10;
+        double desiredDistance = 8;
         waitForStart();
 
-        robot.encoderDrive(0.6,13.5,13.5,13.5,13.5,4);
+        robot.encoderDrive(0.6,17.5,17.5,17.5,17.5,4);
         robot.wrist.setPosition(0.55);
         robot.leftGrip.setPower(-1);
         sleep(4000);

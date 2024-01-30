@@ -191,10 +191,10 @@ public class hardware {
 
 
             // Determine new target position, and pass to motor controller
-            newLeftBottomTarget = backL.getCurrentPosition() + (int) (targetInches * COUNTS_PER_INCH);
-            newRightBottomTarget = backR.getCurrentPosition() + (int) (targetInches * COUNTS_PER_INCH);
-            newRightTopTarget = frontR.getCurrentPosition() + (int) (targetInches * COUNTS_PER_INCH);
-            newLeftTopTarget = frontL.getCurrentPosition() + (int) (targetInches * COUNTS_PER_INCH);
+            newLeftBottomTarget = backL.getCurrentPosition() + (int) Math.round(targetInches * COUNTS_PER_INCH);
+            newRightBottomTarget = backR.getCurrentPosition() + (int) Math.round(targetInches * COUNTS_PER_INCH);
+            newRightTopTarget = frontR.getCurrentPosition() + (int) Math.round(targetInches * COUNTS_PER_INCH);
+            newLeftTopTarget = frontL.getCurrentPosition() + (int) Math.round(targetInches * COUNTS_PER_INCH);
 
             backL.setTargetPosition(newLeftBottomTarget);
             backR.setTargetPosition(newRightBottomTarget);

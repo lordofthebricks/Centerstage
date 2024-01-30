@@ -97,6 +97,36 @@ public class hardwareTeleop {
         this.armCurrentDegree = armCurrentDegree;
     }
 
+    public void setArmPosition (double degrees){
+
+        int targetDegree = (int) (degrees * ARM_COUNTS_PER_DEGREE);
+
+
+        myopmode.telemetry.addLine("Target Set");
+        myopmode.telemetry.update();
+        if ((degrees <= 190 && degrees>= 0)){
+
+            arm.setTargetPosition(targetDegree);
+            arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            if (getArmCurrentDegree() < targetDegree){
+                arm.setVelocity(1500); // this is in motor ticks
+            } else if (getArmCurrentDegree() > targetDegree) {
+                arm.setVelocity(1000);
+            }else {
+                return;
+            }
+            runtime.reset();
+            while(arm.isBusy()){
+                myopmode.telemetry.addData("Arm Position: ", arm.getCurrentPosition());
+                myopmode.telemetry.update();
+            }
+            arm.setPower(0);
+            setArmCurrentDegree( (int) (degrees));
+            arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+
+    }
+
     public void setArmPosition (double degrees, int timeout){
 
         int targetDegree = (int) (degrees * ARM_COUNTS_PER_DEGREE);
@@ -114,6 +144,7 @@ public class hardwareTeleop {
             }else {
                 return;
             }
+            runtime.startTime();
             runtime.reset();
             while(arm.isBusy() && timeout < runtime.seconds()){
 
@@ -127,4 +158,5 @@ public class hardwareTeleop {
         }
 
     }
+
 }
