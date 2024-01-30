@@ -32,7 +32,7 @@ public class TeamDetectionR2 extends LinearOpMode {
         int location = 0;
         int desiredTagId = 0;
         double moveAmount = 0;
-        double desiredDistance = 10;
+        double desiredDistance = 9.5;
         double actualDistance = 0;
         double boardApproachMovement = 0;
 
@@ -49,7 +49,7 @@ public class TeamDetectionR2 extends LinearOpMode {
         location = vision.rabeLocation(2);
         //spin robot around for the placing
         robot.encoderDrive(0.6, -3,-3,-3,-3,2);
-        robot.encoderDrive(0.4, 38.8,-38.8,-38.8, 38.8, 4);
+        robot.encoderDrive(0.4, 38.4,-38.4,-38.4, 38.4, 4);
         robot.encoderDrive(0.6, -3, -3, -3, -3, 3);
 
         double firstApproachDistance = -24;
@@ -67,8 +67,10 @@ public class TeamDetectionR2 extends LinearOpMode {
                 break;
             case 2:
                 desiredTagId = 5;
+                robot.encoderDrive(0.6, -2, 2,-2, 2,3);
                 //go forward to place on center line
-                robot.encoderDrive(0.6,11,11,11,11,3);
+
+                robot.encoderDrive(0.6,12,12,12,12,3);
                 //place the pixel
                 robot.wrist.setPosition(0.55);
                 robot.leftGrip.setPower(-1);
@@ -78,7 +80,7 @@ public class TeamDetectionR2 extends LinearOpMode {
                 robot.wrist.setPosition(0.43);
                 sleep(500);
                 //turn the robot and drive forward a tile
-                robot.encoderDrive(0.6,19.2,-19.2,-19.2,19.2,3);
+                robot.encoderDrive(0.6,20,-20,-20,20,3);
                 robot.encoderDrive(0.6,-24,-24,-24,-24,3);
                 robot.encoderDrive(0.6, -1,0,0,-1, 3);
                 break;
@@ -96,22 +98,10 @@ public class TeamDetectionR2 extends LinearOpMode {
 
                 break;
         }
-
         telemetry.addData("Distance to board", actualDistance);
         telemetry.update();
-// commented out distance sensor code as distance sensor added encoder drive as temp fix
-
-//        while (actualDistance > desiredDistance){
-//
-//            boardApproachMovement = actualDistance - desiredDistance;
-//
-//            boardApproachMovement = -boardApproachMovement;
-//
-//            robot.encoderDrive(0.7, boardApproachMovement, boardApproachMovement, boardApproachMovement, boardApproachMovement, 8);
-//
-////            actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
-//        }
-        desiredDistance = 8.5;
+        desiredDistance = 8.3;
+        robot.encoderDrive(0.6, -10,10,-10,10,4);
 
         vision.switchProcessor(true);
         sleep(1000);
@@ -169,14 +159,5 @@ public class TeamDetectionR2 extends LinearOpMode {
         robot.setArmPosition(0);
         robot.encoderDrive(0.6,27.5,-27.5,27.5,-27.5,3); //straffe
         robot.encoderDrive(0.6,-10,-10,-10,-10,3);
-
-
-
-
-
-
-
-
-
     }
 }
