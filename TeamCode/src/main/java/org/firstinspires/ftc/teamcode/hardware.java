@@ -91,6 +91,10 @@ public class hardware {
        // distance2M = (Rev2mDistanceSensor) distance;  //COACH commented out for test
         rightGrip.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        backR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public int getArmCurrentDegree() {
@@ -187,10 +191,10 @@ public class hardware {
 
 
             // Determine new target position, and pass to motor controller
-            newLeftBottomTarget = backL.getCurrentPosition() + (int) (targetInches * COUNTS_PER_INCH);
-            newRightBottomTarget = backR.getCurrentPosition() + (int) (targetInches * COUNTS_PER_INCH);
-            newRightTopTarget = frontR.getCurrentPosition() + (int) (targetInches * COUNTS_PER_INCH);
-            newLeftTopTarget = frontL.getCurrentPosition() + (int) (targetInches * COUNTS_PER_INCH);
+            newLeftBottomTarget = backL.getCurrentPosition() + (int) Math.round(targetInches * COUNTS_PER_INCH);
+            newRightBottomTarget = backR.getCurrentPosition() + (int) Math.round(targetInches * COUNTS_PER_INCH);
+            newRightTopTarget = frontR.getCurrentPosition() + (int) Math.round(targetInches * COUNTS_PER_INCH);
+            newLeftTopTarget = frontL.getCurrentPosition() + (int) Math.round(targetInches * COUNTS_PER_INCH);
 
             backL.setTargetPosition(newLeftBottomTarget);
             backR.setTargetPosition(newRightBottomTarget);
@@ -263,6 +267,35 @@ public class hardware {
 //
 //    }
 
+    public void setArmPosition (double degrees, int timeout){
+
+        int targetDegree = (int) (degrees * ARM_COUNTS_PER_DEGREE);
+
+
+        myopmode.telemetry.addLine("Target Set");
+        myopmode.telemetry.update();
+        if (myopmode.opModeIsActive() && (degrees <= 190 && degrees>= 0)){
+
+            arm.setTargetPosition(targetDegree);
+            arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            if (getArmCurrentDegree() < targetDegree){
+                arm.setVelocity(1500); // this is in motor ticks
+            } else if (getArmCurrentDegree() > targetDegree) {
+                arm.setVelocity(1000);
+            }else {
+                return;
+            }
+            runtime.reset();
+            while(arm.isBusy() && timeout < runtime.seconds()){
+                myopmode.telemetry.addData("Arm Position: ", arm.getCurrentPosition());
+                myopmode.telemetry.update();
+            }
+            arm.setPower(0);
+            setArmCurrentDegree( (int) (degrees));
+            arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+
+    }
     public void setArmPosition (double degrees){
 
         int targetDegree = (int) (degrees * ARM_COUNTS_PER_DEGREE);
@@ -281,6 +314,7 @@ public class hardware {
             }else {
                 return;
             }
+            runtime.reset();
             while(arm.isBusy()){
                 myopmode.telemetry.addData("Arm Position: ", arm.getCurrentPosition());
                 myopmode.telemetry.update();

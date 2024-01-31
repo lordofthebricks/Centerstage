@@ -2,12 +2,14 @@ package org.firstinspires.ftc.teamcode;
 
 import androidx.annotation.NonNull;
 
+import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -29,7 +31,7 @@ public class hardwareTeleop {
     public Servo wrist;
     public DcMotorEx tape;
     public DcMotorEx hang;
-
+    public Rev2mDistanceSensor distance;
 
 
     //constants for we
@@ -74,7 +76,7 @@ public class hardwareTeleop {
         cam = hwMp.get(WebcamName.class, "Webcam 1");
         hang = hwMp.get(DcMotorEx.class,  "Hang");
         tape = hwMp.get(DcMotorEx.class,"Tape");
-
+        distance = hwMp.get(Rev2mDistanceSensor.class, "Distance");
 
         hang.setDirection(DcMotorSimple.Direction.REVERSE);
         frontR.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -102,6 +104,36 @@ public class hardwareTeleop {
         int targetDegree = (int) (degrees * ARM_COUNTS_PER_DEGREE);
 
 
+        myopmode.telemetry.addLine("Target Set");
+        myopmode.telemetry.update();
+        if ((degrees <= 190 && degrees>= 0)){
+
+            arm.setTargetPosition(targetDegree);
+            arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            if (getArmCurrentDegree() < targetDegree){
+                arm.setVelocity(1500); // this is in motor ticks
+            } else if (getArmCurrentDegree() > targetDegree) {
+                arm.setVelocity(1000);
+            }else {
+                return;
+            }
+            runtime.reset();
+            while(arm.isBusy()){
+                myopmode.telemetry.addData("Arm Position: ", arm.getCurrentPosition());
+                myopmode.telemetry.update();
+            }
+            arm.setPower(0);
+            setArmCurrentDegree( (int) (degrees));
+            arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+
+    }
+
+    public void setArmPosition (double degrees, int timeout){
+
+        int targetDegree = (int) (degrees * ARM_COUNTS_PER_DEGREE);
+
+
 
         if (degrees <= 190 && degrees>= 0){
 
@@ -114,14 +146,19 @@ public class hardwareTeleop {
             }else {
                 return;
             }
-            while(arm.isBusy()){
+            runtime.startTime();
+            runtime.reset();
+            while(arm.isBusy() && timeout < runtime.seconds()){
+
                 myopmode.telemetry.addData("Arm Position: ", getArmCurrentDegree());
                 myopmode.telemetry.update();
             }
+
             arm.setPower(0);
             setArmCurrentDegree((int) (degrees));
             arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
 
     }
+
 }
