@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagGameDatabase;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
@@ -62,8 +63,7 @@ public class Teleop extends OpMode {
         //Dpad controls
         if (aprilTag.getDetections().isEmpty() == false) {
             try {
-                double range = aprilTag.getDetections().get(0).ftcPose.range;
-                if (range < 20) {
+                if (robot.distance.getDistance(DistanceUnit.INCH) < 12){
                     maxSpeed = 0.4;
                 } else {
                     maxSpeed = 0.7;

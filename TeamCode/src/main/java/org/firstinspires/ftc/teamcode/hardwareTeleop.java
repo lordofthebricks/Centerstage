@@ -2,12 +2,14 @@ package org.firstinspires.ftc.teamcode;
 
 import androidx.annotation.NonNull;
 
+import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -29,7 +31,7 @@ public class hardwareTeleop {
     public Servo wrist;
     public DcMotorEx tape;
     public DcMotorEx hang;
-
+    public Rev2mDistanceSensor distance;
 
 
     //constants for we
@@ -74,7 +76,7 @@ public class hardwareTeleop {
         cam = hwMp.get(WebcamName.class, "Webcam 1");
         hang = hwMp.get(DcMotorEx.class,  "Hang");
         tape = hwMp.get(DcMotorEx.class,"Tape");
-
+        distance = hwMp.get(Rev2mDistanceSensor.class, "Distance");
 
         hang.setDirection(DcMotorSimple.Direction.REVERSE);
         frontR.setDirection(DcMotorSimple.Direction.REVERSE);

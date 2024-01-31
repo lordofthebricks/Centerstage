@@ -74,7 +74,7 @@ public class TeamDetectionR2 extends LinearOpMode {
                 //place the pixel
                 robot.wrist.setPosition(0.55);
                 robot.leftGrip.setPower(-1);
-                sleep(4000);
+                sleep(6000);
                 robot.leftGrip.setPower(0);
                 sleep(500);
                 robot.wrist.setPosition(0.43);
@@ -100,7 +100,7 @@ public class TeamDetectionR2 extends LinearOpMode {
         }
         telemetry.addData("Distance to board", actualDistance);
         telemetry.update();
-        desiredDistance = 8.3;
+        desiredDistance = 7;
         robot.encoderDrive(0.6, -10,10,-10,10,4);
 
         vision.switchProcessor(true);
@@ -131,8 +131,10 @@ public class TeamDetectionR2 extends LinearOpMode {
             if (desiredTag != null) {
                 moveAmount = Math.abs(desiredTag.ftcPose.x);
                 if (desiredTag.ftcPose.x < 0) {
+
                     robot.encoderDrive(0.5, moveAmount, -moveAmount, moveAmount, -moveAmount, 4);
                 } else {
+
                     robot.encoderDrive(0.5, -moveAmount, moveAmount, -moveAmount, moveAmount, 4);
                 }
             }
@@ -150,7 +152,7 @@ public class TeamDetectionR2 extends LinearOpMode {
 
 //            actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
 
-
+        sleep( 500);
         robot.rightGrip.setPower(-1);
         sleep(3000);
         robot.rightGrip.setPower(0);
