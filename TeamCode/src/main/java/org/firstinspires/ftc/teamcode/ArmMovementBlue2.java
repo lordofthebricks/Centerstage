@@ -19,7 +19,7 @@ public class ArmMovementBlue2 extends LinearOpMode{
         waitForStart();
 
         //moves to middle spike mark and places pixel on the spike mark
-        robot.encoderDrive(0.6,15.5,15.5,15.5,15.5,3);
+        robot.encoderDrive(0.6,16,16,16,16,3);
         robot.wrist.setPosition(0.55);
         robot.leftGrip.setPower(-1);
         sleep(4000);
