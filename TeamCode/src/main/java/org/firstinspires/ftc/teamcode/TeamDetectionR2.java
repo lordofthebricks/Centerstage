@@ -52,7 +52,7 @@ public class TeamDetectionR2 extends LinearOpMode {
         robot.encoderDrive(0.4, 38.4,-38.4,-38.4, 38.4, 4);
         robot.encoderDrive(0.6, -3, -3, -3, -3, 3);
 
-        double firstApproachDistance = -24;
+        double firstApproachDistance = -30;
         switch (location){
             case 1:
                 desiredTagId = 4;

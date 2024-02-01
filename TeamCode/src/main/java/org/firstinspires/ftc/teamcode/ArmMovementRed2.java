@@ -7,7 +7,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 @Autonomous
 public class ArmMovementRed2 extends LinearOpMode {
-
+ 
     @Override
     public void runOpMode() throws InterruptedException {
 

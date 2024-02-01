@@ -111,11 +111,11 @@ public class Teleop extends OpMode {
 
         if (gamepad2.dpad_left) {
             //latch open
-            robot.sling.setPosition(0.5);
+            robot.sling.setPosition(90);
 
         } else if (gamepad2.dpad_right) {
             //latch closed
-            robot.sling.setPosition(0);
+            robot.sling.setPosition(180);
         }
 
         if (gamepad1.right_stick_x == 1) {
