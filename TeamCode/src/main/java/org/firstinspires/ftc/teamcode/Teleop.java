@@ -111,11 +111,11 @@ public class Teleop extends OpMode {
 
         if (gamepad2.dpad_left) {
             //latch open
-            robot.sling.setPosition(90);
+            robot.sling.setPosition(0.5);
 
         } else if (gamepad2.dpad_right) {
             //latch closed
-            robot.sling.setPosition(180);
+            robot.sling.setPosition(0);
         }
 
         if (gamepad1.right_stick_x == 1) {
@@ -200,8 +200,8 @@ public class Teleop extends OpMode {
         }
         else if (gamepad1.left_stick_button == true) {
             robot.hang.setPower(-1);
-            robot.tape.setPower(-.3);
-            robot.setArmPosition(45 , 3);
+            robot.tape.setPower(-0.5);
+            robot.arm.setPower(0.7);
             robot.wrist.setPosition(0.43);
         }
         else {
