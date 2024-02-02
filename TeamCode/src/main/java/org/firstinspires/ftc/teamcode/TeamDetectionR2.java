@@ -64,16 +64,18 @@ public class TeamDetectionR2 extends LinearOpMode {
                 desiredTagId = 4;
                 robot.encoderDrive(0.6, firstApproachDistance, firstApproachDistance, firstApproachDistance, firstApproachDistance, 3);
                 robot.encoderDrive(0.6,20,-20,-20,20,3);
-                //the next three lines tell the robot to open the claw and then turn 180 degrees
+                robot.encoderDrive(0.6,-15,-15,-15,-15,5);
+                robot.encoderDrive(0.6, -9,9,-9,9,4);
+                sleep(500);
                 robot.wrist.setPosition(0.55);
                 robot.leftGrip.setPower(-0.5);
                 sleep(4000);
                 robot.leftGrip.setPower(0);
                 robot.wrist.setPosition(0.44);
-                //drive forward a tile and correct the movement a bit
-                robot.encoderDrive(0.6,-24,-24,-24,-24,3);
+                //turn  than drive to board
+                robot.encoderDrive(0.7,12,12,12,12,5);
                 robot.encoderDrive(0.6, -1,0,0,-1, 3);
-                break;
+
             case 2:
                 desiredTagId = 5;
                 robot.encoderDrive(0.6, -2, 2,-2, 2,3);

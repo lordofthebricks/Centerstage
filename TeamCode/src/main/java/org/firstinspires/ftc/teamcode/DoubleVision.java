@@ -251,7 +251,7 @@ public class DoubleVision {
     }
 
 
-    public int rabeLocation(int pos){
+    public int rabeLocation(int pos) throws InterruptedException {
         Integer location = 0;
         double x = 0;
 
@@ -275,6 +275,7 @@ public class DoubleVision {
             //move robot to scan other location
             if (pos == 2) {
                 robot.encoderDrive(0.7, 12, -12, 12, -12, 2);
+                sleep(500);
                 if (rabe.isDetected()) {
                     location = 3;
                 } else {
