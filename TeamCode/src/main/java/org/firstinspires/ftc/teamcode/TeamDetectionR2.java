@@ -15,7 +15,6 @@ import java.util.List;
 public class TeamDetectionR2 extends LinearOpMode {
 
     AprilTagProcessor aprilTag;
-    TfodProcessor tfod;
     AprilTagDetection desiredTag;
     Boolean targetFound;
     @Override
@@ -42,35 +41,44 @@ public class TeamDetectionR2 extends LinearOpMode {
 
         robot.wrist.setPosition(0.43);
 
-        // the pos value that rabeLocation takes indicates which direction for the robot to strafe to check for team element, 1 to strafe left, 2 to strafe right
-        //IMPORTANT: This will move the robot forward a few inches when the element is not in center
 
         vision.switchProcessor(false);
+
+        // the pos value that rabeLocation takes indicates which direction for the robot to strafe to check for team element, 1 to strafe left, 2 to strafe right
+        //IMPORTANT: This will move the robot forward a four inches when the element is not in center
+
         location = vision.rabeLocation(2);
+
+
         //spin robot around for the placing
         robot.encoderDrive(0.6, -3,-3,-3,-3,2);
         robot.encoderDrive(0.4, 38.4,-38.4,-38.4, 38.4, 4);
         robot.encoderDrive(0.6, -3, -3, -3, -3, 3);
 
-        double firstApproachDistance = -30;
+
+        double firstApproachDistance = 12;
+
+        //used to move and place purple pixel on correct spike mark
         switch (location){
             case 1:
                 desiredTagId = 4;
                 robot.encoderDrive(0.6, firstApproachDistance, firstApproachDistance, firstApproachDistance, firstApproachDistance, 3);
-                robot.encoderDrive(0.6, -19.4, 19.4, 19.4, -19.4, 3);
+                robot.encoderDrive(0.6,20,-20,-20,20,3);
                 //the next three lines tell the robot to open the claw and then turn 180 degrees
                 robot.wrist.setPosition(0.55);
                 robot.leftGrip.setPower(-0.5);
                 sleep(4000);
                 robot.leftGrip.setPower(0);
                 robot.wrist.setPosition(0.44);
+                //drive forward a tile and correct the movement a bit
+                robot.encoderDrive(0.6,-24,-24,-24,-24,3);
+                robot.encoderDrive(0.6, -1,0,0,-1, 3);
                 break;
             case 2:
                 desiredTagId = 5;
                 robot.encoderDrive(0.6, -2, 2,-2, 2,3);
                 //go forward to place on center line
-
-                robot.encoderDrive(0.6,12,12,12,12,3);
+                robot.encoderDrive(0.6,firstApproachDistance,firstApproachDistance,firstApproachDistance,firstApproachDistance,3);
                 //place the pixel
                 robot.wrist.setPosition(0.55);
                 robot.leftGrip.setPower(-1);
@@ -86,15 +94,18 @@ public class TeamDetectionR2 extends LinearOpMode {
                 break;
             case 3:
                 desiredTagId = 6;
-                robot.encoderDrive(0.7, 24, -24, 24, -24, 3);
                 robot.encoderDrive(0.6, firstApproachDistance, firstApproachDistance, firstApproachDistance, firstApproachDistance, 3);
-                robot.encoderDrive(0.6, -19.4, 19.4, 19.4, -19.4, 3);
+                robot.encoderDrive(0.6,20,-20,-20,20,3);
+                robot.encoderDrive(0.6,-15,-15,-15,-15,5);
+                robot.encoderDrive(0.6, -9,9,-9,9,4);
+                sleep(500);
                 robot.wrist.setPosition(0.55);
                 robot.leftGrip.setPower(-0.5);
-                sleep(400);
+                sleep(4000);
                 robot.leftGrip.setPower(0);
                 robot.wrist.setPosition(0.44);
-                robot.encoderDrive(0.6, 38.8, -38.8, -38.8, 38.8, 3);
+                //turn robot 360 degrees, than drive to board
+                robot.encoderDrive(0.6, -1,0,0,-1, 3);
 
                 break;
         }
@@ -131,10 +142,10 @@ public class TeamDetectionR2 extends LinearOpMode {
             if (desiredTag != null) {
                 moveAmount = Math.abs(desiredTag.ftcPose.x);
                 if (desiredTag.ftcPose.x < 0) {
-
+                    moveAmount -= 0.5;
                     robot.encoderDrive(0.5, moveAmount, -moveAmount, moveAmount, -moveAmount, 4);
                 } else {
-
+                    moveAmount += 0.5;
                     robot.encoderDrive(0.5, -moveAmount, moveAmount, -moveAmount, moveAmount, 4);
                 }
             }
@@ -156,9 +167,11 @@ public class TeamDetectionR2 extends LinearOpMode {
         robot.rightGrip.setPower(-1);
         sleep(3000);
         robot.rightGrip.setPower(0);
-        // robot.encoderDrive(0.6,24,-24,24,-24,3); //straffe
+        //move slightly toward board to place pixel
+
         robot.encoderDrive(0.6,2.5,2.5,2.5,2.5,3);
         robot.setArmPosition(0);
+        //park the robot
         robot.encoderDrive(0.6,27.5,-27.5,27.5,-27.5,3); //straffe
         robot.encoderDrive(0.6,-10,-10,-10,-10,3);
     }
