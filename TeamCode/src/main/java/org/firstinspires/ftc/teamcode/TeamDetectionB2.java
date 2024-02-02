@@ -32,7 +32,7 @@ public class TeamDetectionB2 extends LinearOpMode {
         int location = 0;
         int desiredTagId = 0;
         double moveAmount = 0;
-        double desiredDistance = 9.5;
+        double desiredDistance = 9;
         double actualDistance = 0;
         double boardApproachMovement = 0;
 
@@ -80,9 +80,11 @@ public class TeamDetectionB2 extends LinearOpMode {
                 robot.wrist.setPosition(0.43);
                 sleep(500);
                 //turn the robot and drive forward a tile
+                robot.encoderDrive(0.6,-2,2,-2,2,3);
                 robot.encoderDrive(0.6,-20,20,20,-20,3);
                 robot.encoderDrive(0.6,-24,-24,-24,-24,3);
                 robot.encoderDrive(0.6, -1,0,0,-1, 3);
+                robot.encoderDrive(0.6,10,-10,10,-10,3);
                 break;
             case 3:
                 desiredTagId = 3;
