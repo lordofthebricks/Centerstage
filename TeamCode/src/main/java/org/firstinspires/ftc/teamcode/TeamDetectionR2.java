@@ -107,7 +107,7 @@ public class TeamDetectionR2 extends LinearOpMode {
                 robot.leftGrip.setPower(0);
                 robot.wrist.setPosition(0.44);
                 //turn robot 360 degrees, than drive to board
-                robot.encoderDrive(0.6, 4,4,4,4, 3);
+                robot.encoderDrive(0.6, 2,2,2,2, 3);
                 robot.encoderDrive(0.6, 10, -10, 10, -10, 5);
 
                 break;
@@ -128,7 +128,7 @@ public class TeamDetectionR2 extends LinearOpMode {
                 if (detection.metadata != null) {
                     //  Check to see if we want to track towards this tag.
 
-                    if ((desiredTagId < 0) || (detection.id == desiredTagId)) {
+                    if ((desiredTagId < 0) && (detection.id == desiredTagId)) {
                         // Yes, we want to use this tag.
                         targetFound = true;
                         desiredTag = detection;
