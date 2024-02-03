@@ -75,7 +75,7 @@ public class TeamDetectionR2 extends LinearOpMode {
                 //turn  than drive to board
                 robot.encoderDrive(0.7,12,12,12,12,5);
                 robot.encoderDrive(0.6, -1,0,0,-1, 3);
-
+                break;
             case 2:
                 desiredTagId = 5;
                 robot.encoderDrive(0.6, -2, 2,-2, 2,3);

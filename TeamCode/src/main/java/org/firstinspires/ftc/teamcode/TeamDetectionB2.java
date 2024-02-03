@@ -32,7 +32,7 @@ public class TeamDetectionB2 extends LinearOpMode {
         int location = 0;
         int desiredTagId = 0;
         double moveAmount = 0;
-        double desiredDistance = 9;
+        double desiredDistance = 9.5;
         double actualDistance = 0;
         double boardApproachMovement = 0;
 
@@ -52,12 +52,14 @@ public class TeamDetectionB2 extends LinearOpMode {
         robot.encoderDrive(0.4, 38.4,-38.4,-38.4, 38.4, 4);
         robot.encoderDrive(0.6, -3, -3, -3, -3, 3);
 
-        double firstApproachDistance = -30;
+        double firstApproachDistance = 12;
         switch (location){
             case 1:
                 desiredTagId = 1;
                 robot.encoderDrive(0.6, firstApproachDistance, firstApproachDistance, firstApproachDistance, firstApproachDistance, 3);
-                robot.encoderDrive(0.6, -19.4, 19.4, 19.4, -19.4, 3);
+                robot.encoderDrive(0.6, -20, 20, 20, -20, 3);
+                robot.encoderDrive(0.6,-15,-15,-15,-15,5);
+                robot.encoderDrive(0.6, 9,-9,9,-9,4);
                 //the next three lines tell the robot to open the claw and then turn 180 degrees
                 robot.wrist.setPosition(0.55);
                 robot.leftGrip.setPower(-0.5);
@@ -70,7 +72,7 @@ public class TeamDetectionB2 extends LinearOpMode {
                 robot.encoderDrive(0.6, -2, 2,-2, 2,3);
                 //go forward to place on center line
 
-                robot.encoderDrive(0.6,12,12,12,12,3);
+                robot.encoderDrive(0.6,firstApproachDistance,firstApproachDistance,firstApproachDistance,firstApproachDistance,3);
                 //place the pixel
                 robot.wrist.setPosition(0.55);
                 robot.leftGrip.setPower(-1);
@@ -80,24 +82,27 @@ public class TeamDetectionB2 extends LinearOpMode {
                 robot.wrist.setPosition(0.43);
                 sleep(500);
                 //turn the robot and drive forward a tile
-                robot.encoderDrive(0.6,-2,2,-2,2,3);
+               // robot.encoderDrive(0.6,-2,2,-2,2,3);
                 robot.encoderDrive(0.6,-20,20,20,-20,3);
                 robot.encoderDrive(0.6,-24,-24,-24,-24,3);
                 robot.encoderDrive(0.6, -1,0,0,-1, 3);
-                robot.encoderDrive(0.6,10,-10,10,-10,3);
+                //robot.encoderDrive(0.6,10,-10,10,-10,3);
                 break;
             case 3:
                 desiredTagId = 3;
-                robot.encoderDrive(0.7, 24, -24, 24, -24, 3);
                 robot.encoderDrive(0.6, firstApproachDistance, firstApproachDistance, firstApproachDistance, firstApproachDistance, 3);
-                robot.encoderDrive(0.6, -19.4, 19.4, 19.4, -19.4, 3);
+                robot.encoderDrive(0.6,-20,20,20,-20,3);
+                robot.encoderDrive(0.6,-17,-17,-17,-17,5);
+                robot.encoderDrive(0.6, 9,-9,9,-9,4);
+                sleep(500);
                 robot.wrist.setPosition(0.55);
                 robot.leftGrip.setPower(-0.5);
-                sleep(400);
+                sleep(4000);
                 robot.leftGrip.setPower(0);
                 robot.wrist.setPosition(0.44);
-                robot.encoderDrive(0.6, 38.8, -38.8, -38.8, 38.8, 3);
-
+                //turn robot 360 degrees, than drive to board
+                robot.encoderDrive(0.6, 4,4,4,4, 3);
+                robot.encoderDrive(0.6, 10, -10, 10, 10, 5);
                 break;
         }
         telemetry.addData("Distance to board", actualDistance);
