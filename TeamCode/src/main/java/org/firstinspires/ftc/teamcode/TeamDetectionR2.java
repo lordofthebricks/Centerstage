@@ -108,7 +108,7 @@ public class TeamDetectionR2 extends LinearOpMode {
                 robot.wrist.setPosition(0.44);
                 //turn robot 360 degrees, than drive to board
                 robot.encoderDrive(0.6, 4,4,4,4, 3);
-                robot.encoderDrive(0.6, 10, -10, 10, 10, 5);
+                robot.encoderDrive(0.6, 10, -10, 10, -10, 5);
 
                 break;
         }
