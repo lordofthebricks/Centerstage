@@ -64,7 +64,7 @@ public class TeamDetectionR2 extends LinearOpMode {
                 desiredTagId = 4;
                 robot.encoderDrive(0.6, firstApproachDistance, firstApproachDistance, firstApproachDistance, firstApproachDistance, 3);
                 robot.encoderDrive(0.6,20,-20,-20,20,3);
-                robot.encoderDrive(0.6,-15,-15,-15,-15,5);
+                robot.encoderDrive(0.6,17,17,17,17,5);
                 robot.encoderDrive(0.6, -9,9,-9,9,4);
                 sleep(500);
                 robot.wrist.setPosition(0.55);
@@ -72,9 +72,9 @@ public class TeamDetectionR2 extends LinearOpMode {
                 sleep(4000);
                 robot.leftGrip.setPower(0);
                 robot.wrist.setPosition(0.44);
-                //turn  than drive to board
-                robot.encoderDrive(0.7,12,12,12,12,5);
-                robot.encoderDrive(0.6, -1,0,0,-1, 3);
+                //turn robot 360 degrees, than drive to board
+                robot.encoderDrive(0.6, 2,2,2,2, 3);
+                robot.encoderDrive(0.6, 10, -10, 10, -10, 5);
                 break;
             case 2:
                 desiredTagId = 5;
@@ -143,12 +143,12 @@ public class TeamDetectionR2 extends LinearOpMode {
                 }
             }
             if (desiredTag != null) {
-                moveAmount = Math.abs(desiredTag.ftcPose.x);
+                moveAmount = Math.abs(desiredTag.ftcPose.x) - 2;
                 if (desiredTag.ftcPose.x < 0) {
-                    moveAmount -= 0.5;
+
                     robot.encoderDrive(0.5, moveAmount, -moveAmount, moveAmount, -moveAmount, 4);
                 } else {
-                    moveAmount += 0.5;
+
                     robot.encoderDrive(0.5, -moveAmount, moveAmount, -moveAmount, moveAmount, 4);
                 }
             }
