@@ -49,10 +49,10 @@ public class TeamDetectionB2 extends LinearOpMode {
         location = vision.rabeLocation(1);
         //spin robot around for the placing
         robot.encoderDrive(0.6, -3,-3,-3,-3,2);
-        robot.encoderDrive(0.4, 38.4,-38.4,-38.4, 38.4, 4);
+        robot.encoderDrive(0.4, 41,-41,-41, 41, 4);
         robot.encoderDrive(0.6, -3, -3, -3, -3, 3);
 
-        double firstApproachDistance = 12;
+        double firstApproachDistance = 14;
         switch (location){
             case 1:
                 desiredTagId = 1;
@@ -84,6 +84,7 @@ public class TeamDetectionB2 extends LinearOpMode {
                 //turn the robot and drive forward a tile
                // robot.encoderDrive(0.6,-2,2,-2,2,3);
                 robot.encoderDrive(0.6,-20,20,20,-20,3);
+                sleep(2000);
                 robot.encoderDrive(0.6,-24,-24,-24,-24,3);
                 robot.encoderDrive(0.6, -1,0,0,-1, 3);
                 //robot.encoderDrive(0.6,10,-10,10,-10,3);
@@ -121,7 +122,7 @@ public class TeamDetectionB2 extends LinearOpMode {
                 if (detection.metadata != null) {
                     //  Check to see if we want to track towards this tag.
 
-                    if ((desiredTagId < 0) || (detection.id == desiredTagId)) {
+                    if ((desiredTagId < 0) && (detection.id == desiredTagId)) {
                         // Yes, we want to use this tag.
                         targetFound = true;
                         desiredTag = detection;
