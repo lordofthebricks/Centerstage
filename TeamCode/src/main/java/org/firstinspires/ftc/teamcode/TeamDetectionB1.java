@@ -11,8 +11,8 @@ import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
 import java.util.List;
 
-@Autonomous(name = "Team Element Detection Blue")
-public class TeamDetectionB2 extends LinearOpMode {
+@Autonomous(name = "Team Element Detection Blue 1")
+public class TeamDetectionB1 extends LinearOpMode {
 
     AprilTagProcessor aprilTag;
     TfodProcessor tfod;
@@ -46,19 +46,19 @@ public class TeamDetectionB2 extends LinearOpMode {
         //IMPORTANT: This will move the robot forward a few inches when the element is not in center
 
         vision.switchProcessor(false);
-        location = vision.rabeLocation(1);
+        location = vision.rabeLocation(2);
         //spin robot around for the placing
         robot.encoderDrive(0.6, -3,-3,-3,-3,2);
         robot.encoderDrive(0.4, 41,-41,-41, 41, 4);
         robot.encoderDrive(0.6, -3, -3, -3, -3, 3);
 
-        double firstApproachDistance = 14;
+        double firstApproachDistance = 12;
         switch (location){
             case 1:
                 desiredTagId = 1;
                 robot.encoderDrive(0.6, firstApproachDistance, firstApproachDistance, firstApproachDistance, firstApproachDistance, 3);
                 robot.encoderDrive(0.6, -20, 20, 20, -20, 3);
-                robot.encoderDrive(0.6,-15,-15,-15,-15,5);
+                robot.encoderDrive(0.6,-17,-17,-17,-17,5);
                 robot.encoderDrive(0.6, 9,-9,9,-9,4);
                 //the next three lines tell the robot to open the claw and then turn 180 degrees
                 robot.wrist.setPosition(0.55);
@@ -83,8 +83,10 @@ public class TeamDetectionB2 extends LinearOpMode {
                 sleep(500);
                 //turn the robot and drive forward a tile
                // robot.encoderDrive(0.6,-2,2,-2,2,3);
-                robot.encoderDrive(0.6,-20,20,20,-20,3);
+                robot.encoderDrive(0.6,-2,2,-2,2,3);
+                robot.encoderDrive(0.6,-22,22,22,-22,3);
                 sleep(2000);
+                robot.encoderDrive(0.6,2,2,2,2,3);
                 robot.encoderDrive(0.6,-24,-24,-24,-24,3);
                 robot.encoderDrive(0.6, -1,0,0,-1, 3);
                 //robot.encoderDrive(0.6,10,-10,10,-10,3);
@@ -103,12 +105,13 @@ public class TeamDetectionB2 extends LinearOpMode {
                 robot.wrist.setPosition(0.44);
                 //turn robot 360 degrees, than drive to board
                 robot.encoderDrive(0.6, 4,4,4,4, 3);
-                robot.encoderDrive(0.6, 10, -10, 10, 10, 5);
+//                robot.encoderDrive(0.6, 10, -10, 10, -10, 5);
                 break;
         }
         telemetry.addData("Distance to board", actualDistance);
         telemetry.update();
         desiredDistance = 7;
+        robot.encoderDrive(0.7,-72,-72,-72,-72, 8);
         robot.encoderDrive(0.6, -10,10,-10,10,4);
 
         vision.switchProcessor(true);
