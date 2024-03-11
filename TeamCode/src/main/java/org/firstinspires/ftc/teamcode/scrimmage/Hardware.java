@@ -1,7 +1,8 @@
 package org.firstinspires.ftc.teamcode.scrimmage;
 
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
 
 public class Hardware {
 
