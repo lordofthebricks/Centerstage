@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.scrimmage;
 
+
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -15,5 +16,10 @@ public class Hardware {
      BackLeft = hwMp.get(DcMotor.class,"backLeft");
      FrontRight = hwMp.get(DcMotor.class,"frontRight");
      BackRight = hwMp.get(DcMotor.class,"backRight");
+
+     BackRight.setDirection(DcMotor.Direction.REVERSE);
+     FrontRight.setDirection(DcMotor.Direction.REVERSE);
+     BackLeft.setDirection(DcMotor.Direction.FORWARD);
+     FrontLeft.setDirection(DcMotor.Direction.FORWARD);
     }
 }
