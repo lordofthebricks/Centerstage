@@ -77,8 +77,6 @@ public class Teleop  extends OpMode {
             robot.BackRight.setPower(0);
         }
 
-
-
         }
     }
 

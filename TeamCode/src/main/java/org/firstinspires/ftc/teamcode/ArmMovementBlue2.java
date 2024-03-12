@@ -45,7 +45,7 @@ public class ArmMovementBlue2 extends LinearOpMode{
 
             actualDistance = robot.distance.getDistance(DistanceUnit.INCH);
         }
-        desiredDistance = 8;
+        desiredDistance = 6;
 
         robot.setArmPosition(170);
         robot.wrist.setPosition(0.43);
